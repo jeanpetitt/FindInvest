@@ -1,3 +1,10 @@
 from django.shortcuts import render
 
 # Create your views here.
+
+
+
+# page d'inscrition
+
+def register(request):
+    return render(request, 'users/register.html')
