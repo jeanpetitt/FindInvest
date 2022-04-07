@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} FindIvest | Titre de la page {% endblock %}
+
+{% block content %}
+  <br><br>
+  <h1>Accueil</h1>
+
+{% endblock %}
