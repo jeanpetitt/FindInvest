@@ -27,8 +27,9 @@ class EtuForm(forms.ModelForm):
             'fiche_inscription',
             'universite',
             'niveauEtude',
+            'reponse',
             'question',
-            'photoProfil'
+            'photoProfil',
             'telephone',
             'ville'
         ]
@@ -42,8 +43,9 @@ class InvestForm(forms.ModelForm):
             'entreprise',
             'objectifs',
             'profession',
+            'reponse',
             'question',
-            'photoProfil'
+            'photoProfil',
             'telephone',
             'ville'
         ]
