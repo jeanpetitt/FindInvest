@@ -6,7 +6,6 @@ from .models import Etudiant, Investisseur
 
 
 # formulaire pour DJANGO user
-
 class UserForm(UserCreationForm):
     class Meta():
         model = User
@@ -20,3 +19,31 @@ class UserForm(UserCreationForm):
 
 
 # formulaire pour Etudiant
+class EtuForm(forms.ModelForm):
+    class Meta():
+        model = Etudiant
+        fields = [
+            'bio',
+            'fiche_inscription',
+            'universite',
+            'niveauEtude',
+            'question',
+            'photoProfil'
+            'telephone',
+            'ville'
+        ]
+
+
+# formulaire pour Investisseur
+class InvestForm(forms.ModelForm):
+    class Meta():
+        model = Investisseur
+        fields = [
+            'entreprise',
+            'objectifs',
+            'profession',
+            'question',
+            'photoProfil'
+            'telephone',
+            'ville'
+        ]
