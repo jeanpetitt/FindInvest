@@ -6,5 +6,15 @@
 {% block content %}
   <br><br><br>
   <h1>Accueil</h1>
+ 
+
+  {% load socialaccount %}
+
+<h1>Django Allauth Tutorial</h1>
+{% if user.is_authenticated %}
+<p>Welcome {{ user.username }} !!!</p>
+{% else %}
+<a href="{% provider_login_url 'github' %}"><i class='bi-github' style='font-size:2rem;'></i></a>
+{% endif %}
 
 {% endblock %}
