@@ -1,0 +1,27 @@
+/* erreurs de formulaire dans les champs */
+.err {
+    border: red solid 1px !important;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.301) !important;
+}
+.errorform{
+    padding-top: 5px;
+    font-size: 14px;
+    display: block;
+    margin: 0 0 0px 0;
+    color: #e35f5f;
+    overflow-wrap: break-word;
+    font-weight: 700;
+    font-size: 13px;
+}
+  
+.errorlist {
+    padding: 3px 0 8px !important;
+    margin: 0 !important;
+}
+.errorlist >li {
+    display: block;
+    color: #e35f5f !important;
+    font-weight: 700;
+    font-size: 13px !important;
+}
