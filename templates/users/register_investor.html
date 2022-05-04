@@ -45,6 +45,7 @@
 		top: 90px;
 		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.15);
 		border-radius: 10px;
+		margin-top: 15px;
 	}
 	.blueBg .box{
 		position: relative;
@@ -79,7 +80,7 @@
 		top: 0;
 		left: 0;
 		width: 50%;
-		height: 100%;
+		height: 110%;
 		z-index: 1000;
 		display: flex;
 		justify-content: center;
@@ -88,6 +89,7 @@
 		transition: .3s ease-in-out;
 		overflow: hidden;
 		border-radius: 10px;
+		margin-top:-10px;
 	}
 	.formBx.active{
 		left: 50%;
@@ -239,26 +241,36 @@
 				{{invest_form.telephone}}
 				<p><span class="errorform" id="error_telephoneEtu"></span></p>
 				<span id="suivantBtnInv" class="btnForm">Suivant</span>
+				<span class="text-center" style="margin: 10;">OR</span>
 
+				<!-- ajouter des reseaux sociaux-->
 				{% load socialaccount %}
-
-				<style>
-					.social{
-						margin-top: -10px;
-					}
-					#google{
-						margin-left: 15px;
-					}
-
-				</style>
-
-				<h3> Se connecter via </h3>
-				<div class="social">
-					<a href="{% provider_login_url 'github' %}"><i class='glyphicon bi-github' style='font-size:2rem; color:  #444444;'></i></a>
-					<a href="{% provider_login_url 'google' %}" id='google'><i class='bi-google' style='font-size:2rem; color: #DD4B39;'></i></a>
-				</div>
 				
-			
+				{% get_providers as socialaccount_providers %}
+
+				{% for provider in socialaccount_providers %}
+				{% if provider.id == "openid" %}
+				{% for brand in provider.get_brands %}
+				<div>
+				<a title="{{brand.name}}" 
+					class="socialaccount_provider {{provider.id}} {{brand.id}}" 
+					href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
+					>{{brand.name}}</a>
+				</div>
+				{% endfor %}
+				{% endif %}
+
+				<div class="my-2">
+					<a href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}" title="{{provider.name}}" class="socialaccount_provider {{provider.id}}">
+						  <img src="{% with 'images/'|add:provider.name|add:'.png' as image %}
+      						{% static image %}
+     						{% endwith %}
+     						" alt="{{ provider.name }}" height="50" width="50"/>
+					</a>
+					
+				</div>
+				{% endfor %}
+				<!-- end social network-->
 			</div>
 			
 				<div class="form registerForm2">
