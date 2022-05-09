@@ -26,12 +26,9 @@ def renommer_image(instance, filename):
 
 class Utilisateur(models.Model):
 
-    # User possede déja : username, email, first_name, last_name, (password 1 et 2)
-    user = models.OneToOneField(User, on_delete=CASCADE)
-
     ville = models.CharField(max_length=200, null=True)
     telephone = models.CharField(max_length=200, null=True)
-    photoProfil = models.ImageField(upload_to=renommer_image, blank=True)
+    photoProfil = models.ImageField(upload_to='image/profile_pics/', default='default.jpeg', blank=True)
     question = models.CharField(max_length=100)
     reponse = models.CharField(max_length=100)
 
@@ -57,6 +54,9 @@ def renommer_fichier(instance, filename):
         return os.path.join(upload_to, filename)
 
 class Etudiant(Utilisateur):
+    # User possede déja : username, email, first_name, last_name, (password 1 et 2)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='etudiant')
+
     NIVEAUX = [
         ('BAC + 1', 'BAC + 1'),
         ('BAC + 2', 'BAC + 2'),
@@ -70,15 +70,26 @@ class Etudiant(Utilisateur):
     fiche_inscription = models.FileField(upload_to=renommer_fichier, blank=True)
     bio = models.TextField(max_length=500, null=True, blank=True)
     def __str__(self):
-        return self.user.username
+        return f'{self.user.username} Profile'
 
 
 
 # creation de la classe Investisseur
 
 class Investisseur(Utilisateur):
+    # User possede déja : username, email, first_name, last_name, (password 1 et 2)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='investisseur')
+
     profession = models.CharField(max_length=100)
     objectifs = models.CharField(max_length=300)
     entreprise = models.CharField(max_length=100, blank=True)
     def __str__(self):
-        return self.user.username
+        return f'{self.user.username} Profile'
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='Profile')
+    image = models.ImageField(default='default.jpeg', upload_to='photo_profil')
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
