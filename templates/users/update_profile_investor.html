@@ -51,8 +51,8 @@
 	}
 
 	.nav-borders .nav-link.active {
-	    color: #ff8c2e;
-	    border-bottom-color: #ff8c2e;
+	    color: #0b5ed7;
+	    border-bottom-color: #0b5ed7;
 	}
 	.nav-borders .nav-link {
 	    color: #69707a;
@@ -68,7 +68,7 @@
 	}
 
 	.card{
-		border-top: #ff8c2e solid 2px;
+		border-top: #0b5ed7 solid 2px;
       	/* border-radius: 20px; */
 	}
 
@@ -122,31 +122,30 @@
                         <!-- Niveau-->
                         <div class="col-md-6">
                             <label class="small mb-1" for="niveau">Niveau d'étude</label>
-                            {{etu_form.niveauEtude}}
+                            {{invest_form.niveauEtude}}
 							<p><span class="errorform" id="error_niveauEtudeEtu"></span></p>
                         </div>
-
                         <!-- Université-->
                         <div class="col-md-6">
                             <label class="small mb-1" for="université">Nom de l'université</label>
-                            {{etu_form.universite}}
+                            {{invest_form.universite}}
 							<p><span class="errorform" id="error_univEtu"></span></p>
                         </div>
                     </div>
                     <div class="row gx-3">
                         <div class="col-md-6">
                             <label class="small mb-1" for="ville">Ville de résidence</label>
-                            {{etu_form.ville}}
+                            {{invest_form.ville}}
 							<p><span class="errorform" id="error_villeEtu"></span></p>
                         </div>
                         <div class="col-md-6">
                             <label class="small mb-1" for="Tel">Numéro de téléphone</label>
-							{{etu_form.telephone}}
+							{{invest_form.telephone}}
 							<p><span class="errorform" id="error_telephoneEtu"></span></p>
                         </div>
                         <div class="col-md-12">
                             Commentaire sur vous
-                            {{etu_form.bio}}
+                            {{invest_form.bio}}
                         </div> 
                     </div>
                     <div class="row gx-3">
@@ -191,8 +190,7 @@
 						}
 					</style>
 
-					<!-- <div style="display: none;"> -->
-					<div>
+					<div style="display: none;">
 						{{user_form.username}}
 					</div>
                     <!-- Form Row-->
@@ -218,7 +216,7 @@
                         <!-- Question de sécurité-->
                         <div class="col-md-12">
                             <label class="small mb-1" for="Niveau">Nouvelle question (à répondre en cas d'oublie de votre mot de passe*)</label>
-							{{etu_form.question}}
+							{{invest_form.question}}
 							<p><span class="errorform" id="error_questionEtu"></span></p>
                         </div>
                     </div>
@@ -226,7 +224,7 @@
                         <!-- Réponse de sécurité-->
                         <div class="col-md-6">
                             <label class="small mb-1" for="Université">Votre réponse </label>
-							{{etu_form.reponse}}
+							{{invest_form.reponse}}
                         </div>
                     </div>
 
@@ -259,6 +257,15 @@
 		textAeraChamps[i].classList.add('form-control');
 	}
 
+	/*champsForm[1].placeholder = "Noms et prénoms*";
+	champsForm[2].placeholder="Nom de l'université*";
+	champsForm[3].placeholder="Ville de résidence*";
+	champsForm[4].placeholder="Numéro de téléphone*";
+	champsForm[5].placeholder="Adresse email*";
+	champsForm[7].placeholder="Mot de passe*";
+	champsForm[8].placeholder="Confirmer mot de passe*";
+	champsForm[9].placeholder="Votre question :";
+	champsForm[10].placeholder="Votre réponse :";*/
 
 	// affichage/masquage du mdp
 
@@ -283,13 +290,6 @@
 			password2.type = 'password';
 		}
 	}
-
-
-	// préremplir le mdp
-
-	password1.autocomplete="current-password";
-
-
     
 </script>
 

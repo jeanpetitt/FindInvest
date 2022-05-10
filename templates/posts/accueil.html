@@ -7,7 +7,14 @@
   <br><br><br>
   <h1>Accueil</h1>
   <br><br>
-  <a href="{% url 'update_profile_student' request.user.etudiant.id %}">Modifier profil Etudiant</a> 
-  {{request.user.etudiant.photoProfil}}
+  {% if user.is_authenticated %}
+    <a href="{% url 'update_profile_student' request.user.etudiant.id %}">Modifier profil Etudiant</a> 
+    {{request.user.etudiant.photoProfil.url}}
+    <br>
+    
+    invest :
+    {{request.user.investisseur.photoProfil.url}}
+
+  {% endif %}
 
 {% endblock %}

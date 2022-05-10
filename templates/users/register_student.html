@@ -202,6 +202,10 @@
 		color: #0b5ed7 !important;
 		font-size: 2rem;
 	}
+	
+	select{
+		height: 41px !important;
+	}
 </style>
 
 <div class="contain">
@@ -340,6 +344,11 @@
 		champsForm[i].classList.add('form-control');
 		
 	}
+	selectChamps = document.getElementsByTagName('select');
+	for (let i = 0; i < (selectChamps.length); i++) {
+		selectChamps[i].classList.add('form-control');
+	}
+
 	champsForm[1].placeholder = "Noms et prénoms*";
 	champsForm[2].placeholder="Nom de l'université*";
 	champsForm[3].placeholder="Ville de résidence*";
@@ -373,9 +382,6 @@
 		password2.type = 'password';
 		}
 	}
-
-	// document.getElementById('id_last_name').focus();
-
     
 </script>
 

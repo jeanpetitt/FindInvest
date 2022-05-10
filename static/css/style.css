@@ -25,3 +25,65 @@
     font-weight: 700;
     font-size: 13px !important;
 }
+
+
+/* les champs du formulaire */
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea{
+    width: 100%;
+    /* margin-bottom: 20px; */
+    padding: 10px !important;
+    /* border-radius: 10px !important; */
+    outline: none !important;
+    font-size: 16px !important;
+    color: #333 !important;
+    /* border: #333 solid 1px; */
+    border: 1px solid #ced4da !important;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus{
+    border: 1px solid #0b5ed7 !important;
+    box-shadow: 0 0 5px #0b5ed7 !important;
+}
+
+/* les botons */
+
+.btn-orange, .btn-bleu{
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    transition: 0.3s;
+    border: 1px solid #ff8c2e;
+}
+.btn-orange{
+    color: #000;
+    background-color: #ff8c2e;
+    border-color: #ff8c2e;
+    border: 1px solid #ff8c2e;
+}
+.btn-orange:hover{
+    color: #fff;
+}
+.btn-bleu{
+    color: #fff;
+    background-color: #0b5ed7;
+    border-color: #0b5ed7;
+    border: 1px solid #0b5ed7;
+}
+.btn-bleu:hover{
+    color: #000;
+}

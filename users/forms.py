@@ -20,6 +20,10 @@ class UserForm(UserCreationForm):
 
 # formulaire pour Etudiant
 class EtuForm(forms.ModelForm):
+    # Pour tout les champs tu doit definir sa correspondance en formfields
+    # exemple
+    # bio = forms.CharField(widget=forms.Textarea)
+
     class Meta():
         model = Etudiant
         fields = [
@@ -34,6 +38,10 @@ class EtuForm(forms.ModelForm):
             'ville'
         ]
 
+    #  implemnter la methode save
+
+    # def save(self, commit=True):
+        
 
 # formulaire pour Investisseur
 class InvestForm(forms.ModelForm):

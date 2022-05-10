@@ -26,8 +26,8 @@ def renommer_image(instance, filename):
 
 class Utilisateur(models.Model):
 
-    ville = models.CharField(max_length=200, null=True)
-    telephone = models.CharField(max_length=200, null=True)
+    ville = models.CharField(max_length=100, null=True)
+    telephone = models.CharField(max_length=100, null=True)
     photoProfil = models.ImageField(upload_to='image/profile_pics/', default='default.jpeg', blank=True)
     question = models.CharField(max_length=100)
     reponse = models.CharField(max_length=100)
@@ -66,9 +66,9 @@ class Etudiant(Utilisateur):
         ('Doctorant', 'Doctorant'),
     ]
     niveauEtude = models.CharField(choices=NIVEAUX, default='BAC + 1', max_length=100)
-    universite = models.CharField(max_length=200)
+    universite = models.CharField(max_length=100)
     fiche_inscription = models.FileField(upload_to=renommer_fichier, blank=True)
-    bio = models.TextField(max_length=500, null=True, blank=True)
+    bio = models.TextField(max_length=300, null=True, blank=True)
     def __str__(self):
         return f'{self.user.username} Profile'
 
