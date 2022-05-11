@@ -78,14 +78,29 @@
 		font-size: 1.1rem;
 	}
 
+	@media screen and (min-width: 992px) {
+		#hero .ban-text{
+			width: 70%;
+		}
+	}
+
+	@media screen and (max-width: 991px) {
+		#hero .ban-text{
+			width: 100%;
+		}
+	}
+
 	@media screen and (max-width: 767px) {
-	  #hero .ban-text h1{
-	    line-height: 38px;
-	    font-size: 23px;
-	  }
-	  #hero .ban-text p {
-	    font-size: 1.1rem;
-	  }
+		#hero .ban-text{
+			width: 100%;
+		}
+		#hero .ban-text h1{
+			line-height: 38px;
+			font-size: 23px;
+		}
+		#hero .ban-text p {
+			font-size: 15px;
+		}
 	}
 
 	.btn-get-started {
@@ -106,8 +121,8 @@
 	}
 
 	.btn-get-started.rec:hover {
-	  background: rgb(56, 51, 133);
-	  border: 2px solid rgb(56, 51, 133);
+	  background: #0b5ed7;
+	  border: 2px solid #0b5ed7;
 	  color: #fff;
 	}
 
@@ -117,11 +132,38 @@
 	
 
 	/* Bienvenue après baniere début */
-	
-	.nom_appli{
-		font-weight: 700;
-	}
 
+	.nom_appli{
+		font-size: 1.5rem;
+		color: #0b5ed7;
+		/* color: rgb(56, 51, 133); */
+		font-weight: bold;
+		position: relative;
+		z-index: 1;
+		text-transform: uppercase;
+	}	
+	/* @media screen and (min-width: 992px) {
+		.nom_appli.fonc{
+			top: 50px;
+		}
+	}
+	@media screen and (max-width: 991px) {
+		.nom_appli{
+			top: -15px;
+		}
+	} */
+	.nom_appli::before{
+		content: '';
+		background: linear-gradient(#0b5ed7, #fff);
+		height: 40px;
+		width: 60px;
+		position: absolute;
+		top: -20px;
+		z-index: -1;
+		transform: rotate(-10deg);
+		border-bottom-right-radius: 40px;
+		border-top-left-radius: 40px;
+	}
 	
 	#missions .missionBox .brand h3{
 		font-size: 1.5rem;
@@ -144,7 +186,7 @@
 			top: -60px;
 			background: #fff;
 			border-radius: 10px;
-			border-top: #ff8c2e solid 4px;
+			border-bottom: #ff8c2e solid 4px;
 		}
 	}
 
@@ -159,7 +201,7 @@
 			top: -100px;
 			background: #fff;
 			border-radius: 10px;
-			border-top: #ff8c2e solid 4px;
+			border-bottom: #ff8c2e solid 4px;
 		}
 	}
 
@@ -226,8 +268,6 @@
 	#about .about-desc{
 		box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
 		padding: 30px 20px;
-		/* margin-bottom: 20px; */
-		/* top: -100px; */
 		background: #fff;
 		border-radius: 10px;
 		border-bottom: #ff8c2e solid 4px;
@@ -245,6 +285,43 @@
 	}
 
 	/* A propos fin */
+
+	/* fonctionnalités DÉBUT */
+
+	#fontionnalites .box{
+		box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+		padding: 0px 20px;
+		background: #fff;
+		border-radius: 10px;
+		border-bottom: #ff8c2e solid 4px;
+	}
+
+	#fontionnalites .box .number{
+		padding: 1rem;
+	}
+	#fontionnalites .box .number span{
+		font-size: 1.1rem;
+		border: #ff8c2e solid .2rem;
+		padding: .2rem .8rem;
+		border-radius: 50%;
+		font-weight: 700;
+		font-size: 1.2rem;
+		color: #ff8c2e;
+	}
+	#fontionnalites .box h3{
+		color: #ff8c2e;
+		font-size: 1.5rem;
+	}
+
+	@media screen and (max-width: 991px) {
+		#about{
+			position: relative;
+			top: -80px;
+		}
+	}
+
+	/* fonctionnalités FIN */
+
 </style>
 
 <!-- nav -->
@@ -308,7 +385,7 @@
 		<div class="row missionBox">
 			<div class="col-md-6 my-auto brand">
 				<h3 class="mb-4 title-text"><b>Bienvenu sur</b></h3>
-				<h1 class="mb-0 nom_appli text-uppercase">FindInvest</h1>
+				<h1 class="mb-0 text-uppercase" style="font-weight: 700; opacity: .8;">FindInvest</h1>
 				<p class="mt-0">Plate forme de prise de contact entre étudiants porteurs de projets et investisseurs.</p>
 				<div class="">
 					<div class="d-flex flex-row flex-wrap">
@@ -324,7 +401,7 @@
 	</div>
 </section>
 
-<!-- a proos -->
+<!-- a propos -->
 
 <section id="about" class="bg-white">
 	<div class="container">
@@ -343,6 +420,69 @@
 				<p>
 					Il s'apparente à un réseau social orienté dans les secteurs de l'emploi et de l'investissement.
 				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- fonctionnalités -->
+
+<section id="fontionnalites">
+	<div class="container py-5">
+		<div class="row">
+			<div class="col-lg-12">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-5 order-lg-2 mx-auto my-auto">
+				<h1 class="nom_appli fonc text-center text-uppercase ">Les fonctionnalités</h1>
+				<img class="img-fluid" src="{% static 'img/fonctions.jpg' %}" alt="">
+			</div>
+			<div class="col-lg-7 order-lg-1  mx-auto my-auto">
+				<div class="row">
+					<div class="col-lg-6 mx-auto my-auto">
+						<div class="box">
+							<div class="number text-center">
+								<span>1</span>
+							</div>
+							<h3>Lever des fonds sur votre projet</h3>
+							<p>
+								Présentez vos projets ou prototypes de projets à des investisseurs afin de les concrétiser 
+								et vous faire une place dans le monde professionel.
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-6 mx-auto my-auto">
+						<div class="row">
+							<div class="col-lg-12 my-5">
+								<div class="box">
+									<div class="number text-center">
+										<span>2</span>
+									</div>
+									<h3>Décider d'investir</h3>
+									<p>
+										Consultez des projets innovants proposés par des étudiants et ensemble, concrétisez les 
+										afin d'augmenter vos économies.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="box">
+									<div class="number text-center">
+										<span>3</span>
+									</div>
+									<h3>Collaborer et apprendre</h3>
+									<p>
+										Consultez les projets publiés sur la plateforme afin d'enrichir vos connaissances et 
+										donnez vos impressions. 
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
