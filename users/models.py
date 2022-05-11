@@ -29,7 +29,7 @@ class Utilisateur(models.Model):
     ville = models.CharField(max_length=100, null=True)
     telephone = models.CharField(max_length=100, null=True)
     photoProfil = models.ImageField(upload_to='image/profile_pics/', default='default.jpeg', blank=True)
-    question = models.CharField(max_length=100)
+    question = models.TextField(max_length=100)
     reponse = models.CharField(max_length=100)
 
     # pour que la classe ne crée pas une table dans la BD

@@ -10,6 +10,14 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 
+
+# page de connexion
+
+def login(request):
+    return render(request, 'users/login.html')
+
+
+
 # page d'inscription des etudiants
 
 def register_student(request):

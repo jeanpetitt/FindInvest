@@ -325,7 +325,7 @@
 				
 
 				<div class="mt-2">
-					<input class="btnForm" type="submit" onclick="return validateFormEnreg();" value="Enregister">
+					<input class="btnForm" type="submit" id="myBtn" onclick="return validateFormEnregInv();" value="Enregister">
 					<span id="precedentBtnInv" class="precedentBtn">Précédent</span>
 				</div> 
 				
@@ -336,10 +336,16 @@
 
 <script>
 
+
 	champsForm = document.getElementsByTagName('input');
 	for (let i = 0; i < (champsForm.length-1); i++) {
 		champsForm[i].classList.add('form-control');
-		
+		champsForm[i].addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+			    event.preventDefault();
+			    document.getElementById("myBtn").click();
+			}
+		});
 	}
 	champsForm[1].placeholder="Noms et prénoms*";
 	champsForm[2].placeholder="Profession actuelle*";
@@ -513,7 +519,7 @@
 
 	var quest_rep = document.getElementById('quest_rep')
 
-	function valEtu2() {
+	function valInv2() {
 		if (valChapmsEmail(emailEtu, error_emailEtu)
 			&& valChapmsQuestRepons(questtionEtu, error_questionEtu, quest_rep)
 			&& valChapmsQuestRepons(reponseEtu, error_questionEtu, quest_rep)) {
@@ -523,11 +529,15 @@
 		}
 	}
 
-	function validateFormEnreg() {
+	function validateFormEnregInv() {
 		var usernam = document.getElementById('id_username');
 		var email = document.getElementById('id_email');
 		usernam.value = email.value
-		return valEtu2();
+	    if (valInv1()) {
+	        formBx.classList.add('active');
+			body.classList.add('active');
+	    }
+	    return valInv1()&&valInv2();
 	}
 
     

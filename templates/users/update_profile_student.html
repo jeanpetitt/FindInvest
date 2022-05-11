@@ -82,9 +82,10 @@
 </style>
 
 <div class="container px-4 mt-4">
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
 	{% csrf_token %}
     <nav class="nav nav-borders">
+        <a class="nav-link ms-0" href="" target="__blank">Accueil</a>
         <a class="nav-link active ms-0" href="" target="__blank">Modifier profil</a>
     </nav>
     <hr class="mt-0 mb-4">
@@ -96,6 +97,10 @@
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
                     <img class="img-account-profile rounded-circle mb-2" src="{{request.user.etudiant.photoProfil.url}}" alt="">
+                    
+                    <div>
+                    	<input type="file" name="photoProfil" accept="image/*" id="id_photoProfil" class="form-control">
+                    </div>
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">{{request.user.username}}</div>
                     <!-- Profile picture upload button-->
@@ -191,42 +196,40 @@
 						}
 					</style>
 
-					<!-- <div style="display: none;"> -->
-					<div>
+					<div style="display: none;">
 						{{user_form.username}}
 					</div>
-                    <!-- Form Row-->
-                    <div class="row gx-3">
-                        <!-- Mot de passe-->
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="Mdp">Mot de passe</label>
-                            <div class="form-group mb-4">
-								<div class="fom"> 
-									{{user_form.password1}}<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
-								</div>
-							</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="confirme-mdp">Confirmer mot de passe</label>
-                            
-							{{user_form.password2}}
-							{{user_form.password2.errors}}
-                        </div>
-                    </div>
 
-                    <div class="row gx-3">
+					<div class="row gx-3">
                         <!-- Question de sécurité-->
                         <div class="col-md-12">
                             <label class="small mb-1" for="Niveau">Nouvelle question (à répondre en cas d'oublie de votre mot de passe*)</label>
 							{{etu_form.question}}
-							<p><span class="errorform" id="error_questionEtu"></span></p>
+							<p></p>
                         </div>
-                    </div>
-                    <div class="row gx-3">
                         <!-- Réponse de sécurité-->
                         <div class="col-md-6">
                             <label class="small mb-1" for="Université">Votre réponse </label>
 							{{etu_form.reponse}}
+							<p><span class="errorform" id="error_questionEtu"></span></p>
+                        </div>
+                    </div>
+                    <!-- Form Row-->
+                    <div class="row gx-3">
+
+                        <!-- Mot de passe-->
+                        <div class="col-md-6" style="display: none;">
+                            <label class="small mb-1" for="confirme-mdp">Mot de passe</label>
+							{{user_form.password1}}
+                        </div>
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="Mdp">Confirmez les mofications en entrant votre mot de passe</label>
+                            <div class="form-group mb-4">
+								<div class="fom"> 
+									{{user_form.password2}}<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
+								</div>
+								{{user_form.password2.errors}}
+							</div>
                         </div>
                     </div>
 
@@ -286,10 +289,10 @@
 
 
 	// préremplir le mdp
-
 	password1.autocomplete="current-password";
 
 
+	// valider le formulaire
     
 </script>
 

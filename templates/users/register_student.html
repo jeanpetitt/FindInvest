@@ -29,7 +29,7 @@
 	}
 	.contain{
 		position: relative;
-		width: 800px;
+		width: 900px;
 		height: 550px;
 		margin: 20px;
 	}
@@ -202,11 +202,12 @@
 		color: #0b5ed7 !important;
 		font-size: 2rem;
 	}
-	
+
 	select{
 		height: 41px !important;
 	}
 </style>
+
 
 <div class="contain">
 	<div class="blueBg">
@@ -216,7 +217,11 @@
 		</div>
 		<div class="box deux">
 			<h2>Vous avez déja un compte ?</h2>
-			<a href="">Connexion</a>
+			<a id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" href="">Connexion</a>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+			    <li><a class="dropdown-item" href="#">Action</a></li>
+			    <li><a class="dropdown-item" href="#">Another action</a></li>
+			 </ul>
 		</div>
 	</div>
 	<form action="" method="POST">
@@ -272,18 +277,6 @@
 					  color: rgb(48, 48, 48);
 					  font-size: 20px;
 					}
-		
-					/* @media screen and (max-width: 991px) {
-					  .far {
-						right: 4%;
-					  }
-					}
-		
-					@media screen and (max-width: 767px) {
-					  .far {
-						right: 3%;
-					  }
-					} */
 				</style>
 				<!-- 
 				Votre mot de passe ne peut pas trop ressembler à vos autres informations personnelles.
@@ -294,16 +287,16 @@
 
 				<style>
 					#id_question, #id_reponse{
-						border-top: none;
-						border-left: none;
-						border-right: none;
-						border-radius: 0;
-						box-shadow: none;
-						font-size: 15px;
+						border-top: none !important;
+						border-left: none !important;
+						border-right: none !important;
+						border-radius: 0 !important;
+						box-shadow: none !important;
+						font-size: 15px !important;
 						/* border-bottom: #0b5ed7 solid 1px; */
 					}
 					#id_question:focus, #id_reponse:focus{
-						border-bottom: #0b5ed7 solid 1px;
+						border-bottom: #0b5ed7 solid 1px !important;
 					}
 					.secure{
 						border-radius: 10px;
@@ -311,14 +304,14 @@
 						padding: 15px 15px 20px;
 					}
 				</style>
-				<div class="form-group mb-4">
+				<div class="form-group mb-2">
 					<div class="fom"> 
 						{{user_form.password1}}<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
 					</div>
 				</div>
 				{{user_form.password2}}
 				{{user_form.password2.errors}}
-				<span class="secure mt-4" id="quest_rep">
+				<span class="secure mt-2" id="quest_rep">
 					<span style="font-size: 14px; color: #333; margin-bottom: 2px;" class="mt-4">Définissez une question à poser en cas d'oublie de votre mot de passe*</span>
 					{{etu_form.question}}
 					<p></p>
@@ -328,7 +321,7 @@
 				
 
 				<div class="mt-2">
-					<input class="btnForm" type="submit" onclick="return validateFormEnreg();" value="Enregister">
+					<input class="btnForm" type="submit" id="myBtn" onclick="return validateFormEnreg();" value="Enregister">
 					<span class="precedentBtn">Précédent</span>
 				</div> 
 				
@@ -339,14 +332,27 @@
 
 <script>
 
+
+
 	champsForm = document.getElementsByTagName('input');
 	for (let i = 0; i < (champsForm.length-1); i++) {
 		champsForm[i].classList.add('form-control');
-		
+		champsForm[i].addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+			    event.preventDefault();
+			    document.getElementById("myBtn").click();
+			}
+		});
 	}
 	selectChamps = document.getElementsByTagName('select');
 	for (let i = 0; i < (selectChamps.length); i++) {
 		selectChamps[i].classList.add('form-control');
+		selectChamps[i].addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+			    event.preventDefault();
+			    document.getElementById("myBtn").click();
+			}
+		});
 	}
 
 	champsForm[1].placeholder = "Noms et prénoms*";

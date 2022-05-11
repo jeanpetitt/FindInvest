@@ -1,0 +1,352 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Bienvenue | FindInvest | Recherche d'investissements {% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+	@media screen and (max-width: 767px){
+		#mainMenu.show{
+			border-top: #ff8c2e solid 2px;
+			margin-top: .5rem;
+			padding-top: .5rem;
+		}
+	}
+
+	.main-nav .navbar-toggler {
+        color: orange !important;
+        font-size: 25px !important;
+    }
+    
+    .main-nav .navbar-toggler {
+        border: none !important;
+    }
+
+
+	/* banière page d'accueil DÉBUT */
+
+	h1, h2, h3, h4, h5, h6 {
+	  font-family: "Nunito", sans-serif;
+	}
+
+	#hero {
+	  width: 100%;
+	  height: 100vh;
+	  background: url("../img/hero-bg.jpg") top center;
+	  background-size: cover;
+	  position: relative;
+	}
+	#hero:before {
+	  content: "";
+	  background: rgba(0, 0, 0, 0.6);
+	  position: absolute;
+	  bottom: 0;
+	  top: 0;
+	  left: 0;
+	  right: 0;
+	}
+	#hero .hero-container {
+	  position: absolute;
+	  bottom: 0;
+	  top: 0;
+	  left: 0;
+	  right: 0;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  flex-direction: column;
+	  text-align: center;
+	  padding: 45px 13px 0 13px;
+	}
+
+	#hero .ban-text h1 {
+	  margin: 0 0 10px 0;
+	  font-size: 35px;
+	  font-weight: 700;
+	  line-height: 56px;
+	  text-transform: uppercase;
+	  color: #fff;
+	}
+	#hero .ban-text h2 {
+	  color: #eee;
+	  margin-bottom: 40px;
+	  font-size: 24px;
+	}
+
+	#hero .ban-text p{
+		font-size: 1.1rem;
+	}
+
+	@media screen and (max-width: 767px) {
+	  #hero .ban-text h1{
+	    line-height: 38px;
+	    font-size: 23px;
+	  }
+	  #hero .ban-text p {
+	    font-size: 1.1rem;
+	  }
+	}
+
+	.btn-get-started {
+	  font-weight: 400;
+	  font-size: 14px;
+	  display: inline-block;
+	  padding: 9px 15px;
+	  border-radius: 20px;
+	  transition: 0.5s;
+	  border: 2px solid #fff;
+	  color: #fff;
+	  text-decoration: none;
+	}
+	.btn-get-started:hover {
+	  background: #ff8c2e;
+	  border: 2px solid #ff8c2e;
+	  color: #000;
+	}
+
+	.btn-get-started.rec:hover {
+	  background: rgb(56, 51, 133);
+	  border: 2px solid rgb(56, 51, 133);
+	  color: #fff;
+	}
+
+
+	/* banière page d'accueil FIN */
+
+	
+
+	/* Bienvenue après baniere début */
+	
+	.nom_appli{
+		font-weight: 700;
+	}
+
+	
+	#missions .missionBox .brand h3{
+		font-size: 1.5rem;
+		opacity: .8;
+	}
+	#missions .missionBox .brand h1{
+		font-size: 2.5rem;
+	}
+	#missions .missionBox .brand p{
+		margin-top: 1rem;
+		font-size: 1rem;
+	}
+
+	@media screen and (min-width: 992px) {
+		#missions .missionBox{
+			box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+			position: relative;
+			padding: 30px 40px 20px;
+			margin-bottom: 30px;
+			top: -60px;
+			background: #fff;
+			border-radius: 10px;
+			border-top: #ff8c2e solid 4px;
+		}
+	}
+
+	@media screen and (max-width: 991px) {
+		#missions .missionBox{
+			/* margin: 25px 0; */
+
+			box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+			position: relative;
+			padding: 30px 40px 20px;
+			margin-bottom: 20px;
+			top: -100px;
+			background: #fff;
+			border-radius: 10px;
+			border-top: #ff8c2e solid 4px;
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		#missions .missionBox{
+			/* margin: 25px 20px; */
+
+			padding: 30px 10px 20px;
+			margin-left: 2px;
+			margin-right: 2px;
+			top: -100px;
+		}
+		#missions .missionBox p{
+			font-size: 15px;
+		}
+	}
+
+	/* Buttons */ 
+
+	.border-primary.bout{
+		border-color: #0b5ed7 !important;
+	}
+	.border-warning.bout{
+		border-color: #ff8c2e !important;
+	}
+
+	.border-primary.bout:hover{
+		color: #fff !important;
+		background: #0b5ed7 !important;
+		transition: .2s;
+		transform: scale(1.05);
+	}
+	.border-primary.active.bout{
+		color: #fff !important;
+		background: #0b5ed7 !important;
+		transition: .2s;
+	}
+	.border-warning.bout:hover{
+		color: #fff !important;
+		background: #ff8c2e !important;
+		transition: .2s;
+		transform: scale(1.05);
+	}
+	.border-warning.active.bout{
+		color: #fff !important;
+		background: #ff8c2e !important;
+		transition: .2s;
+	}
+
+	@media screen and (max-width: 991px) {
+		.border-primary.active.bout,
+		.border-warning.active.bout{
+			padding: .5rem 2rem !important;
+		}
+	}
+
+	/* Bienvenue après baniere fin */
+
+	/* A propos début */
+
+	#about{
+		position: relative;
+	}
+	#about .about-desc{
+		box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+		padding: 30px 20px;
+		/* margin-bottom: 20px; */
+		/* top: -100px; */
+		background: #fff;
+		border-radius: 10px;
+		border-bottom: #ff8c2e solid 4px;
+	}
+
+	#about .about-desc p{
+		font-size: 1.1rem;
+	}
+
+	@media screen and (max-width: 991px) {
+		#about{
+			position: relative;
+			top: -80px;
+		}
+	}
+
+	/* A propos fin */
+</style>
+
+<!-- nav -->
+
+<nav class="navbar navbar-expand-md bg-white main-nav fixed-top shadow">
+    <div class="container-fluid">
+    	<!--Horizontal Nav-->
+        <a class="navbar-brand text-warning" href="/">
+            <img src="{% static 'img/logo.png' %}">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu" aria-controls="mainMenu" aria-expanded="true" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon pt-2"><i class="bi-list"></i></span>
+        </button>
+        <div class="navbar-collapse collapse" id="mainMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a href="/#about" class="nav-link active mx-1 text-secondary">A propos</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/#contacts" class="nav-link mx-1 text-secondary">Contact</a>
+                </li>
+            </ul>
+            <div class="linkBtn me-5 my-2">   
+                <a href="#inscription" class="mx-1 text-dark text-decoration-none border border-primary border-2 bg-light  py-1 px-4 rounded-pill shadow bout">S'inscrire</a>
+                <a href="{% url 'login' %}" class="ms-1 mt-3 text-dark text-decoration-none border border-warning border-2 bg-light py-1 px-3 rounded-pill shadow bout">Se connecter</a>
+            </div>
+        </div>
+    </div><!-- /.container -->
+</nav>
+
+<!-- baniere -->
+
+<section id="hero" class="img-fluid bg-secondary" style="background-image:url(static/img/baniere.jpg); background-attachment: fixed; background-repeat:no-repeat; background-size: cover;">
+  <div class="hero-container">    
+    <!-- desktop -->
+    <!-- <h1 class="text-center d-none d-md-block">Recherche d'investissement par des <br> <span>étudiants porteurs de projet.s</span></h1>
+    <p class="text-center text-white pb-2 d-none d-md-block">FindInvest est une plateforme qui permet aux étudiants de présenter leurs projets ou idées de projets<br> à des investisseurs présents sur la plateforme 
+    	afin de retenir leurs attention
+    </p> -->
+	<div class="ban-text">
+		<h1 class="text-center">Recherche d'investissement par des étudiants porteurs de projet.s</h1>
+		<p class="text-center text-white pb-2">FindInvest est une plateforme qui permet aux étudiants de présenter leurs projets ou idées de projets à des investisseurs présents sur la plateforme 
+			afin de retenir leurs attention
+		</p>
+    </div>
+    <!-- mobile -->
+    <!-- <h1 class="text-center d-md-none">Recherche d'investissement par des étudiants porteurs de projet.s</h1>
+    <p class="text-center text-white pb-2 d-md-none">
+    	FindInvest est une plateforme qui permet aux étudiants d'exposer leurs projets ou idées de projets aux yeux d'investisseurs potentiels
+    </p> -->
+    <p>
+      <a href="" class="btn-get-started mt-3">Commencer</a>&emsp;
+    </p>
+  </div>
+</section>
+
+<!-- bienvenue -->
+
+<section  id="missions">
+	<div class="container">
+		<div class="row missionBox">
+			<div class="col-md-6 my-auto brand">
+				<h3 class="mb-4 title-text"><b>Bienvenu sur</b></h3>
+				<h1 class="mb-0 nom_appli text-uppercase">FindInvest</h1>
+				<p class="mt-0">Plate forme de prise de contact entre étudiants porteurs de projets et investisseurs.</p>
+				<div class="">
+					<div class="d-flex flex-row flex-wrap">
+						<a class="btn me-4 mb-3 border-2 border-primary text-uppercase px-5 py-3 rounded-pill active bout" href="">Inscription</a>
+						<a class="btn mb-3 border-2 border-warning text-uppercase px-5 py-3 rounded-pill active bout" href="{% url 'login' %}">Connexion</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<img class="img-fluid" src="{% static 'img/ban1.jpg' %}" alt="">
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- a proos -->
+
+<section id="about" class="bg-white">
+	<div class="container">
+		<div class="row py-5">
+			<div class="col-lg-12 mb-4">
+				<h1 class="nom_appli text-center text-uppercase">C'est quoi FindInvest ?</h1>
+			</div>
+			<div class="col-lg-6 my-auto">
+				<img class="img-fluid" src="{% static 'img/about.jpg' %}" alt="">
+			</div>
+			<div class="col-lg-6 mb-3 about-desc my-auto mx-auto">
+				<p>
+					<b style="color: #ff8c2e;">&emsp;&emsp;FindInvest</b> est une plateforme regroupant des <b>étudiants</b> porteurs de projets et des <b>investisseurs</b>. D'une part les étudiants 
+					ont la possibilité de publier leur projets sur la plateforme en vue d'attirer l'attention des investisseurs potentiels présents, ceux-ci pourront investir ou pas dans des projets qu'ils trouveront intéressant pour eux.
+				</p>
+				<p>
+					Il s'apparente à un réseau social orienté dans les secteurs de l'emploi et de l'investissement.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+{% endblock %}

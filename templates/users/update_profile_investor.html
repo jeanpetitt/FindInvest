@@ -82,9 +82,10 @@
 </style>
 
 <div class="container px-4 mt-4">
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
 	{% csrf_token %}
     <nav class="nav nav-borders">
+        <a class="nav-link ms-0" href="" target="__blank">Accueil</a>
         <a class="nav-link active ms-0" href="" target="__blank">Modifier profil</a>
     </nav>
     <hr class="mt-0 mb-4">
@@ -95,11 +96,15 @@
                 <div class="card-header">Photo de profil</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="{{request.user.etudiant.photoProfil.url}}" alt="">
+                    <img class="img-account-profile rounded-circle mb-2" src="{{request.user.investisseur.photoProfil.url}}" alt="">
+                    
+                    <div>
+                    	<input type="file" name="photoProfil" accept="image/*" id="id_photoProfil" class="form-control">
+                    </div>
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">{{request.user.username}}</div>
                     <!-- Profile picture upload button-->
-                    <button class="btn-orange" type="button">Changer la photo</button>
+                    <button class="btn-bleu" type="button">Changer la photo</button>
                 </div>
             </div>
         </div>
@@ -112,42 +117,42 @@
                     <div class="row gx-3">
                         <!-- Form Group (first name)-->
                         <div class="col-md-12">
-                            <label class="small mb-1" for="Nom">Noms et prénoms*</label>
+                            <label class="small mb-1" for="id_last_name">Noms et prénoms*</label>
                             {{user_form.last_name}}
-                            <p><span class="errorform" id="error_last_nameEtu"></span></p>
-                        </div>
+							<p><span class="errorform" id="error_last_nameEtu"></span></p>                        </div>
                     </div>
                     <!-- Form Row        -->
                     <div class="row gx-3">
                         <!-- Niveau-->
                         <div class="col-md-6">
-                            <label class="small mb-1" for="niveau">Niveau d'étude</label>
-                            {{invest_form.niveauEtude}}
-							<p><span class="errorform" id="error_niveauEtudeEtu"></span></p>
+                            <label class="small mb-1" for="id_profession">Profession</label>
+                            {{invest_form.profession}}
+							<p><span class="errorform" id="error_professionInv"></span></p>
                         </div>
+
                         <!-- Université-->
                         <div class="col-md-6">
-                            <label class="small mb-1" for="université">Nom de l'université</label>
-                            {{invest_form.universite}}
-							<p><span class="errorform" id="error_univEtu"></span></p>
+                            <label class="small mb-1" for="id_entreprise">Nom de l'entreprise</label>
+                            {{invest_form.entreprise}}
+							<p><span class="errorform" id="error_entrepriseInv"></span></p>
                         </div>
                     </div>
                     <div class="row gx-3">
                         <div class="col-md-6">
-                            <label class="small mb-1" for="ville">Ville de résidence</label>
-                            {{invest_form.ville}}
-							<p><span class="errorform" id="error_villeEtu"></span></p>
+                            <label class="small mb-1" for="id_objectifs">Vos objectif sur la plateforme</label>
+                            {{invest_form.objectifs}}
+							<p><span class="errorform" id="error_objectifsInv"></span></p>
                         </div>
                         <div class="col-md-6">
-                            <label class="small mb-1" for="Tel">Numéro de téléphone</label>
+                            <label class="small mb-1" for="id_ville">Ville</label>
+							{{invest_form.ville}}
+							<p><span class="errorform" id="error_villeEtu"></span></p>
+                        </div>  
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="id_telephone">Numéro de téléphone</label>
 							{{invest_form.telephone}}
 							<p><span class="errorform" id="error_telephoneEtu"></span></p>
-                        </div>
-                        <div class="col-md-12">
-                            Commentaire sur vous
-                            {{invest_form.bio}}
-                        </div> 
-                    </div>
+                        </div>                    </div>
                     <div class="row gx-3">
                            
                     </div>
@@ -193,45 +198,44 @@
 					<div style="display: none;">
 						{{user_form.username}}
 					</div>
-                    <!-- Form Row-->
-                    <div class="row gx-3">
-                        <!-- Mot de passe-->
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="Mdp">Mot de passe</label>
-                            <div class="form-group mb-4">
-								<div class="fom"> 
-									{{user_form.password1}}<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
-								</div>
-							</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="confirme-mdp">Confirmer mot de passe</label>
-                            
-							{{user_form.password2}}
-							{{user_form.password2.errors}}
-                        </div>
-                    </div>
 
-                    <div class="row gx-3">
+					<div class="row gx-3">
                         <!-- Question de sécurité-->
                         <div class="col-md-12">
-                            <label class="small mb-1" for="Niveau">Nouvelle question (à répondre en cas d'oublie de votre mot de passe*)</label>
+                            <label class="small mb-1" for="id_question">Nouvelle question (à répondre en cas d'oublie de votre mot de passe*)</label>
 							{{invest_form.question}}
-							<p><span class="errorform" id="error_questionEtu"></span></p>
+							<p></p>
                         </div>
-                    </div>
-                    <div class="row gx-3">
                         <!-- Réponse de sécurité-->
                         <div class="col-md-6">
-                            <label class="small mb-1" for="Université">Votre réponse </label>
+                            <label class="small mb-1" for="id_reponse">Votre réponse </label>
 							{{invest_form.reponse}}
+							<p><span class="errorform" id="error_questionInv"></span></p>
+                        </div>
+                    </div>
+                    <!-- Form Row-->
+                    <div class="row gx-3">
+
+                        <!-- Mot de passe-->
+                        <div class="col-md-6" style="display: none;">
+                            <label class="small mb-1" for="confirme-mdp">Mot de passe</label>
+							{{user_form.password1}}
+                        </div>
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="Mdp">Confirmez les mofications en entrant votre mot de passe</label>
+                            <div class="form-group mb-4">
+								<div class="fom"> 
+									{{user_form.password2}}<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
+								</div>
+								{{user_form.password2.errors}}
+							</div>
                         </div>
                     </div>
 
                     <div class="row my-3">
                         <!-- Save changes button-->
                         <div class="col-sm-6 mt-3 offset-sm-3 text-center">
-                            <input class="btn-orange px-5" type="submit" value="Enregistrer">
+                            <input class="btn-bleu px-5" type="submit" value="Enregistrer">
                     	</div>
                     </div>
                 </div>
@@ -257,15 +261,6 @@
 		textAeraChamps[i].classList.add('form-control');
 	}
 
-	/*champsForm[1].placeholder = "Noms et prénoms*";
-	champsForm[2].placeholder="Nom de l'université*";
-	champsForm[3].placeholder="Ville de résidence*";
-	champsForm[4].placeholder="Numéro de téléphone*";
-	champsForm[5].placeholder="Adresse email*";
-	champsForm[7].placeholder="Mot de passe*";
-	champsForm[8].placeholder="Confirmer mot de passe*";
-	champsForm[9].placeholder="Votre question :";
-	champsForm[10].placeholder="Votre réponse :";*/
 
 	// affichage/masquage du mdp
 
@@ -290,6 +285,13 @@
 			password2.type = 'password';
 		}
 	}
+
+
+	// préremplir le mdp
+	password1.autocomplete="current-password";
+
+
+	// valider le formulaire
     
 </script>
 
