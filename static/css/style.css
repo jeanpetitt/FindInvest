@@ -72,7 +72,7 @@ textarea:focus{
 
 /* les botons */
 
-.btn-orange, .btn-bleu{
+/* .btn-orange, .btn-bleu{
     padding: .375rem .75rem;
     font-size: 1rem;
     border-radius: .25rem;
@@ -98,7 +98,7 @@ textarea:focus{
 }
 .btn-bleu:hover{
     color: #000;
-}
+} */
 
 
 
@@ -116,13 +116,15 @@ textarea:focus{
     user-select: none;
     font-size: 1rem;
     border-color: #0b5ed7 !important;
+    background: #0b5ed7 !important;
+    color: #fff !important;
 }
 .btn-bleu:hover{
-    color: #fff !important;
-    background: #0b5ed7 !important;
+    transition: .2s;
+	transform: scale(1.05);
 }
 
-/* .btn-orange{
+.btn-orange{
     border-radius: 50rem !important;
     padding: .5rem 1.5rem !important;
     border-width: 2px !important;
@@ -135,10 +137,12 @@ textarea:focus{
     user-select: none;
     font-size: 1rem;
     border-color: #ff8c2e !important;
+    background: #ff8c2e !important;
+    color: #fff !important;
 }
 .btn-orange:hover{
-    color: #fff !important;
-    background: #ff8c2e !important;
+    transition: .2s;
+	transform: scale(1.05);
 }
 
 @media screen and (max-width: 991px) {
@@ -146,4 +150,4 @@ textarea:focus{
     .border-warning.active{
         padding: .5rem 2rem !important;
     }
-} */
+}

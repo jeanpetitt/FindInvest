@@ -290,7 +290,7 @@
 
 	#fontionnalites .box{
 		box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-		padding: 0px 20px;
+		padding: 10px 20px;
 		background: #fff;
 		border-radius: 10px;
 		border-bottom: #ff8c2e solid 4px;
@@ -322,6 +322,43 @@
 
 	/* fonctionnalités FIN */
 
+	/* inscription DÉBUT */
+
+	#inscription .box_inscrip{
+		box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+		/* padding: 50px 40px; */
+		background: #fff;
+		border-radius: 10px;
+		border-bottom: #ff8c2e solid 4px;
+	}
+
+	#inscription .box_inscrip p{
+		margin: 40px 0;
+	}
+
+	/* inscription FIN */
+
+	/* footer DÉBUT */
+
+	footer{
+		padding: 30px 0;
+		background: #ff8c2e2f;
+	}
+
+	footer #contacts i{
+		font-size: 1.5rem;
+		color: #ff8c2e;
+		transition: .5s;
+	}
+	footer #contacts i:hover{
+		transform: scale(1.05);
+		color: #0b5ed7;
+	}
+
+
+
+	/* footer FIN */
+
 </style>
 
 <!-- nav -->
@@ -329,7 +366,7 @@
 <nav class="navbar navbar-expand-md bg-white main-nav fixed-top shadow">
     <div class="container-fluid">
     	<!--Horizontal Nav-->
-        <a class="navbar-brand text-warning" href="/">
+        <a class="navbar-brand text-warning" href="/#hero">
             <img src="{% static 'img/logo.png' %}">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu" aria-controls="mainMenu" aria-expanded="true" aria-label="Toggle navigation">
@@ -345,7 +382,7 @@
                 </li>
             </ul>
             <div class="linkBtn me-5 my-2">   
-                <a href="#inscription" class="mx-1 text-dark text-decoration-none border border-primary border-2 bg-light  py-1 px-4 rounded-pill shadow bout">S'inscrire</a>
+                <a href="#/inscription" class="mx-1 text-dark text-decoration-none border border-primary border-2 bg-light  py-1 px-4 rounded-pill shadow bout">S'inscrire</a>
                 <a href="{% url 'login' %}" class="ms-1 mt-3 text-dark text-decoration-none border border-warning border-2 bg-light py-1 px-3 rounded-pill shadow bout">Se connecter</a>
             </div>
         </div>
@@ -373,7 +410,7 @@
     	FindInvest est une plateforme qui permet aux étudiants d'exposer leurs projets ou idées de projets aux yeux d'investisseurs potentiels
     </p> -->
     <p>
-      <a href="" class="btn-get-started mt-3">Commencer</a>&emsp;
+      <a href="/#fontionnalites" class="btn-get-started mt-3">Commencer</a>&emsp;
     </p>
   </div>
 </section>
@@ -389,7 +426,7 @@
 				<p class="mt-0">Plate forme de prise de contact entre étudiants porteurs de projets et investisseurs.</p>
 				<div class="">
 					<div class="d-flex flex-row flex-wrap">
-						<a class="btn me-4 mb-3 border-2 border-primary text-uppercase px-5 py-3 rounded-pill active bout" href="">Inscription</a>
+						<a class="btn me-4 mb-3 border-2 border-primary text-uppercase px-5 py-3 rounded-pill active bout" href="/#inscription">Inscription</a>
 						<a class="btn mb-3 border-2 border-warning text-uppercase px-5 py-3 rounded-pill active bout" href="{% url 'login' %}">Connexion</a>
 					</div>
 				</div>
@@ -429,10 +466,6 @@
 
 <section id="fontionnalites">
 	<div class="container py-5">
-		<div class="row">
-			<div class="col-lg-12">
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-lg-5 order-lg-2 mx-auto my-auto">
 				<h1 class="nom_appli fonc text-center text-uppercase ">Les fonctionnalités</h1>
@@ -488,5 +521,96 @@
 	</div>
 </section>
 
+<!-- inscription -->
+
+<section id="inscription" class="">
+	<div class="container py-5">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="nom_appli fonc text-center text-uppercase my-4">Créer votre compte</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-5 mx-auto text-center mt-5">
+				<div class="box_inscrip px-3 py-5 p-lg-5">
+					<h3>Étudiant porteur de projet.s</h3>
+					<p>
+						Publiez vos differents projets afin d'obtenir de potentiels investissements. 
+						Enrichissez aussi vos connaissances en consultant les autres projets sur la plateforme.
+					</p>
+					<a class="btn-orange" href="">S'inscrire en tant que étudiant</a>
+				</div>
+			</div>
+			<div class="col-lg-5 mx-auto text-center mt-5">
+				<div class="box_inscrip px-3 py-5 p-lg-5">
+					<h3>Investisseur <br><br></h3>
+					<p>
+						Consulter des projets publiés que vous jugerez intéressants et prennez contact avec des étudiants 
+						pour de potentiels investissements afin d'augmenter vos économies.
+					</p>
+					<a class="btn-bleu" href="">S'inscrire comme investisseur</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- footer -->
+
+<footer id="footer">
+    <div class="footer-top">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-4 col-md-5 footer-contact">
+					<div class="mb-3">
+						<!-- <a href="/#hero"><img src="{% static 'img/logo.png' %}" alt="logo"></a> -->
+						<h2>
+							<a href="/#hero">FindInvest</a>
+						</h2>
+					</div>
+					<p>
+						Application de recherche d'investissement, conçue pour les 
+						étudiants de l'<b>UNIVERSITÉ DE YAOUNDÉ 1.</b>
+					</p>
+				</div>
+				<div class="col-lg-2 col-md-4 py-3" id="contacts">
+					<h4>Contactez nous</h4>
+					<div>
+						<a style="text-decoration: none;" href="https://wa.me/+237656789174?text=FindInvest">
+							<i class="bi-whatsapp"></i>
+						</a>&emsp;
+						<a style="text-decoration: none;" href="tel:+237656789174">
+							<i class="bi-phone"></i>
+						</a>&emsp;
+						<a style="text-decoration: none;" href="mailto:adrresse_email?subject=FindInvest">
+							<i class="bi-envelope"></i>
+						</a>&emsp;
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-3 py-3 footer-links">
+					<h4>Liens utiles</h4>
+					<ul>
+						<li><a href="/#hero">Acceuil</a></li>
+						<li><a href="/#about">A propos</a></li>
+						<li><a href="{% url 'login' %}">Connexion</a></li>
+						<li><a href="/#inscription">Inscription</a></li>
+					</ul>
+				</div>
+				<div class="col-lg-4 col-md-8 py-3">
+					<h4>Rejoignez nous</h4>
+					<p>
+						Vous êtes un étudiant qui souhaite se faire une place dans le milieu professionel 
+						et qui possède de nombreuses idées de projets innovants ? <a href="/#inscription" class="btn-orange">Je m'inscris</a>
+					</p>
+				</div>
+			</div>
+			<div class="row mt-2">
+				<div class="col-lg-12 text-center" style="font-size: .8rem;">
+					&copy; Copyright <strong><span>FindInvest</span></strong> 2022, Développeé par un groupe de 5 étudiants de l'UY1.
+				</div>
+			</div>
+		</div>
+    </div>
+</footer>
 
 {% endblock %}
