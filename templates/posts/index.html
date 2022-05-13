@@ -382,8 +382,8 @@
                 </li>
             </ul>
             <div class="linkBtn me-5 my-2">   
-                <a href="#/inscription" class="mx-1 text-dark text-decoration-none border border-primary border-2 bg-light  py-1 px-4 rounded-pill shadow bout">S'inscrire</a>
-                <a href="{% url 'login' %}" class="ms-1 mt-3 text-dark text-decoration-none border border-warning border-2 bg-light py-1 px-3 rounded-pill shadow bout">Se connecter</a>
+                <a href="/#inscription" class="mx-1 text-dark text-decoration-none border border-primary border-2 bg-light  py-1 px-4 rounded-pill shadow bout">S'inscrire</a>
+                <a href="{% url 'connexion' %}" class="ms-1 mt-3 text-dark text-decoration-none border border-warning border-2 bg-light py-1 px-3 rounded-pill shadow bout">Se connecter</a>
             </div>
         </div>
     </div><!-- /.container -->
@@ -392,25 +392,15 @@
 <!-- baniere -->
 
 <section id="hero" class="img-fluid bg-secondary" style="background-image:url(static/img/baniere.jpg); background-attachment: fixed; background-repeat:no-repeat; background-size: cover;">
-  <div class="hero-container">    
-    <!-- desktop -->
-    <!-- <h1 class="text-center d-none d-md-block">Recherche d'investissement par des <br> <span>étudiants porteurs de projet.s</span></h1>
-    <p class="text-center text-white pb-2 d-none d-md-block">FindInvest est une plateforme qui permet aux étudiants de présenter leurs projets ou idées de projets<br> à des investisseurs présents sur la plateforme 
-    	afin de retenir leurs attention
-    </p> -->
+  <div class="hero-container">
 	<div class="ban-text">
-		<h1 class="text-center">Recherche d'investissement par des étudiants porteurs de projet.s</h1>
+		<h1 class="text-center">Recherche d'investissement par des étudiants porteurs de projets</h1>
 		<p class="text-center text-white pb-2">FindInvest est une plateforme qui permet aux étudiants de présenter leurs projets ou idées de projets à des investisseurs présents sur la plateforme 
 			afin de retenir leurs attention
 		</p>
     </div>
-    <!-- mobile -->
-    <!-- <h1 class="text-center d-md-none">Recherche d'investissement par des étudiants porteurs de projet.s</h1>
-    <p class="text-center text-white pb-2 d-md-none">
-    	FindInvest est une plateforme qui permet aux étudiants d'exposer leurs projets ou idées de projets aux yeux d'investisseurs potentiels
-    </p> -->
     <p>
-      <a href="/#fontionnalites" class="btn-get-started mt-3">Commencer</a>&emsp;
+      <a href="/#inscription" class="btn-get-started mt-3">Commencer</a>&emsp;
     </p>
   </div>
 </section>
@@ -423,11 +413,11 @@
 			<div class="col-md-6 my-auto brand">
 				<h3 class="mb-4 title-text"><b>Bienvenu sur</b></h3>
 				<h1 class="mb-0 text-uppercase" style="font-weight: 700; opacity: .8;">FindInvest</h1>
-				<p class="mt-0">Plate forme de prise de contact entre étudiants porteurs de projets et investisseurs.</p>
+				<p class="mt-0">Plateforme de prise de contact entre étudiants porteurs de projets et investisseurs.</p>
 				<div class="">
 					<div class="d-flex flex-row flex-wrap">
 						<a class="btn me-4 mb-3 border-2 border-primary text-uppercase px-5 py-3 rounded-pill active bout" href="/#inscription">Inscription</a>
-						<a class="btn mb-3 border-2 border-warning text-uppercase px-5 py-3 rounded-pill active bout" href="{% url 'login' %}">Connexion</a>
+						<a class="btn mb-3 border-2 border-warning text-uppercase px-5 py-3 rounded-pill active bout" href="{% url 'connexion' %}">Connexion</a>
 					</div>
 				</div>
 			</div>
@@ -538,17 +528,17 @@
 						Publiez vos differents projets afin d'obtenir de potentiels investissements. 
 						Enrichissez aussi vos connaissances en consultant les autres projets sur la plateforme.
 					</p>
-					<a class="btn-orange" href="">S'inscrire en tant que étudiant</a>
+					<a class="btn-orange" href="{% url 'register_student' %}">S'inscrire en tant que étudiant</a>
 				</div>
 			</div>
 			<div class="col-lg-5 mx-auto text-center mt-5">
 				<div class="box_inscrip px-3 py-5 p-lg-5">
 					<h3>Investisseur <br><br></h3>
 					<p>
-						Consulter des projets publiés que vous jugerez intéressants et prennez contact avec des étudiants 
+						Consulter des projets  intéressants et prennez contact avec des étudiants 
 						pour de potentiels investissements afin d'augmenter vos économies.
 					</p>
-					<a class="btn-bleu" href="">S'inscrire comme investisseur</a>
+					<a class="btn-bleu" href="{% url 'register_investor' %}">S'inscrire comme investisseur</a>
 				</div>
 			</div>
 		</div>
@@ -561,7 +551,7 @@
     <div class="footer-top">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-lg-4 col-md-5 footer-contact">
+				<div class="col-lg-3 col-md-5  py-3">
 					<div class="mb-3">
 						<!-- <a href="/#hero"><img src="{% static 'img/logo.png' %}" alt="logo"></a> -->
 						<h2>
@@ -573,9 +563,9 @@
 						étudiants de l'<b>UNIVERSITÉ DE YAOUNDÉ 1.</b>
 					</p>
 				</div>
-				<div class="col-lg-2 col-md-4 py-3" id="contacts">
+				<div class="col-lg-3 col-md-4 py-3" id="contacts">
 					<h4>Contactez nous</h4>
-					<div>
+					<p>
 						<a style="text-decoration: none;" href="https://wa.me/+237656789174?text=FindInvest">
 							<i class="bi-whatsapp"></i>
 						</a>&emsp;
@@ -585,14 +575,19 @@
 						<a style="text-decoration: none;" href="mailto:adrresse_email?subject=FindInvest">
 							<i class="bi-envelope"></i>
 						</a>&emsp;
-					</div>
+					</p>
+					<ul style="padding-left: 15px !important;">
+						<li><a href="">Équipe de développement</a></li>
+						<li><a href="">Conditions d'utilisateion</a></li>
+					</ul>
+					
 				</div>
 				<div class="col-lg-2 col-md-3 py-3 footer-links">
 					<h4>Liens utiles</h4>
 					<ul>
 						<li><a href="/#hero">Acceuil</a></li>
 						<li><a href="/#about">A propos</a></li>
-						<li><a href="{% url 'login' %}">Connexion</a></li>
+						<li><a href="{% url 'connexion' %}">Connexion</a></li>
 						<li><a href="/#inscription">Inscription</a></li>
 					</ul>
 				</div>

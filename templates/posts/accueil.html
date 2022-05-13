@@ -7,15 +7,22 @@
   <br><br><br>
   <h1>Accueil</h1>
   <br><br>
-  {% if user.is_authenticated and user.etudiant.id %}
-    <a href="{% url 'update_profile_student' request.user.etudiant.id %}">Modifier profil Etudiant</a> 
-    {{request.user.etudiant.photoProfil.url}}
-    <br>
-  {% endif %}
-  {% if user.is_authenticated and user.investisseur.id %}
-    <a href="{% url 'update_profile_investor' request.user.investisseur.id %}">Modifier profil Investisseur</a> 
-    {{request.user.investisseur.photoProfil.url}}
 
-  {% endif %}
+{% if user.is_authenticated %}
+    <h4>Bienvenue <u>{{request.user.last_name}}</u></h4> <br>
+    {% if user.etudiant.id %}
+        <a href="{% url 'update_profile_student' request.user.etudiant.id %}">Modifier profil Etudiant</a> 
+        {{request.user.etudiant.photoProfil.url}}
+        <br>
+    {% endif %}
+    {% if user.investisseur.id %}
+        <a href="{% url 'update_profile_investor' request.user.investisseur.id %}">Modifier profil Investisseur</a> 
+        {{request.user.investisseur.photoProfil.url}}
+        <br><br>
+    {% endif %}
+
+    <a href="{% url 'user_logout' %}">se déconnecter</a>
+
+{% endif %} 
 
 {% endblock %}

@@ -61,7 +61,7 @@
 		font-weight: 500;
 		margin-bottom: 10px;
 	}
-	.box a{
+	/* .box a{
 		padding: 10px 20px;
 		background: #fff;
 		border-radius: 10px;
@@ -71,7 +71,7 @@
 		color: #333;
 		text-decoration: none;
 		cursor: pointer;
-	}
+	} */
 
 	.formBx{
 		position: absolute;
@@ -123,6 +123,9 @@
 		font-weight: 500;
 		margin-bottom: 20px;
 	}
+	.formBx .form h3 i{
+		color: #0b5ed7;
+	}
 	.formBx .form input,
 	.formBx .form select{
 		width: 100%;
@@ -156,9 +159,7 @@
 	.precedentBtn:hover{
 		color: rgb(107, 107, 107);
 	}
-	.precedentBtn{
-		margin-left: 40%;
-	}
+
 
 	@media screen and (max-width:991px) {
 		.contain{
@@ -191,15 +192,35 @@
 			left: 0;
 			top: 150px;
 		}
-
-		.precedentBtn{
-			margin-left: 20%;
-		}
 	}
 
 	.fas{
 		color: #0b5ed7 !important;
 		font-size: 2rem;
+	}
+
+	body{
+		background-image: url(../../static/img/bg_reg.jpg);
+		background-attachment: fixed;
+		background-repeat: repeat;
+		background-size: cover;
+	}
+
+	@media screen and (min-width: 992px) {
+		.blueBg{
+			/* opacity: .8; */
+			background: #0b5dd7e3;
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		.formBx .form{
+			padding: 30px 20px;
+		}
+	}
+
+	.btn-bleu{
+		max-width: 150px;
 	}
 </style>
 
@@ -207,11 +228,11 @@
 	<div class="blueBg">
 		<div class="box un">
 			<h2>Vous avez déja un compte ?</h2>
-			<a href="">Connexion</a>
+			<a class="btn-blanc" href="">Connexion</a>
 		</div>
 		<div class="box deux">
 			<h2>Vous avez déja un compte ?</h2>
-			<a href="">Connexion</a>
+			<a class="btn-blanc" href="">Connexion</a>
 		</div>
 	</div>
 	<form action="" method="POST">
@@ -236,9 +257,15 @@
 				{{invest_form.ville}}
 				<p><span class="errorform" id="error_villeEtu"></span></p>
 				<span style="font-size: 13px; color: #333; margin-bottom: 3px;">&emsp;(avec indicatif du pays, ex: +237)</span>
-				{{invest_form.telephone}}
+				
+				{% if num_tel != "" %}
+				<input type="tel" value="{{num_tel}}" name="telephone" maxlength="200" required="" id="id_telephone" class="form-control" placeholder="Numéro de téléphone*">
+				{% endif %}
+				{% if num_tel == "" %}
+				<input type="tel" name="telephone" maxlength="200" required="" id="id_telephone" class="form-control" placeholder="Numéro de téléphone*">
+				{% endif %}
 				<p><span class="errorform" id="error_telephoneEtu"></span></p>
-				<span id="suivantBtnInv" class="btnForm">Suivant</span>
+				<span id="suivantBtnInv" class="btn-bleu">Suivant</span>
 			</div>
 			<div class="form registerForm2">
 				<h3><i class="fas fa-user-tie"></i> Inscription (2/2)</h3>
@@ -268,18 +295,6 @@
 					  color: rgb(48, 48, 48);
 					  font-size: 20px;
 					}
-		
-					/* @media screen and (max-width: 991px) {
-					  .far {
-						right: 4%;
-					  }
-					}
-		
-					@media screen and (max-width: 767px) {
-					  .far {
-						right: 3%;
-					  }
-					} */
 				</style>
 				<!-- 
 				Votre mot de passe ne peut pas trop ressembler à vos autres informations personnelles.
@@ -315,6 +330,26 @@
 				</div>
 				{{user_form.password2}}
 				{{user_form.password2.errors}}
+
+				<style>
+					#id_question, #id_reponse{
+						border-top: none !important;
+						border-left: none !important;
+						border-right: none !important;
+						border-radius: 0 !important;
+						box-shadow: none !important;
+						font-size: 15px !important;
+						/* border-bottom: #0b5ed7 solid 1px; */
+					}
+					#id_question:focus, #id_reponse:focus{
+						border-bottom: #0b5ed7 solid 1px !important;
+					}
+					.secure{
+						border-radius: 10px;
+						border: #ced4da solid 1px;
+						padding: 15px 15px 20px;
+					}
+				</style>
 				<span class="secure mt-4" id="quest_rep">
 					<span style="font-size: 14px; color: #333; margin-bottom: 2px;" class="mt-4">Définissez une question à poser en cas d'oublie de votre mot de passe*</span>
 					{{invest_form.question}}
@@ -325,8 +360,8 @@
 				
 
 				<div class="mt-2">
-					<input class="btnForm" type="submit" id="myBtn" onclick="return validateFormEnregInv();" value="Enregister">
-					<span id="precedentBtnInv" class="precedentBtn">Précédent</span>
+					<input class="btn-bleu" type="submit" id="myBtn" onclick="return validateFormEnregInv();" value="Enregister">
+					<span id="precedentBtnInv" class="precedentBtn ms-5">Précédent</span>
 				</div> 
 				
 			</div>

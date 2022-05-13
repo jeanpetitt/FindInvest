@@ -85,8 +85,8 @@
 <form action="" method="POST" enctype="multipart/form-data">
 	{% csrf_token %}
     <nav class="nav nav-borders">
-        <a class="nav-link ms-0" href="" target="__blank">Accueil</a>
-        <a class="nav-link active ms-0" href="" target="__blank">Modifier profil</a>
+        <a class="nav-link ms-0" href="{% url 'accueil' %}">Accueil</a>
+        <a class="nav-link active ms-0" href="{% url 'update_profile_investor' request.user.investisseur.id %}">Modifier profil</a>
     </nav>
     <hr class="mt-0 mb-4">
     <div class="row">
@@ -235,7 +235,7 @@
                     <div class="row my-3">
                         <!-- Save changes button-->
                         <div class="col-sm-6 mt-3 offset-sm-3 text-center">
-                            <input class="btn-bleu px-5" type="submit" value="Enregistrer">
+                            <input class="btn-bleu" type="submit" value="Enregistrer">
                     	</div>
                     </div>
                 </div>

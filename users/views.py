@@ -13,9 +13,14 @@ from django.contrib.auth.models import User
 
 # page de connexion
 
-def login(request):
-    return render(request, 'users/login.html')
+def connexion(request):
+    return render(request, 'users/connexion.html')
 
+# se déconnecter
+@login_required(login_url='connexion')
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/')
 
 
 # page d'inscription des etudiants
@@ -23,6 +28,7 @@ def login(request):
 def register_student(request):
     registered = False
     util = ""
+    num_tel = ""
     err1 = ""
     err2 = ""
     user_form = UserForm()
@@ -33,6 +39,7 @@ def register_student(request):
         etu_form = EtuForm(data=request.POST)
         username = request.POST.get('username')
         password = request.POST.get('password1')
+        telephone = request.POST.get('telephone')
         if user_form.is_valid() and etu_form.is_valid():
 
             # enregistrer dans la BD
@@ -50,9 +57,10 @@ def register_student(request):
                     logout(request)
                 login(request, user_log)
             # le renvoyer vers la page d'accueil 2
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('../accueil')
         else:
             util = username
+            num_tel = telephone
             err1 = user_form.errors
             err2 = etu_form.errors
 
@@ -61,6 +69,7 @@ def register_student(request):
         'user_form':user_form,
         'etu_form':etu_form,
         'util':util,
+        'num_tel':num_tel,
         'err1':err1,
         'err2':err2,
     }
@@ -73,6 +82,7 @@ def register_student(request):
 def register_investor(request):
     registered = False
     util = ""
+    num_tel = ""
     err1 = ""
     err2 = ""
     user_form = UserForm()
@@ -83,6 +93,7 @@ def register_investor(request):
         invest_form = InvestForm(data=request.POST)
         username = request.POST.get('username')
         password = request.POST.get('password1')
+        telephone = request.POST.get('telephone')
         if user_form.is_valid() and invest_form.is_valid():
 
             # enregistrer dans la BD
@@ -100,9 +111,10 @@ def register_investor(request):
                     logout(request)
                 login(request, user_log)
             # le renvoyer vers la page d'accueil 2
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('../accueil')
         else:
             util = username
+            num_tel = telephone
             err1 = user_form.errors
             err2 = invest_form.errors
 
@@ -111,6 +123,7 @@ def register_investor(request):
         'user_form':user_form,
         'invest_form':invest_form,
         'util':util,
+        'num_tel':num_tel,
         'err1':err1,
         'err2':err2,
     }
@@ -118,65 +131,9 @@ def register_investor(request):
 
 
 
-# page modifier profil
-
-def update_profile(request, id_util, objet, formulaire):
-    err1 = ''
-    err2 = ''
-    registered = False
-    list_util = objet.objects.all()
-
-    # identifier un étudiant spécifique par son id
-    util = objet.objects.get(id=id_util)
-    
-    # identifier le user associé à cet etudiant, par son id
-    user = User.objects.get(id=util.user.id)
-    
-    # remplir le formulaire avec les info de l'etudiant
-    form1 = formulaire(instance=util)
-    user_form = UserForm(instance=user)
-    if request.method == "POST":
-        form1 = formulaire(request.POST, request.FILES, instance=util)
-        user_form = UserForm(data=request.POST, instance=user)
-        username = request.POST.get('username')
-        password = request.POST.get('password1')
-        
-        if user_form.is_valid() and form1.is_valid():
-
-            # enregistrer dans la BD
-            user = user_form.save()
-            user.save()
-            util = form1.save(commit=False)
-            util.user = user
-            util.save()
-            registered = True
-            
-            # connecter le user
-            user_log = authenticate(username=username, password=password)
-            if user_log:
-                if user.is_authenticated:
-                    logout(request)
-                login(request, user_log)
-            # le renvoyer vers la page d'accueil 2
-            return HttpResponseRedirect('/')
-        else:
-            err1 = user_form.errors
-            err2 = form1.errors
-
-    context = {
-        'registered':registered,
-        'user_form':user_form,
-        'form1':form1,
-        'err1':err1,
-        'err2':err2,
-    }
-    return context
-
-
-
-
 # page modifier profil étudiant
 
+@login_required(login_url='connexion')
 def update_profile_student(request, id_e):
     err1 = ''
     err2 = ''
@@ -215,7 +172,7 @@ def update_profile_student(request, id_e):
                     logout(request)
                 login(request, user_log)
             # le renvoyer vers la page d'accueil 2
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('../../../accueil')
         else:
             err1 = user_form.errors
             err2 = etu_form.errors
@@ -233,6 +190,7 @@ def update_profile_student(request, id_e):
 
 # page modifier profil
 
+@login_required(login_url='connexion')
 def update_profile_investor(request, id_i):
     err1 = ''
     err2 = ''
@@ -271,7 +229,7 @@ def update_profile_investor(request, id_i):
                     logout(request)
                 login(request, user_log)
             # le renvoyer vers la page d'accueil 2
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('../../../accueil')
         else:
             err1 = user_form.errors
             err2 = invest_form.errors

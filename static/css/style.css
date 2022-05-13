@@ -101,9 +101,9 @@ textarea:focus{
 } */
 
 
-
-
-.btn-bleu{
+.btn-bleu,
+.btn-orange,
+.btn-blanc{
     border-radius: 50rem !important;
     padding: .5rem 1.5rem !important;
     border-width: 2px !important;
@@ -115,34 +115,28 @@ textarea:focus{
     cursor: pointer;
     user-select: none;
     font-size: 1rem;
+}
+.btn-bleu:hover,
+.btn-orange:hover,
+.btn-blanc:hover{
+    transition: .2s;
+	transform: scale(1.05);
+}
+
+.btn-bleu{
     border-color: #0b5ed7 !important;
     background: #0b5ed7 !important;
     color: #fff !important;
 }
-.btn-bleu:hover{
-    transition: .2s;
-	transform: scale(1.05);
-}
-
 .btn-orange{
-    border-radius: 50rem !important;
-    padding: .5rem 1.5rem !important;
-    border-width: 2px !important;
-    display: inline-block;
-    font-weight: 400;
-    line-height: 1.5;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    user-select: none;
-    font-size: 1rem;
     border-color: #ff8c2e !important;
     background: #ff8c2e !important;
     color: #fff !important;
 }
-.btn-orange:hover{
-    transition: .2s;
-	transform: scale(1.05);
+.btn-blanc{
+    border-color: #fff !important;
+    background: #fff !important;
+    color: #333 !important;
 }
 
 @media screen and (max-width: 991px) {

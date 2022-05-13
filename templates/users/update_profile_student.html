@@ -85,8 +85,8 @@
 <form action="" method="POST" enctype="multipart/form-data">
 	{% csrf_token %}
     <nav class="nav nav-borders">
-        <a class="nav-link ms-0" href="" target="__blank">Accueil</a>
-        <a class="nav-link active ms-0" href="" target="__blank">Modifier profil</a>
+        <a class="nav-link ms-0" href="{% url 'accueil' %}">Accueil</a>
+        <a class="nav-link active ms-0" href="{% url 'update_profile_student' request.user.etudiant.id %}">Modifier profil</a>
     </nav>
     <hr class="mt-0 mb-4">
     <div class="row">

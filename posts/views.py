@@ -15,6 +15,6 @@ def index(request):
 
 # page d'accueil (2) des publications
 
-@login_required(login_url='login')
+@login_required(login_url='connexion')
 def accueil(request):
     return render(request, 'posts/accueil.html')

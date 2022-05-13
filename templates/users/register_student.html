@@ -61,7 +61,7 @@
 		font-weight: 500;
 		margin-bottom: 10px;
 	}
-	.box a{
+	/* .box a{
 		padding: 10px 20px;
 		background: #fff;
 		border-radius: 10px;
@@ -71,7 +71,7 @@
 		color: #333;
 		text-decoration: none;
 		cursor: pointer;
-	}
+	} */
 
 	.formBx{
 		position: absolute;
@@ -121,8 +121,12 @@
 		font-size: 1.5rem;
 		color: #333;
 		font-weight: 500;
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 	}
+	.formBx .form h3 i{
+		color: #0b5ed7;
+	}
+
 	.formBx .form input,
 	.formBx .form select{
 		width: 100%;
@@ -140,26 +144,13 @@
 		border: 1px solid #0b5ed7;
 		box-shadow: 0 0 5px #0b5ed7;
 	}
-	.form .btnForm{
-		padding: 10px 20px;
-		background: #0b5ed7;
-		border-radius: 10px;
-		font-size: 16px;
-		font-weight: 500;
-		border: none !important;
-		color: #fff !important;
-		cursor: pointer;
-		max-width: 100px;
-	}
+	
 	.precedentBtn{
 		color: #333;
 		cursor: pointer;
 	}
 	.precedentBtn:hover{
 		color: rgb(107, 107, 107);
-	}
-	.precedentBtn{
-		margin-left: 40%;
 	}
 
 	@media screen and (max-width:991px) {
@@ -193,10 +184,6 @@
 			left: 0;
 			top: 150px;
 		}
-
-		.precedentBtn{
-			margin-left: 20%;
-		}
 	}
 	.fas{
 		color: #0b5ed7 !important;
@@ -206,6 +193,30 @@
 	select{
 		height: 41px !important;
 	}
+
+	body{
+		background-image: url(../../static/img/bg_reg.jpg);
+		background-attachment: fixed;
+		background-repeat: repeat;
+		background-size: cover;
+	}
+
+	@media screen and (min-width: 992px) {
+		.blueBg{
+			/* opacity: .8; */
+			background: #0b5dd7e3;
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		.formBx .form{
+			padding: 30px 20px;
+		}
+	}
+
+	.btn-bleu{
+		max-width: 150px;
+	}
 </style>
 
 
@@ -213,15 +224,16 @@
 	<div class="blueBg">
 		<div class="box un">
 			<h2>Vous avez déja un compte ?</h2>
-			<a href="">Connexion</a>
+			<a class="btn-blanc" href="{% url 'connexion' %}">Connexion</a>
 		</div>
 		<div class="box deux">
 			<h2>Vous avez déja un compte ?</h2>
-			<a id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" href="">Connexion</a>
+			<a class="btn-blanc" href="{% url 'connexion' %}">Connexion</a>
+			<a id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" href="">Connexionnnnn</a>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 			    <li><a class="dropdown-item" href="#">Action</a></li>
 			    <li><a class="dropdown-item" href="#">Another action</a></li>
-			 </ul>
+			</ul>
 		</div>
 	</div>
 	<form action="" method="POST">
@@ -245,9 +257,14 @@
 				<p><span class="errorform" id="error_villeEtu"></span></p>
 				<span style="font-size: 13px; color: #333; margin-bottom: 3px;">&emsp;(avec indicatif du pays, ex: +237)</span>
 				
+				{% if num_tel != "" %}
+				<input type="tel" value="{{num_tel}}" name="telephone" maxlength="200" required="" id="id_telephone" class="form-control" placeholder="Numéro de téléphone*">
+				{% endif %}
+				{% if num_tel == "" %}
 				<input type="tel" name="telephone" maxlength="200" required="" id="id_telephone" class="form-control" placeholder="Numéro de téléphone*">
+				{% endif %}
 				<p><span class="errorform" id="error_telephoneEtu"></span></p>
-				<span class="btnForm suivantBtnEtu">Suivant</span>
+				<span class="btn-bleu suivantBtnEtu">Suivant</span>
 			</div>
 			<div class="form registerForm2">
 				<h3><i class="fas fa-user-graduate"></i> Inscription (2/2)</h3>
@@ -321,8 +338,8 @@
 				
 
 				<div class="mt-2">
-					<input class="btnForm" type="submit" id="myBtn" onclick="return validateFormEnreg();" value="Enregister">
-					<span class="precedentBtn">Précédent</span>
+					<input class="btn-bleu" type="submit" id="myBtn" onclick="return validateFormEnreg();" value="Enregister">
+					<span class="precedentBtn ms-5">Précédent</span>
 				</div> 
 				
 			</div>
