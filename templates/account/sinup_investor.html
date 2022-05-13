@@ -24,33 +24,124 @@
 		/* background: #0b5ed7; */
 		transition: 0.5s; 
 	}
+	body.active{
+		/* background: #ff8c2e; */
+	}
 	.contain{
 		position: relative;
-		height: 100%%;
-		left: 25%;
-		width: 100%;
+		width: 800px;
+		height: 600px;
+		margin: 20px;
 	}
-	.formBx{
+	.blueBg{
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		/* background: rgba(255, 255, 255, 0.2); */
+		background: #0b5ed7;
+		width: 100%;
+		height: 420px;
+		top: 90px;
+		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.15);
+		border-radius: 10px;
+		margin-top: 15px;
+	}
+	.blueBg .box{
 		position: relative;
-		background: #fff;
-		top: 0;
-		left: 0;
 		width: 50%;
 		height: 100%;
-		display: wrap;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.blueBg .box h2{
+		color: #fff;
+		font-size: 1.2rem;
+		font-weight: 500;
+		margin-bottom: 10px;
+	}
+	.box a{
+		padding: 10px 20px;
+		background: #fff;
+		border-radius: 10px;
+		font-size: 16px;
+		font-weight: 500;
+		border: none;
+		color: #333;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.formBx{
+		position: absolute;
+		background: #fff;
+		top: 0;
+		left: 15%;
+		width: 80%;
+		height: 100%;
+		z-index: 1000;
+		display: flex;
 		justify-content: center;
 		align-items: center;
 		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.25);
+		transition: .3s ease-in-out;
 		overflow: hidden;
 		border-radius: 10px;
-		margin-top: 10px;
+		margin-top:-10px;
+	}
+	.formBx.active{
+		left: 15%;
+	}
+	.formBx .form{
+		position: absolute;
+		left: 0;
+		padding: 50px;
+		width: 100%;
+		transition: .5s;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	.formBx .registerForm1{
+		transition-delay: .2s;
+	}
+	.formBx.active .registerForm1{
+		left: -100%;
+		transition-delay: 0s;
+	}
+	.formBx .registerForm2{
+		left: 100%;
+		transition-delay: 0s;
+	}
+	.formBx.active .registerForm2{
+		left: 0;
+		transition-delay: .2s;
+	}
+	.formBx .form h3{
+		font-size: 1.5rem;
+		color: #333;
+		font-weight: 500;
+		margin-bottom: 20px;
+	}
+	.formBx .form input,
+	.formBx .form select{
+		width: 100%;
 		padding: 10px;
+		border-radius: 10px;
+		outline: none;
+		font-size: 16px;
+		
+		color: #333;
+		border: 1px solid #ced4da;
 	}
-	.formBx input{
-		height: 60px;
-		margin-right: 10px;
+	.formBx .form input:focus,
+	.formBx .form select:focus{
+		border: 1px solid #0b5ed7;
+		box-shadow: 0 0 5px #0b5ed7;
 	}
-	.formBx .btnForm{
+	.form .btnForm{
 		padding: 10px 20px;
 		background: #0b5ed7;
 		border-radius: 10px;
@@ -59,36 +150,60 @@
 		border: none !important;
 		color: #fff !important;
 		cursor: pointer;
-		width: 200px;
-		margin-left: 40%;
-		max-width: 200px;
+		max-width: 100px;
 	}
+	.precedentBtn{
+		color: #333;
+		cursor: pointer;
+	}
+	.precedentBtn:hover{
+		color: rgb(107, 107, 107);
+	}
+	.precedentBtn{
+		margin-left: 40%;
+	}
+
+	@media screen and (max-width:991px) {
+		.contain{
+			max-width: 400px;
+			height: 800px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.contain .blueBg{
+			top: 0;
+			height: 100%;
+		}
+		.formBx{
+			width: 100%;
+			height: 650px;
+			top: 0;
+			box-shadow: none; 
+		}
+		.blueBg .box{
+			position: absolute;
+			width: 100%;
+			height: 150px;
+			bottom: 0;
+		}
+		.box.un{
+			top: 0;
+		}
+		.formBx.active{
+			left: 0;
+			top: 150px;
+		}
+
+		.precedentBtn{
+			margin-left: 20%;
+		}
+	}
+
 	.fas{
 		color: #0b5ed7 !important;
 		font-size: 2rem;
 	}
-	@media screen and (max-width:596px) {
-		.contain{
-			max-width: 1050px;
-			height: 100%;
-			display: wrap;
-			left: 0;
-			justify-content: center;
-			position: relative;
-			
-		}
-		.formBx{
-			width: 100%;
-			height: 1200px;
-			top: 0%;
-			#box-shadow: none; 
-		}
-		.form input{
-			padding: 15px;
-		}
-	}
-	
-
 </style>
 
 <div class="contain">
@@ -96,123 +211,118 @@
 		{% csrf_token %}
 
 		{% if util == "" %}
-		<div class="row formBx">
-			{% endif %}
-			{% if util != "" %}
+		<div class="formBx">
+		{% endif %}
+		{% if util != "" %}
+		<div class="formBx active">
+		{% endif %}
+			<div class="form registerForm1">
+				<h3><i class="fas fa-user-tie"></i> Vous y &ecirctes presque</h3>
+				{{user_form.last_name}}
+				<p><span class="errorform" id="error_last_nameEtu"></span></p>
+				{{invest_form.profession}}
+				<p><span class="errorform" id="error_professionInv"></span></p>
+				{{invest_form.entreprise}}
+				<p><span class="errorform" id="error_entrepriseInv"></span></p>
+				{{invest_form.objectifs}}
+				<p><span class="errorform" id="error_objectifsInv"></span></p>
+				{{invest_form.ville}}
+				<p><span class="errorform" id="error_villeEtu"></span></p>
+				<span style="font-size: 13px; color: #333; margin-bottom: 3px;">&emsp;(avec indicatif du pays, ex: +237)</span>
+				{{invest_form.telephone}}
+				<p><span class="errorform" id="error_telephoneEtu"></span></p>
+				<span id="suivantBtnInv" class="btnForm">Suivant</span>
+			</div>
+			
+				<div class="form registerForm2">
+				<h3><i class="fas fa-user-tie"></i> F&eacutelicitation c'est l'etape finale</h3>
+				{% if user_form.username.errors %}
+					<span class="errorform">Un utilisateur avec cette addresse existe déjà.</span>
 				{% endif %}
+				{{user_form.email}}
+				<p><span class="errorform" id="error_emailEtu"></span></p>
+				
+				<span style="display: none;">
+					{{user_form.username}}
+				</span>
+				
+				<style>
+					.form-group {
+						position: relative;
+					}
+					.fom {
+					  align-items: center !important;
+					  display: flex;
+					}
+					.far {
+					  position: absolute;
+					  top: 15px;
+					  right: 4%;
+					  cursor: pointer;
+					  color: rgb(48, 48, 48);
+					  font-size: 20px;
+					}
+		
+					/* @media screen and (max-width: 991px) {
+					  .far {
+						right: 4%;
+					  }
+					}
+		
+					@media screen and (max-width: 767px) {
+					  .far {
+						right: 3%;
+					  }
+					} */
+				</style>
+				<!-- 
+				Votre mot de passe ne peut pas trop ressembler à vos autres informations personnelles.
+				Votre mot de passe doit contenir au minimum 8 caractères.
+				Votre mot de passe ne peut pas être un mot de passe couramment utilisé.
+				Votre mot de passe ne peut pas être entièrement numérique.
+				-->
 
-				<h3><i class="fas fa-user-tie"></i> Vous y etes presque</h3>
-				<div class="row mt-2 text-center">
-								<div class="col-md-6">
-									<div class="col-auto my-1">
-										{{user_form.last_name}}
-										<p><span class="errorform" id="error_last_nameEtu"></span></p>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="col-auto my-1">
-										{{invest_form.profession}}
-										<p><span class="errorform" id="error_professionInv"></span></p>
-									</div>
-								</div>
-								
+				<style>
+					#id_question, #id_reponse{
+						border-top: none;
+						border-left: none;
+						border-right: none;
+						border-radius: 0;
+						box-shadow: none;
+						font-size: 15px;
+						/* border-bottom: #0b5ed7 solid 1px; */
+					}
+					#id_question:focus, #id_reponse:focus{
+						border-bottom: #0b5ed7 solid 1px;
+					}
+					.secure{
+						border-radius: 10px;
+						border: #ced4da solid 1px;
+						padding: 15px 15px 20px;
+					}
+				</style>
+				<div class="form-group mb-4">
+					<div class="fom"> 
+						{{user_form.password1}}<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
+					</div>
+					{{user_form.password2.errors}}
 				</div>
-				<div class="row mt-2 text-center">
-								<div class="col-md-6">
-									<div class="col-auto my-1">
-									{{invest_form.entreprise}}
-										<p><span class="errorform" id="error_entrepriseInv"></span></p>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="col-auto my-1">
-									{{invest_form.objectifs}}
-										<p><span class="errorform" id="error_objectifsInv"></span></p>
-									</div>
-								</div>
-								
-				</div>
-				<div class="row mt-2 text-center">
-								<div class="col-md-6">
-									<div class="col-auto my-1">
-										{{invest_form.ville}}
-										<p><span class="errorform" id="error_villeEtu"></span></p>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="col-auto my-1">
-										<span style="font-size: 13px; color: #333; margin-bottom: 3px;">&emsp;(avec indicatif du pays, ex: +237)</span>
-										{{invest_form.telephone}}
-										<p><span class="errorform" id="error_telephoneEtu"></span></p>
-									</div>
-								</div>
-								
-				</div>
-				<div class="row mt-2 text-center">
-								<div class="col-md-6">
-									<div class="col-auto my-1">
-									{% if user_form.username.errors %}
-											<span class="errorform">Un utilisateur avec cette addresse existe déjà.</span>
-										{% endif %}
-										{{user_form.email}}
-										<p><span class="errorform" id="error_emailEtu"></span></p>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="col-auto my-1">
-									{{user_form.password1}}<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
-										{{user_form.password2.errors}}
-									</div>
-								</div>
-								
-								
-				</div>
-				<div class="row mt-2 text-center">
-								<div class="col-md-6">
-									<div class="col-auto my-1">
-										{{user_form.password2}}
-										{{user_form.password2.errors}}
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="col-auto my-1">
-									<span style="font-size: 14px; color: #333; margin-bottom: 2px;" class="mt-4">Définissez une question à poser en cas d'oublie de votre mot de passe*</span>
-										{{invest_form.question}}
-									</div>
-								</div>
-								
-				</div>
-				<div class="row mt-2 text-center">
-								
-								<div class="col-md-6">
-									<div class="col-auto my-1">
-										{{invest_form.reponse}}
-										<span class="errorform" id="error_questionEtu"></span>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="col-auto my-1">
-										<span style="display: none;">
-											{{user_form.username}}
-										</span>
-									</div>
-								</div>
-								
-				</div>
-					<div class="mt-2">
-						<input class="btnForm" type="submit" onclick="return validateFormEnreg();" value="Enregister">
+				{{user_form.password2}}
+				{{user_form.password2.errors}}
+				<span class="secure mt-4" id="quest_rep">
+					<span style="font-size: 14px; color: #333; margin-bottom: 2px;" class="mt-4">Définissez une question à poser en cas d'oublie de votre mot de passe*</span>
+					{{invest_form.question}}
+					<p></p>
+					{{invest_form.reponse}}
+				</span>
+				<p><span class="errorform" id="error_questionEtu"></span></p>
 
-					</div> 
-					<!-- 
-					Votre mot de passe ne peut pas trop ressembler à vos autres informations personnelles.
-					Votre mot de passe doit contenir au minimum 8 caractères.
-					Votre mot de passe ne peut pas être un mot de passe couramment utilisé.
-					Votre mot de passe ne peut pas être entièrement numérique.
-					-->
-
-
-					
-				</div>
+				<div class="mt-2">
+					<input class="btnForm" type="submit" onclick="return validateFormEnreg();" value="Enregister">
+					<span id="precedentBtnInv" class="precedentBtn">Précédent</span>
+				</div> 
+				
+			</div>
 		</div>
 	</form>
 </div>
@@ -231,10 +341,10 @@
 	champsForm[5].placeholder="Ville*";
 	champsForm[6].placeholder="Numéro de téléphone*";
 	champsForm[7].placeholder="Adresse email*";
-	champsForm[8].placeholder="Mot de passe*";
-	champsForm[9].placeholder="Confirmer mot de passe*";
-	champsForm[10].placeholder="Votre question :";
-	champsForm[11].placeholder="Votre réponse :";
+	champsForm[9].placeholder="Mot de passe*";
+	champsForm[10].placeholder="Confirmer mot de passe*";
+	champsForm[11].placeholder="Votre question :";
+	champsForm[12].placeholder="Votre réponse :";
 
 	// affichage/masquage du mdp
 

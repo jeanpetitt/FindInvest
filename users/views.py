@@ -116,8 +116,57 @@ def signup(request):
 
 
 
-def student_signup(request):
-    context = {}
+def student_signup(request, pk):
+    registered = False
+    util = ""
+    err1 = ""
+    err2 = ""
+    user_id = User.objects.get(id=pk)
+    for user in User.objects.all():
+        if user_id == user.id:
+            etudian = Etudiant.objects.create(id=request.user.id)
+            etudian.user.id = user.id
+        
+    
+    user_form = UserForm(instance=user_id)
+    etu_form = EtuForm()
+    if request.method == "POST":
+        user_form = UserForm(data=request.POST, instance=user_id)
+        etu_form = EtuForm(data=request.POST)
+        username = request.POST.get('username')
+        password = request.POST.get('password1')
+        if user_form.is_valid() and etu_form.is_valid():
+
+            # enregistrer dans la BD
+            user = user_form.save()
+            user.save()
+            etudiant = etu_form.save(commit=False)
+            etudiant.user = user
+            etudiant.save()
+            registered = True
+            
+            # connecter le user
+            user_log = authenticate(username=username, password=password)
+            if user_log:
+                if user.is_authenticated:
+                    logout(request)
+                login(request, user_log)
+            # le renvoyer vers la page d'accueil 2
+            return HttpResponseRedirect('/')
+        else:
+            util = username
+            err1 = user_form.errors
+            err2 = etu_form.errors
+
+    
+    context = {
+        'registered':registered,
+        'user_form':user_form,
+        'etu_form':etu_form,
+        'util':util,
+        'err1':err1,
+        'err2':err2,
+    }
     
     
 

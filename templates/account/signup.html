@@ -86,7 +86,7 @@
 		</div>
 		<div class='a col-md-6'>
 			<a class='btn btn-primary ' href="{% url 'investor_signup' user.id %}">Investisseur</a>
-			<a class='btn btn-success ' href="{% url 'student_signup' %}"> Etudiant</a>
+			<a class='btn btn-success ' href="{% url 'student_signup' user.id %}"> Etudiant</a>
 		</div>
 
 	</div>
