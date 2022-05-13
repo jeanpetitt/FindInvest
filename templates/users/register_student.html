@@ -238,6 +238,18 @@
 				{{etu_form.telephone}}
 				<p><span class="errorform" id="error_telephoneEtu"></span></p>
 				<span class="btnForm suivantBtnEtu">Suivant</span>
+				<span class="text-center" style="margin: 10;">OR</span>
+
+
+				{% load socialaccount %}
+				
+
+				<div class="my-2">
+					<a href="{% provider_login_url 'google' action="reauthenticate" user="etudiant" %}">
+						<img src ="{% static 'images/Google.png'%}" height=50 width=300>
+					</a>
+					
+				</div>
 			</div>
 			<div class="form registerForm2">
 				<h3><i class="fas fa-user-graduate"></i> Inscription (2/2)</h3>

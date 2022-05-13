@@ -1,9 +1,8 @@
 from django.db import models
-from users.models import Etudiant, Investisseur
 import os
 
-# Create your models here.
 
+"""
 
 # creation de la classe Projet
 
@@ -24,3 +23,4 @@ class Projet(models.Model):
     # un projet est investi par un seul investisseur
     investisseur = models.ForeignKey(Investisseur, on_delete=models.CASCADE)
 
+"""

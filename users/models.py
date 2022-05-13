@@ -1,9 +1,14 @@
 from django.db import models
 from django.db.models.deletion import CASCADE, SET_NULL
 from django.contrib.auth.models import User
+from allauth.socialaccount.models import SocialLogin
+from allauth.account.utils import get_next_redirect_url
+from allauth.utils import get_request_param
 import os
 
 # Create your models here.
+
+   
 
 
 
@@ -34,6 +39,32 @@ class Utilisateur(models.Model):
     photoProfil = models.ImageField(upload_to=renommer_image, blank=True)
     question = models.CharField(max_length=100)
     reponse = models.CharField(max_length=100)
+    
+    is_student = models.BooleanField(default=False)
+    is_investor = models.BooleanField(default=False)
+
+
+    @classmethod
+    def state_from_request(cls, request):
+        state = {}
+        next_url = get_next_redirect_url(request)
+        # # ajouter cette déclaration est importante. Nous obtenons le paramètre de requête que nous avons ajouté au modèle et le stockons ici en tant que valeur de session.
+        try:
+            request.session["user_type"] = get_request_param(request, "user", None)
+        except KeyError:
+            print('user_type not exist')
+        
+        if next_url:
+            state["next"] = next_url
+        state["process"] = get_request_param(request, "process", "login")
+        state["scope"] = get_request_param(request, "scope", "")
+        state["auth_params"] = get_request_param(request, "auth_params", "")
+
+        return state
+    SocialLogin.state_from_request = state_from_request
+    
+    def __str__(self):
+        return self.user.id
 
     # pour que la classe ne crée pas une table dans la BD
     class Meta:

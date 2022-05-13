@@ -16,6 +16,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+TEMPLATES_DIR_ALLAUTH = os.path.join(BASE_DIR, 'templates', 'allauth')
 
 
 # Quick-start development settings - unsuitable for production
@@ -52,13 +53,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.google',
-    
-    # module api rest
-    'rest_framework',
-    'rest_framework.authtoken',
-    'rest_auth',
-    'rest_auth.registration',
-    
 ]
 
 MIDDLEWARE = [
@@ -77,24 +71,19 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-    )
-}
-
-REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER' : 'users.api.serializers.CustomRegisterSerializer'
-}
 
 SITE_ID = 1
+SOCIALACCOUNT_EMAIL_VERIFICATION = "mandatory"
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
 
 
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'signup'
 
 
 ROOT_URLCONF = 'FindInvest.urls'
@@ -102,7 +91,7 @@ ROOT_URLCONF = 'FindInvest.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR],
+        'DIRS': [TEMPLATES_DIR, TEMPLATES_DIR_ALLAUTH],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -181,8 +170,15 @@ SOCIALACCOUNT_PROVIDERS = {
             'email',
         ],
         'AUTH_PARAMS': {
-            'access_type': 'online',
+            'access_type': 'offline',
         }
     }
 
 }
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+
+# GOOGLE_ID = 843288250354-avoukuuc1sqopv0u1vk2nrsmka4fbom6.apps.googleusercontent.com
+
+# GOOGLE_SECRET_KEY = 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

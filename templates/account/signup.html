@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %} FindIvest | Inscription {% endblock %}
+
+{% block content %}
+
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-size: 'Poppins', sans-serif;
+	}
+	body{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+		/* background: #0b5ed7; */
+		transition: 0.5s; 
+	}
+	
+	.contain{
+		position: relative;
+		width: 800px;
+		height: 450px;
+		margin: 20px;
+	}
+   	.signup{
+		position: absolute;
+		background: #fff;
+		top: 0;
+		left: 20%;
+		width: 50%;
+		height: 100%;
+		z-index: 1000;
+		display: wrap;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.25);
+		transition: .3s ease-in-out;
+		overflow: hidden;
+		border-radius: 10px;
+	}
+	.signup .par{
+		font-size: 1.5rem;
+		margin-top: -8px;
+		width: -100%;
+		
+	}
+	.signup .a{
+		
+		margin-top: -220px;
+		height: 50px;
+		margin-left: 90px;
+		margin-right: 12px;
+		width: -100px;
+	}
+
+	.signup a{
+		margin-bottom: 10px;
+		margin-right: 12px;
+		padding: 10px;
+		height: 50px;
+		width: 100px;
+	}
+
+	@media screen and (max-width:991px) {
+		.signup{
+			width: 50%;
+			height: 450px;
+			top: 0;
+			
+		}
+	}
+
+
+</style>
+{% load socialaccount %}
+<div class="contain">
+	<div class='signup active row'>
+		<div class='par text-xxl-center col-md-6'>
+			<p class='text-center'> pour continuer en tant que <b>{{ user.first_name }}</b>
+				Choisissez un type de Compte
+			</p>
+		</div>
+		<div class='a col-md-6'>
+			<a class='btn btn-primary ' href="{% url 'investor_signup' user.id %}">Investisseur</a>
+			<a class='btn btn-success ' href="{% url 'student_signup' %}"> Etudiant</a>
+		</div>
+
+	</div>
+</div>
+
+
+
+
+{% endblock %}
