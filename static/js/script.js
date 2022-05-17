@@ -176,7 +176,11 @@ function validateFormEnreg() {
     var usernam = document.getElementById('id_username');
     var email = document.getElementById('id_email');
     usernam.value = email.value
-    return valEtu2();
+    if (valEtu1()) {
+        formBx.classList.add('active');
+        body.classList.add('active');
+    }
+    return valEtu1()&&valEtu2();
 }
 
 

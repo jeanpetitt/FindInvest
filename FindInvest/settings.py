@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from pickle import FALSE
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -53,6 +54,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
 ]
 
 MIDDLEWARE = [
@@ -73,10 +75,10 @@ AUTHENTICATION_BACKENDS = (
 
 
 SITE_ID = 1
-SOCIALACCOUNT_EMAIL_VERIFICATION = "mandatory"
-SOCIALACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
+#SOCIALACCOUNT_EMAIL_REQUIRED = False
+#ACCOUNT_USERNAME_REQUIRED = FALSE
+#SOCIALACCOUNT_QUERY_EMAIL = True
 ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
 
 
@@ -172,8 +174,14 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'offline',
         }
-    }
-
+    },
+     'github': {
+        'SCOPE': [
+            'user',
+            'repo',
+            'read:org',
+        ],
+     }
 }
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
@@ -182,3 +190,6 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 # GOOGLE_ID = 843288250354-avoukuuc1sqopv0u1vk2nrsmka4fbom6.apps.googleusercontent.com
 
 # GOOGLE_SECRET_KEY = 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
+
+# GITHUB_ID = 118dd9bbf6afad82ec42
+# GITHUB_SECRET_KEY = e406e12c70dfe8c398819a2aef649da5f352cf5d

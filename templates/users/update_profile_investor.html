@@ -1,0 +1,298 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} FindInvest | Update Profile {% endblock %}
+
+{% block content %}
+
+<style>
+	body{
+		margin-top:20px;
+		background-color:#f2f6fc;
+		color:#69707a;
+	}
+	.img-account-profile {
+	    height: 10rem;
+	}
+	.rounded-circle {
+	    border-radius: 50% !important;
+	}
+	.card {
+	    box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+	}
+	.card .card-header {
+	    font-weight: 500;
+	}
+	.card-header:first-child {
+	    border-radius: 0.35rem 0.35rem 0 0;
+	}
+	.card-header {
+	    padding: 1rem 1.35rem;
+	    margin-bottom: 0;
+	    background-color: rgba(33, 40, 50, 0.03);
+	    border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+	}
+	.form-control, .dataTable-input {
+	    display: block;
+	    width: 100%;
+	    padding: 0.875rem 1.125rem;
+	    font-size: 0.875rem;
+	    font-weight: 400;
+	    line-height: 1;
+	    color: #69707a;
+	    background-color: #fff;
+	    background-clip: padding-box;
+	    border: 1px solid #c5ccd6;
+	    -webkit-appearance: none;
+	    -moz-appearance: none;
+	    appearance: none;
+	    border-radius: 0.35rem;
+	    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	}
+
+	.nav-borders .nav-link.active {
+	    color: #0b5ed7;
+	    border-bottom-color: #0b5ed7;
+	}
+	.nav-borders .nav-link {
+	    color: #69707a;
+	    border-bottom-width: 0.125rem;
+	    border-bottom-style: solid;
+	    border-bottom-color: transparent;
+	    padding-top: 0.5rem;
+	    padding-bottom: 0.5rem;
+	    padding-left: 0;
+	    padding-right: 0;
+	    margin-left: 1rem;
+	    margin-right: 1rem;
+	}
+
+	.card{
+		border-top: #0b5ed7 solid 2px;
+      	/* border-radius: 20px; */
+	}
+
+	textarea{
+		height: 64px !important;
+	}
+	select{
+		height: 41px !important;
+	}
+
+</style>
+
+<div class="container px-4 mt-4">
+<form action="" method="POST" enctype="multipart/form-data">
+	{% csrf_token %}
+    <nav class="nav nav-borders">
+        <a class="nav-link ms-0" href="{% url 'accueil' %}">Accueil</a>
+        <a class="nav-link active ms-0" href="{% url 'update_profile_investor' request.user.investisseur.id %}">Modifier profil</a>
+    </nav>
+    <hr class="mt-0 mb-4">
+    <div class="row">
+        <div class="col-md-4">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header">Photo de profil</div>
+                <div class="card-body text-center">
+                    <!-- Profile picture image-->
+                    <img class="img-account-profile rounded-circle mb-2" src="{{request.user.investisseur.photoProfil.url}}" alt="">
+                    
+                    <div>
+                    	<input type="file" name="photoProfil" accept="image/*" id="id_photoProfil" class="form-control">
+                    </div>
+                    <!-- Profile picture help block-->
+                    <div class="small font-italic text-muted mb-4">{{request.user.username}}</div>
+                    <!-- Profile picture upload button-->
+                    <button class="btn-bleu" type="button">Changer la photo</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <!-- Account details card-->
+            <div class="card mb-4">
+                <div class="card-header">Détail du compte</div>
+                <div class="card-body">
+                    <!-- Form Row-->
+                    <div class="row gx-3">
+                        <!-- Form Group (first name)-->
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="id_last_name">Noms et prénoms*</label>
+                            {{user_form.last_name}}
+							<p><span class="errorform" id="error_last_nameEtu"></span></p>                        </div>
+                    </div>
+                    <!-- Form Row        -->
+                    <div class="row gx-3">
+                        <!-- Niveau-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="id_profession">Profession</label>
+                            {{invest_form.profession}}
+							<p><span class="errorform" id="error_professionInv"></span></p>
+                        </div>
+
+                        <!-- Université-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="id_entreprise">Nom de l'entreprise</label>
+                            {{invest_form.entreprise}}
+							<p><span class="errorform" id="error_entrepriseInv"></span></p>
+                        </div>
+                    </div>
+                    <div class="row gx-3">
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="id_objectifs">Vos objectif sur la plateforme</label>
+                            {{invest_form.objectifs}}
+							<p><span class="errorform" id="error_objectifsInv"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="id_ville">Ville</label>
+							{{invest_form.ville}}
+							<p><span class="errorform" id="error_villeEtu"></span></p>
+                        </div>  
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="id_telephone">Numéro de téléphone</label>
+							{{invest_form.telephone}}
+							<p><span class="errorform" id="error_telephoneEtu"></span></p>
+                        </div>                    </div>
+                    <div class="row gx-3">
+                           
+                    </div>
+                </div>
+            </div>
+
+            <!-- Authrntification details card-->
+            <div class="card mb-4">
+                <div class="card-header">Information de connexion</div>
+            	<div class="card-body">
+                    <!-- Form Row-->
+                    <div class="row gx-3">
+                        <!-- Adresse mail-->
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="Adresse">Adresse mail</label>
+                            {% if user_form.username.errors %}
+								<span class="errorform">Un utilisateur avec cette addresse existe déjà.</span>
+							{% endif %}
+
+							{{user_form.email}}
+							<p><span class="errorform" id="error_emailEtu"></span></p>
+                        </div>
+                    </div>
+
+                    <style>
+						.form-group {
+							position: relative;
+						}
+						.fom {
+						  align-items: center !important;
+						  display: flex;
+						}
+						.far {
+						  position: absolute;
+						  top: 15px;
+						  right: 4%;
+						  cursor: pointer;
+						  color: rgb(48, 48, 48);
+						  font-size: 20px;
+						}
+					</style>
+
+					<div style="display: none;">
+						{{user_form.username}}
+					</div>
+
+					<div class="row gx-3">
+                        <!-- Question de sécurité-->
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="id_question">Nouvelle question (à répondre en cas d'oublie de votre mot de passe*)</label>
+							{{invest_form.question}}
+							<p></p>
+                        </div>
+                        <!-- Réponse de sécurité-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="id_reponse">Votre réponse </label>
+							{{invest_form.reponse}}
+							<p><span class="errorform" id="error_questionInv"></span></p>
+                        </div>
+                    </div>
+                    <!-- Form Row-->
+                    <div class="row gx-3">
+
+                        <!-- Mot de passe-->
+                        <div class="col-md-6" style="display: none;">
+                            <label class="small mb-1" for="confirme-mdp">Mot de passe</label>
+							{{user_form.password1}}
+                        </div>
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="Mdp">Confirmez les mofications en entrant votre mot de passe</label>
+                            <div class="form-group mb-4">
+								<div class="fom"> 
+									{{user_form.password2}}<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
+								</div>
+								{{user_form.password2.errors}}
+							</div>
+                        </div>
+                    </div>
+
+                    <div class="row my-3">
+                        <!-- Save changes button-->
+                        <div class="col-sm-6 mt-3 offset-sm-3 text-center">
+                            <input class="btn-bleu" type="submit" value="Enregistrer">
+                    	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+
+
+<script>
+	champsForm = document.getElementsByTagName('input');
+	for (let i = 0; i < (champsForm.length-1); i++) {
+		champsForm[i].classList.add('form-control');
+		
+	}
+	selectChamps = document.getElementsByTagName('select');
+	for (let i = 0; i < (selectChamps.length); i++) {
+		selectChamps[i].classList.add('form-select');
+	}
+	textAeraChamps = document.getElementsByTagName('textarea');
+	for (let i = 0; i < (selectChamps.length); i++) {
+		textAeraChamps[i].classList.add('form-control');
+	}
+
+
+	// affichage/masquage du mdp
+
+	var password1 = document.getElementById('id_password1');
+	var password2 = document.getElementById('id_password2');
+
+	var eyeVisible = document.querySelector('.fa-eye');
+	var eyeHidden = document.querySelector('.fa-eye-slash');
+	
+	eyeHidden.style.display = "none";
+	
+	function affiMdp() {
+		if (password1.type === "password") {
+			eyeHidden.style.display = "";
+			eyeVisible.style.display = "none";
+			password1.type = 'text';
+			password2.type = 'text';
+		} else {
+			eyeHidden.style.display = "none";
+			eyeVisible.style.display = "";
+			password1.type = 'password';
+			password2.type = 'password';
+		}
+	}
+
+
+	// préremplir le mdp
+	password1.autocomplete="current-password";
+
+
+	// valider le formulaire
+    
+</script>
+
+{% endblock %}

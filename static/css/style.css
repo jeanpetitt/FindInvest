@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;500;600;700&family=Pacifico&family=Righteous&family=Merienda&display=swap');
+
+@font-face {
+    font-family: Poppins;
+    src: url(../fonts/Poppins-Regular.ttf);
+}
+
+/* CSS page d'accueil*/
+
+*{
+    font-family: 'Poppins'!important;
+}
+
 /* erreurs de formulaire dans les champs */
 .err {
     border: red solid 1px !important;
@@ -24,4 +37,113 @@
     color: #e35f5f !important;
     font-weight: 700;
     font-size: 13px !important;
+}
+
+
+/* les champs du formulaire */
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea{
+    width: 100%;
+    /* margin-bottom: 20px; */
+    padding: 10px !important;
+    /* border-radius: 10px !important; */
+    outline: none !important;
+    font-size: 16px !important;
+    color: #333 !important;
+    /* border: #333 solid 1px; */
+    border: 1px solid #ced4da !important;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus{
+    border: 1px solid #0b5ed7 !important;
+    box-shadow: 0 0 5px #0b5ed7 !important;
+}
+
+/* les botons */
+
+/* .btn-orange, .btn-bleu{
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    transition: 0.3s;
+}
+.btn-orange{
+    color: #000;
+    background-color: #ff8c2e;
+    border-color: #ff8c2e;
+    border: 1px solid #ff8c2e;
+}
+.btn-orange:hover{
+    color: #fff;
+}
+.btn-bleu{
+    color: #fff;
+    background-color: #0b5ed7;
+    border-color: #0b5ed7;
+    border: 1px solid #0b5ed7;
+}
+.btn-bleu:hover{
+    color: #000;
+} */
+
+
+.btn-bleu,
+.btn-vert,
+.btn-orange,
+.btn-blanc{
+    border-radius: 50rem !important;
+    padding: .5rem 1.5rem !important;
+    border-width: 2px !important;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    font-size: 1rem;
+}
+.btn-bleu:hover,
+.btn-vert,
+.btn-orange:hover,
+.btn-blanc:hover{
+    transition: .2s;
+	transform: scale(1.05);
+}
+
+.btn-bleu{
+    border-color: #0b5ed7 !important;
+    background: #0b5ed7 !important;
+    color: #fff !important;
+}
+.btn-orange{
+    border-color: #ff8c2e !important;
+    background: #ff8c2e !important;
+    color: #fff !important;
+}
+.btn-blanc{
+    border-color: #fff !important;
+    background: #fff !important;
+    color: #333 !important;
+}
+
+@media screen and (max-width: 991px) {
+    .border-primary.active,
+    .border-warning.active{
+        padding: .5rem 2rem !important;
+    }
 }

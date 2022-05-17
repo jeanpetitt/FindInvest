@@ -80,14 +80,13 @@
 <div class="contain">
 	<div class='signup active row'>
 		<div class='par text-xxl-center col-md-6'>
-			<p class='text-center'> pour continuer en tant que <b>{{ user.first_name }}</b>
+			<p class='text-center'> pour continuer en tant que <b>{{ user.username }}</b>
 				Choisissez un type de Compte
 			</p>
+			<a class='btn-bleu' href="{% url 'investor_signup' user.id %}">Investisseur</a>
+			<a class='btn-orange ' href="{% url 'student_signup' user.id %}"> Etudiant</a>
 		</div>
-		<div class='a col-md-6'>
-			<a class='btn btn-primary ' href="{% url 'investor_signup' user.id %}">Investisseur</a>
-			<a class='btn btn-success ' href="{% url 'student_signup' user.id %}"> Etudiant</a>
-		</div>
+
 
 	</div>
 </div>
