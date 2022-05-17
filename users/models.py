@@ -85,11 +85,3 @@ class Investisseur(Utilisateur):
     entreprise = models.CharField(max_length=100, blank=True)
     def __str__(self):
         return f'{self.user.username} Profile'
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='Profile')
-    image = models.ImageField(default='default.jpeg', upload_to='photo_profil')
-
-    def __str__(self):
-        return f'{self.user.username} Profile'
