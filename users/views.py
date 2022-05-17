@@ -193,7 +193,7 @@ def student_signup(request, pk):
     
     
 
-    return render(request, 'account/signup_student.html', context)
+    return render(request, 'users/register_student.html', context)
 
 
 
@@ -249,7 +249,7 @@ def investor_signup(request,pk):
         'err1':err1,
         'err2':err2,
     }
-    return render(request, 'account/sinup_investor.html', context)
+    return render(request, 'users/register_investor.html', context)
 
 @login_required(login_url='connexion')
 def update_profile_student(request, id_e):
