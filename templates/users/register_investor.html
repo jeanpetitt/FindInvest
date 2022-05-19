@@ -228,11 +228,11 @@
 	<div class="blueBg">
 		<div class="box un">
 			<h2>Vous avez déja un compte ?</h2>
-			<a class="btn-blanc" href="">Connexion</a>
+			<a class="btn-blanc" href="{% url 'connexion' %}">Connexion</a>
 		</div>
 		<div class="box deux">
 			<h2>Vous avez déja un compte ?</h2>
-			<a class="btn-blanc" href="">Connexion</a>
+			<a class="btn-blanc" href="{% url 'connexion' %}">Connexion</a>
 		</div>
 	</div>
 	<form action="" method="POST">
@@ -382,6 +382,13 @@
 			}
 		});
 	}
+
+	window.addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			document.getElementById("myBtn").click();
+		}
+	});
+	
 	champsForm[1].placeholder="Noms et prénoms*";
 	champsForm[2].placeholder="Profession actuelle*";
 	champsForm[3].placeholder="Votre entreprise (optionnel)";

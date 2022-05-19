@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} FindIvest | Inscription Etudiant {% endblock %}
+{% block title %} FindIvest | Inscription Etudiant porteur de projets {% endblock %}
 
 {% block content %}
   
@@ -229,11 +229,6 @@
 		<div class="box deux">
 			<h2>Vous avez déja un compte ?</h2>
 			<a class="btn-blanc" href="{% url 'connexion' %}">Connexion</a>
-			<a id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" href="">Connexionnnnn</a>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-			    <li><a class="dropdown-item" href="#">Action</a></li>
-			    <li><a class="dropdown-item" href="#">Another action</a></li>
-			</ul>
 		</div>
 	</div>
 	<form action="" method="POST">
@@ -321,6 +316,8 @@
 						padding: 15px 15px 20px;
 					}
 				</style>
+
+				
 				<div class="form-group mb-2">
 					<div class="fom"> 
 						{{user_form.password1}}<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
@@ -371,6 +368,12 @@
 			}
 		});
 	}
+
+	window.addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			document.getElementById("myBtn").click();
+		}
+	});
 
 	champsForm[1].placeholder = "Noms et prénoms*";
 	champsForm[2].placeholder="Nom de l'université*";

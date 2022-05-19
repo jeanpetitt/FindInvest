@@ -14,7 +14,29 @@ from django.contrib.auth.models import User
 # page de connexion
 
 def connexion(request):
-    return render(request, 'users/connexion.html')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                if user.is_authenticated:
+                    logout(request)
+                login(request, user)
+                return HttpResponseRedirect('../accueil')  
+            else:
+                return HttpResponse("L'utilisateur est désactivé")
+        else:
+            msg = messages.info(request, "votre Adresse mail ou votre Mot de passe est incorrect, veuillez réessayer !")
+            context = {
+                'msg':msg
+            }
+            return render(request, 'users/connexion.html', context)
+    else:
+        return render(request, 'users/connexion.html')
+
+
+
 
 # se déconnecter
 @login_required(login_url='connexion')
@@ -242,3 +264,22 @@ def update_profile_investor(request, id_i):
         'err2':err2,
     }
     return render(request, 'users/update_profile_investor.html', context)
+
+
+
+
+# Consulter profil etudiant
+
+def profile_student(request, id_e):
+
+    # identifier l'etudiant
+    etudiant = Etudiant.objects.get(id=id_e)
+
+    # identifier le user
+    user = User.objects.get(id=etudiant.user.id)
+    
+    context = {
+        'etudiant':etudiant,
+        'user':user,
+    }
+    return render(request, 'users/profile_student.html', context)
