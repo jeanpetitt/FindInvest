@@ -167,6 +167,8 @@ def student_signup(request, pk):
             etudiant.user = user
             etudiant.save()
             registered = True
+        if not etudiant.save():
+            logout(request)
             
             # connecter le user
             user_log = authenticate(username=username, password=password)
