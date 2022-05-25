@@ -13,7 +13,7 @@
 
 /* erreurs de formulaire dans les champs */
 .err {
-    border: red solid 1px !important;
+    border: red solid 2px !important;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
     box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.301) !important;
 }
@@ -100,35 +100,31 @@ textarea:focus{
     box-shadow: 0 0 5px #0b5ed7 !important;
 }
 
-/* les botons */
+input[type="text"].err:focus,
+input[type="password"].err:focus,
+input[type="email"].err:focus,
+input[type="tel"].err:focus,
+input[type="date"].err:focus,
+select.err:focus,
+textarea.err:focus{
+    border: red solid 1px !important;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.301) !important;
+}
 
-/* .btn-orange, .btn-bleu{
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    border-radius: .25rem;
-    font-weight: 400;
-    line-height: 1.5;
-    text-align: center;
-    transition: 0.3s;
+input[type="text"].err,
+input[type="password"].err,
+input[type="email"].err,
+input[type="tel"].err,
+input[type="date"].err,
+select.err,
+textarea.err{
+    border: red solid 1px !important;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.301) !important;
 }
-.btn-orange{
-    color: #000;
-    background-color: #ff8c2e;
-    border-color: #ff8c2e;
-    border: 1px solid #ff8c2e;
-}
-.btn-orange:hover{
-    color: #fff;
-}
-.btn-bleu{
-    color: #fff;
-    background-color: #0b5ed7;
-    border-color: #0b5ed7;
-    border: 1px solid #0b5ed7;
-}
-.btn-bleu:hover{
-    color: #000;
-} */
+
+/* les boutons */
 
 
 .btn-bleu,
@@ -174,4 +170,22 @@ textarea:focus{
     .border-warning.active{
         padding: .5rem 2rem !important;
     }
+}
+
+/* les champs du formulaire */
+
+input,
+select{
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #ced4da;
+}
+input:focus,
+select:focus{
+    border: 1px solid #0b5ed7;
+    box-shadow: 0 0 5px #0b5ed7;
 }
