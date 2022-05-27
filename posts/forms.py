@@ -6,4 +6,14 @@ class ProjetForm(forms.ModelForm):
 	class Meta():
 		
 		model = Projet
-		fields = '__all__'
+
+		fields = [
+			'title',
+			'categorie',
+			'media',
+			'image',
+			'investi',
+			'description',
+			'etudiant',
+
+		]

@@ -6,11 +6,21 @@ from django.utils import timezone
 
 # creation de la classe Projet
 
-def load_media(instance, filename):
-    upload_to = 'media/'
-    external = filename.split('.')[-1]
-    if instance.email:
-        filename = "media_name/{}.{}".format(instance.email, external)
+
+
+def posts_image(instance, filename):
+    upload_to = 'images/'
+    ext = filename.split('.')[-1]
+    listExt = ['png', 'jpg', 'tif', 'bmp', 'jpeg', 'gif']
+    if instance.etudiant.user.username:
+        noms = instance.etudiant.user.last_name.split(' ')
+        idUser = instance.etudaint.id
+        n = ""
+        nom_image = ""
+        for nom in noms:
+            n += ("_"+nom)
+        nom_image = (str(idUser)+n)
+        filename = "post_image/{}.{}".format(nom_image, listExt)
         return os.path.join(upload_to, filename)
 
 
@@ -20,18 +30,16 @@ class Projet(models.Model):
         ('Non', 'Non'),
     ]
 
-    title = models.CharField(max_length=200, null=True)
-    categorie = models.CharField(max_length=200)
+    title = models.CharField('Titre du Projet', max_length=200, null=True)
+    categorie = models.CharField('categorie projet', max_length=200)
     media = models.FileField(upload_to='documents/post_doc/', blank=True)
-    image1 = models.ImageField(upload_to='image/post_image/', blank=True)
-    image2 = models.ImageField(upload_to='image/post_image/', blank=True)
-    image3 = models.ImageField(upload_to='image/post_image/', blank=True)
+    image = models.ImageField(upload_to='images/post_image/', blank=True)
     investi = models.CharField(choices=INVESTI, default='Non', max_length=10, blank=True)
 
     description = models.TextField(max_length=500, null=True)
     # un projet ne concerne qu'un etudiant
     etudiant = models.ForeignKey(Etudiant, on_delete=models.CASCADE, related_name='projet')
-    date_post = models.DateTimeField(default=timezone.now, blank=True)
+    date_post = models.DateTimeField('date de publication',default=timezone.now, blank=True)
 
 
     def __str__(self):

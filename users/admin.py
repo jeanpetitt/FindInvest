@@ -3,5 +3,16 @@ from .models import Etudiant, Investisseur
 
 # Register your models here.
 
-admin.site.register(Etudiant)
-admin.site.register(Investisseur)
+class AdminEtudiant(admin.ModelAdmin):
+
+	list_display = ['user', 'universite', 'niveauEtude']
+	list_filter    = ('universite','niveauEtude',)
+
+
+class AdminInvestisseur(admin.ModelAdmin):
+	list_display = ['user', 'profession', 'entreprise']
+	list_filter = ['profession']
+
+
+admin.site.register(Investisseur, AdminInvestisseur)
+admin.site.register(Etudiant, AdminEtudiant)

@@ -133,7 +133,7 @@
  	</div>
 	<div id="pop" class="pop">
 		<div class="form">
-			<form method="post">
+			<form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                     <h2 style="text-align: center; margin-left: 50%;">Cr&eacuteer une publication</h2>
 					<div class="form-group">
@@ -146,11 +146,18 @@
 				  	</div>
 				  	<div class="form-group">
 					    <label>media</label>
-					    {{ projet_form.media }}
+					    {{ projet_form.image }}
 				  	</div>
 				  	<div class="form-group">
 					    {{ projet_form.description }}
 				  	</div>
+                    <div class="form-group">
+                        <select name="etudiant" style="display: none;" required="" id="id_etudiant">
+
+                            <option value="{{ request.user.etudiant.id }}">{{ request.user.etudiant }}</option>
+
+                        </select>
+                    </div>
                 
 				  	<div class="form-group">
 				  		<button type="submit" id='myBtn' class="btn1">publier</button>
@@ -165,9 +172,12 @@
 	</div>
     <div style="margin: 5% 10%;">
         {% for projet in list_projet %}
-        <p>titre: {{ projet.title }}</p>
-        <img src="{{ projet.image1.url }}" width="100" height="100"><br>
-        <sup style="margin-top: 5px;">publier le {{ projet.date_post }}</sup>
+        <p style="margin-bottom: -3px;">titre: {{ projet.title }}</p>
+        <img src="{{ projet.image.url }}" width="200" height="200"><br>
+        <sup style="margin-top: 8px;">publier le {{ projet.date_post }}</sup><br>
+
+        <a class="btn btn-danger" href="{% url 'delete' projet.id %}"> supprimer</a>
+        <span onclick="example()"><a class="btn btn-secondary" href="{% url 'update' projet.id %}">modifier </a></span>
         {% endfor %}
     </div>
     
@@ -197,5 +207,15 @@
         champsForm[1].placeholder="Titre de la publication";
         champsForm[2].placeholder="Categorie";
         champsForm[3].placeholder="Description";
+
+        textAeraChamps = document.getElementsByTagName('textarea');
+        for (let i = 0; i < (selectChamps.length); i++) {
+            extAeraChamps[i].classList.add('form-control');
+        }
+
+
+        function   validateFormEnreg() {
+            var etudiant = document.getElementByName('etudiant')
+        }
       </script>
 {% endblock %}

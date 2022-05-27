@@ -23,6 +23,7 @@ def accueil(request):
     return render(request, 'posts/accueil.html')
 """
 
+
 @login_required(login_url='connexion')
 def accueil(request):
     publied = False
@@ -30,29 +31,25 @@ def accueil(request):
     projet_form = ProjetForm()
     list_projet = []
 
+    # obtenir la liste de tous les projets publiers
     projets = Projet.objects.all()
-    etudiant = request.user.etudiant.id
+    for projet in projets:
+        list_projet.append(projet)
 
     if request.method == "POST":
-        projet_form = ProjetForm(data=request.POST)
+        projet_form = ProjetForm(request.POST, request.FILES)
         if projet_form.is_valid():
-            
-            projet = projet_form.save(commit=False)
-            
+
             # enregistrer dans la BD
-            projet.etudiant = etudiant
+            projet = projet_form.save()
             projet.save()
             
             publied = True
-            print('reussi')
-
             return HttpResponseRedirect('../accueil')
         else:
-            print('echec')
             err = projet_form.errors
 
-    for projet in projets:
-        list_projet.append(projet)
+    
 
     context = {
         'err': err,
@@ -61,4 +58,51 @@ def accueil(request):
         'list_projet': list_projet,
 
     }
-    return render(request, "posts/accueil.html", context)
+    return render(request, "accueil.html", context)
+
+# update de project
+@login_required(login_url='connexion')
+def update_post(request, pk):
+
+    publied = False
+    err = ""
+
+    projet = Projet.objects.get(id=pk)
+
+    projet_form = ProjetForm(instance=projet)
+
+    if request.method == 'POST':
+
+        projet_form = ProjetForm(request.POST, request.FILES, instance=projet)
+
+        if projet_form.is_valid():
+            projet_form.save()
+            publied = True
+            return HttpResponseRedirect('../accueil')
+
+        else:
+            err = projet_form.errors
+
+    context = {
+        'err': err,
+        'projet_form': projet_form,
+        'publied': publied
+    }
+
+    return render(request, 'posts/accueil.html', context)
+
+# delete de project
+@login_required(login_url='connexion')
+def delete_post(request, pk):
+    
+    projet_del = Projet.objects.get(id=pk)
+
+    if request.method == 'POST':
+        projet_del.delete()
+        return HttpResponseRedirect('../accueil')
+
+    context = {
+        'projet_del': projet_del
+    }
+
+    return render(request, 'posts/delete_projet.html', context)
