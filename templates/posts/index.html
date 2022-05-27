@@ -6,6 +6,17 @@
 {% block content %}
 
 <style type="text/css">
+   @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;500;600;700&family=Pacifico&family=Righteous&family=Merienda&display=swap');
+
+    @font-face {
+        font-family: Poppins;
+        src: url(../fonts/Poppins-Regular.ttf);
+    }
+
+    *{
+        font-family: 'Poppins', sans-serif !important;
+    }
+  
 	@media screen and (max-width: 767px){
 		#mainMenu.show{
 			border-top: #ff8c2e solid 2px;
@@ -14,21 +25,27 @@
 		}
 	}
 
-	.main-nav .navbar-toggler {
+	/* .main-nav .navbar-toggler {
         color: orange !important;
         font-size: 25px !important;
-    }
+    } */
     
     .main-nav .navbar-toggler {
         border: none !important;
     }
 
+    @media screen and (max-width: 991px) {
+    	.navbar-toggler i{
+	        font-size: 1.3rem !important;
+	        color: #ff8c2e !important;
+	        border: #ff8c2e solid 2px !important;
+	        padding: 0rem .5rem;
+	        border-radius: 10px;
+	    }
+    }
+
 
 	/* banière page d'accueil DÉBUT */
-
-	h1, h2, h3, h4, h5, h6 {
-	  font-family: "Nunito", sans-serif;
-	}
 
 	#hero {
 	  width: 100%;
@@ -141,17 +158,7 @@
 		position: relative;
 		z-index: 1;
 		text-transform: uppercase;
-	}	
-	/* @media screen and (min-width: 992px) {
-		.nom_appli.fonc{
-			top: 50px;
-		}
 	}
-	@media screen and (max-width: 991px) {
-		.nom_appli{
-			top: -15px;
-		}
-	} */
 	.nom_appli::before{
 		content: '';
 		background: linear-gradient(#0b5ed7, #fff);
@@ -374,9 +381,15 @@
         <a class="navbar-brand text-warning" href="/#hero">
             <img src="{% static 'img/logo.png' %}">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu" aria-controls="mainMenu" aria-expanded="true" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon pt-2"><i class="bi-list"></i></span>
-        </button>
+        <span class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu" aria-controls="mainMenu" aria-expanded="true" aria-label="Toggle navigation">
+          	<!-- <span class="navbar-toggler-icon pt-2"><i class="bi-list"></i></span> -->
+          	<span id="menuO" class="navbar-toggler-icon pt-1">
+	            <i class="bi-list"></i>
+	        </span>
+	        <span id="menuC" class="navbar-toggler-icon pt-1">
+	            <i class="bi-x-lg"></i>
+	        </span>
+        </span>
         <div class="navbar-collapse collapse" id="mainMenu">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
@@ -625,5 +638,22 @@
 		</div>
     </div>
 </footer>
+
+<script type="text/javascript">
+	// changement du bouton menu après click
+
+    var menuO = document.getElementById('menuO');
+    var menuC = document.getElementById('menuC');
+    menuC.style.display = "none";
+
+    menuO.addEventListener('click', function(){
+        menuO.style.display = "none";
+        menuC.style.display = "";
+    });
+    menuC.addEventListener('click', function(){
+        menuO.style.display = "";
+        menuC.style.display = "none";
+    });
+</script>
 
 {% endblock %}

@@ -3,13 +3,7 @@ from .models import Projet
 
 
 class ProjetForm(forms.ModelForm):
-	class Meta:
+	class Meta():
 		
 		model = Projet
-		fields = [
-			'title',
-			'categorie',
-			'media',
-			'description',
-
-		]
+		fields = '__all__'

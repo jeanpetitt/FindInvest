@@ -39,6 +39,36 @@
     font-size: 13px !important;
 }
 
+.errornotes{
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    padding: 10px 12px;
+    color: #e35f5f;
+    border: 1px solid #e35f5f;;
+    border-radius: 4px;
+    background-color: rgb(255, 210, 210);
+    background-position: 5px 12px;
+    overflow-wrap: break-word;
+    /* width: 80%; */
+    margin: auto;
+  }
+  
+  .infonotes{
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    padding: 10px 12px;
+    color: #006b1b;
+    border: 1px solid #006b1b;;
+    border-radius: 4px;
+    background-color: rgb(215, 255, 210);
+    background-position: 5px 12px;
+    overflow-wrap: break-word;
+    /* width: 80%; */
+    margin: auto;
+  }
+
 
 /* les champs du formulaire */
 

@@ -1,31 +1,201 @@
-{% extends 'base.html' %}
-{% load static %}
+ {% extends 'base.html' %}
+ {% load static %}
+ {% block title %} FindIvest | Accueil {% endblock %}
+ {% block content %}
+ 	<style>
+ 		body {
+		  height: 100%;
+		  margin: 0;
+		  padding: 0;
+		  font-family: Arial, Helvetica, sans-serif;
+		  color: #666666;
+		}
+		.pop{
+			visibility: hidden;
+			position: absolute;
+			width: 900px;
+			height: 790px;
+			z-index: 1000;
+			margin-top: -5%;
+			left: 30%;
+		}
+		.pop .form{
+		position: absolute;
+		background: #f2f2f2;
+		top: 0;
+		left: 0;
+		width: 70%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.25);
+		transition: .3s ease-in-out;
+		overflow: hidden;
+		border-radius: 10px;
+		}
+		
+ 		.form .form-group{
+ 			
+ 			margin-left: 20%;
+ 		}
+ 		.form-group input{
+ 			width: 150px;
+		/* margin-bottom: 20px; */
+			padding: 10px;
+			height: 55px;
+			width: 350px;
+			border-radius: 10px;
+			outline: none;
+			font-size: 16px;
+			color: #333;
+			/* border: #333 solid 1px; */
+			border: 1px solid #ced4da;
+ 		}
+ 		/* gestion des bouton */
+ 		.btn1,
+ 		.btn2{
+ 			margin-top: 20px;
+ 			display: flex;
+ 			width: 150px;
+ 			height: 50px;
+ 			font-size: 1.5rem;
+ 			padding: 5px 20px;
+ 			border-radius: 10px;
+ 			}
+ 		.form-group textarea{
+ 			margin-top: 10px;
+ 			min-height: 150px;
+ 			max-height: 400px;
+ 			width: 350px;
+ 		}
+ 		.btn1{
+ 			background: #1b65d5d9;
+ 		}
+ 		.btn2{
+ 			background: orange;
+ 			float: right;
+ 			margin-top: -48px;
+ 			margin-right: -35px;
 
-{% block title %} FindIvest | Accueil {% endblock %}
+ 		}
 
-{% block content %}
-  <br><br><br>
-  <h1>Accueil</h1>
-  <br><br>
+ 		/* lien qui va affichez le modal */
+ 		.btn-modal{
+ 			font-size: 2rem;
+ 			list-style-type: none;
+ 			text-align: center;
+ 			margin-top: 5%;
+ 		}
+ 		.btn-modal a{
+ 			text-decoration: none;
+ 		}
+ 		@media screen and (max-width: 992px){
+ 			.pop{
+ 				max-width: 650px;
+				height: 550px;
+				display: flex;
+				left: 0;
+ 			}
+ 			.form{
+ 				width: 100%;
+				margin: 30px;
+				top: 0;
+				box-shadow: none;
+ 			}
+ 			.form .form-group input{
+ 				width: 300px;
+ 			}
 
-{% if user.is_authenticated %}
-    <h4>Bienvenue <u>{{request.user.last_name}}</u></h4> <br>
-    {% if user.etudiant.id %}
+ 		}
+ 	</style>
+ 		{% if user.is_authenticated %}
+ 			<h1> Bienvenue<u>{{request.user.last_name}}</u></h1>
+ 			{% if user.etudiant.id %}
         <a href="{% url 'update_profile_student' request.user.etudiant.id %}">Modifier profil Etudiant</a> 
-        {{request.user.etudiant.photoProfil.url}}
-        <br>
-    {% endif %}
-    {% if user.investisseur.id %}
-        <a href="{% url 'update_profile_investor' request.user.investisseur.id %}">Modifier profil Investisseur</a> 
-        {{request.user.investisseur.photoProfil.url}}
-        <br><br>
-    {% endif %}
+	        {{request.user.etudiant.photoProfil.url}}
+	    <br>
+	        <a href="{% url 'profile_student' request.user.etudiant.id %}">Profil etudiant</a>
+	        <br>
+	    {% endif %}
+	    {% if user.investisseur.id %}
+	        <a href="{% url 'update_profile_investor' request.user.investisseur.id %}">Modifier profil Investisseur</a> 
+	        {{request.user.investisseur.photoProfil.url}}
+	        <br><br>
+	    {% endif %}
 
-    <a href="{% url 'user_logout' %}">se déconnecter</a>
-
-{% endif %} 
-
+	    <a href="{% url 'user_logout' %}">se déconnecter</a>
+	  {% endif %} 
 
 
 
+ 	<div class="btn-modal" id="show">
+		<a href="#" onclick="example()" >Publiez un projet</a>
+ 	</div>
+	<div id="pop" class="pop">
+		<div class="form">
+			<form method="post">
+                {% csrf_token %}
+                    <h2 style="text-align: center; margin-left: 50%;">Cr&eacuteer une publication</h2>
+					<div class="form-group">
+					    <label>titre </label>
+					    {{ projet_form.title }}
+				  	</div>
+				  	<div class="form-group">
+					    <label>categorie</label>
+					    {{ projet_form.categorie }}
+				  	</div>
+				  	<div class="form-group">
+					    <label>media</label>
+					    {{ projet_form.media }}
+				  	</div>
+				  	<div class="form-group">
+					    {{ projet_form.description }}
+				  	</div>
+                
+				  	<div class="form-group">
+				  		<button type="submit" id='myBtn' class="btn1">publier</button>
+                        {{ err }}
+				  		<button onclick="example()" class="btn2">annuler</button>
+					</div>
+				  	
+			
+		  
+			</form>
+		</div>
+	</div>
+    <div style="margin: 5% 10%;">
+        {% for projet in list_projet %}
+        <p>titre: {{ projet.title }}</p>
+        <img src="{{ projet.image1.url }}" width="100" height="100"><br>
+        <sup style="margin-top: 5px;">publier le {{ projet.date_post }}</sup>
+        {% endfor %}
+    </div>
+    
+	<script>
+        function example() {
+          el = document.getElementById("pop");
+          el.style.visibility = el.style.visibility == "visible" ? "hidden" : "visible";
+          a = document.getElementById("show");
+          a.style.visibility = a.style.visibility == "hidden"? "visible": "hidden";
+          
+        }
+        champsForm = document.getElementsByTagName('input');
+        for (let i = 0; i < (champsForm.length-1); i++) {
+            champsForm[i].classList.add('form-control');
+            champsForm[i].addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    document.getElementById("myBtn").click();
+                }
+            });
+        }
+        window.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                document.getElementById("myBtn").click();
+            }
+        });
+        champsForm[1].placeholder="Titre de la publication";
+        champsForm[2].placeholder="Categorie";
+        champsForm[3].placeholder="Description";
+      </script>
 {% endblock %}

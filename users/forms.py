@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from .models import Etudiant, Investisseur
 
 
-
 # formulaire pour DJANGO user
 class UserForm(UserCreationForm):
     class Meta():
@@ -41,7 +40,7 @@ class EtuForm(forms.ModelForm):
     #  implemnter la methode save
 
     # def save(self, commit=True):
-        
+
 
 # formulaire pour Investisseur
 class InvestForm(forms.ModelForm):
