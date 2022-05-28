@@ -40,8 +40,8 @@
                     <p class="text-muted">@tOm</p>
                 </div>
                 {% if user.is_authenticated %}
-                        {% comment %} <a href="{% url 'profile_student' request.user.etudiant.id %}">Mon profil Etu</a> {% endcomment %}
-                        <a href="{% url 'profile_investor' request.user.investisseur.id %}">Mon profil Inv</a>
+                        <a href="{% url 'profile_student' request.user.etudiant.id %}">Mon profil Etu</a>
+                        {% comment %} <a href="{% url 'profile_investor' request.user.investisseur.id %}">Mon profil Inv</a> {% endcomment %}
                 {% endif %}
             </a>
 
