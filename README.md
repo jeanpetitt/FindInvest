@@ -27,10 +27,10 @@ PROFIL MOA:
 
     * Etudiant
 
-    Je me nomme KOMBOU Dilane, +237659066573.
-    Je suis étudiant à l'université de Yaoundé 1. Je suis un développeur très ambitieux qui possède plusieurs idées
-    de projets que je souhaiterais mettre sur la marché et me faire une palce dans le monde professipnnel. Pour celà
-    j'aura besoin de présenter mes projets aux investisseurs désireux miser sur des projets innovants: Une plateforme
+
+    Je suis étudiant à l'université de Yaoundé 1. Très ambitieux, je possède plusieurs idées
+    de projets que je souhaiterais mettre sur la marché et me faire une place dans le monde professipnnel. Pour cela
+    j'aurai besoin de présenter mes projets aux investisseurs désirant miser sur des projets innovants: Une plateforme
     où tout étudiant pourrais presenter ses projets aux yeux de tous serait très bénéfique pour moi et pour mes camarades étudiants.
     
     * Investisseur
