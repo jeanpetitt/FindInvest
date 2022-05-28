@@ -387,6 +387,11 @@
         </span>
         <div class="navbar-collapse collapse" id="mainMenu">
             <ul class="navbar-nav ms-auto">
+				{% if user.is_authenticated %}
+					<li class="nav-item">
+						<a href="{% url 'accueil' %}" class="nav-link active mx-1 text-secondary">Acceuil</a>
+					</li>
+				{% endif %}
                 <li class="nav-item">
                     <a href="/#about" class="nav-link active mx-1 text-secondary">A propos</a>
                 </li>
@@ -553,6 +558,20 @@
 					</p>
 					<a class="btn-bleu" href="{% url 'register_investor' %}">S'inscrire comme investisseur</a>
 				</div>
+			</div>
+
+			<!-- inscription via les reseaux sociaux-->
+			{% comment %} {% load socialaccount %} {% endcomment %}
+
+			<div class="col-lg-5 mx-auto text-center mt-5">
+				<div class="box_inscrip px-3 py-5 p-lg-5">
+					<h3>S'incrire via <br><br></h3>
+					
+					<a style='margin-right: 10px;' href=""><img class='img-social' src ="{% static 'img/Google.png'%}" height=50 width=50></a>
+					&emsp;
+					<a  href=""><img class='img-social' src ="{% static 'img/GitHub.png'%}" height=50 width=50></a>
+				</div>
+				
 			</div>
 		</div>
 	</div>

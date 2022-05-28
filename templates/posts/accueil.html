@@ -20,7 +20,7 @@
         <div class="create">
             <label class="btn btn-primary" for="create-post">Create</label>
             <div class="profile-photo">
-                <img src="./images/profile-1.jpg" alt="">
+                <img src="{% static 'images/profile-1.jpg' %}" alt="">
             </div>
         </div>
     </div>
@@ -33,12 +33,16 @@
         <div class="left">
             <a class="profile">
                 <div class="profile-photo">
-                    <img src="./images/profile-1.jpg" alt="">
+                    <img src="{% static 'images/profile-1.jpg' %}" alt="">
                 </div>
-                <div class="handle">
+                <div  class="handle">
                     <h4>Tom michel</h4>
                     <p class="text-muted">@tOm</p>
                 </div>
+                {% if user.is_authenticated %}
+                        {% comment %} <a href="{% url 'profile_student' request.user.etudiant.id %}">Mon profil Etu</a> {% endcomment %}
+                        <a href="{% url 'profile_investor' request.user.investisseur.id %}">Mon profil Inv</a>
+                {% endif %}
             </a>
 
             <!-- ---------- sidebar ---------- -->

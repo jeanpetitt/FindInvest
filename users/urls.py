@@ -13,4 +13,5 @@ urlpatterns = [
     path('profile_student/<str:id_e>', profile_student, name="profile_student"),
     # path('update_profile_i/<str:id_i>', update_profile_investor, name="update_profile_investor"),
     path('update_profile_i', update_profile_investor, name="update_profile_investor"),
+    path('profile_investor/<str:id_i>', profile_investor, name="profile_investor"),
 ]

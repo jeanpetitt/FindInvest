@@ -346,10 +346,27 @@ def profile_student(request, id_e):
     etudiant = Etudiant.objects.get(id=id_e)
 
     # identifier le user
-    user = User.objects.get(id=etudiant.user.id)
+    util = User.objects.get(id=etudiant.user.id)
     
     context = {
         'etudiant':etudiant,
-        'user':user,
+        'util':util,
     }
     return render(request, 'users/profile_student.html', context)
+
+
+
+
+
+#consulter profil investisseur
+
+@login_required(login_url='connexion')
+def profile_investor(request,id_i):
+    investor=Investisseur.objects.get(id=id_i)
+    util=User.objects.get(id=investor.user.id)
+    context={
+        'util':util,
+        'investor':investor,
+    }
+    return render(request, 'users/profile_investor.html',context)
+
