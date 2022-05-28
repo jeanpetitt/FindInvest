@@ -1,10 +1,325 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} FindRepeater | Inscription {% endblock %}
+{% block title %} FindInvest | Inscription {% endblock %}
 
 {% block content %}
-  <br><br><br>
-  <h1>Inscription</h1>
+
+<style>
+	@font-face {
+		font-family: Poppins;
+		src: url(fonts/Poppins-Regular.ttf);
+	}
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-size: 'Poppins', sans-serif;
+	}
+	body{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+		/* background: #0b5ed7; */
+		transition: 0.5s; 
+	}
+	body.active{
+		/* background: #ff8c2e; */
+	}
+	.contain{
+		position: relative;
+		width: 800px;
+		height: 500px;
+		margin: 20px;
+	}
+	.blueBg{
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		/* background: rgba(255, 255, 255, 0.2); */
+		background: #0b5ed7;
+		width: 100%;
+		height: 420px;
+		top: 40px;
+		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.15);
+		border-radius: 10px;
+	}
+	.blueBg .box{
+		position: relative;
+		width: 50%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.blueBg .box h2{
+		color: #fff;
+		font-size: 1.2rem;
+		font-weight: 500;
+		margin-bottom: 10px;
+	}
+	.box a{
+		padding: 10px 20px;
+		background: #fff;
+		border-radius: 10px;
+		font-size: 16px;
+		font-weight: 500;
+		border: none;
+		color: #333;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.formBx{
+		position: absolute;
+		background: #fff;
+		top: 0;
+		left: 0;
+		width: 50%;
+		height: 100%;
+		z-index: 1000;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.25);
+		transition: .3s ease-in-out;
+		overflow: hidden;
+		border-radius: 10px;
+	}
+	.formBx.active{
+		left: 50%;
+	}
+	.formBx .form{
+		position: absolute;
+		left: 0;
+		padding: 50px;
+		width: 100%;
+		transition: .5s;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	.formBx .registerForm1{
+		transition-delay: .2s;
+	}
+	.formBx.active .registerForm1{
+		left: -100%;
+		transition-delay: 0s;
+	}
+	.formBx .registerForm2{
+		left: 100%;
+		transition-delay: 0s;
+	}
+	.formBx.active .registerForm2{
+		left: 0;
+		transition-delay: .2s;
+	}
+	.formBx .form h3{
+		font-size: 1.5rem;
+		color: #333;
+		font-weight: 500;
+		margin-bottom: 20px;
+	}
+	.formBx .form input,
+	.formBx .form select{
+		width: 100%;
+		margin-bottom: 20px;
+		padding: 10px;
+		border-radius: 10px;
+		outline: none;
+		font-size: 16px;
+		/* border: #333 solid 1px; */
+		border: 1px solid #ced4da;
+	}
+	.formBx .form input:focus,
+	.formBx .form select:focus{
+		border: 1px solid #0b5ed7;
+		box-shadow: 0 0 5px #0b5ed7;
+	}
+	.form .btnForm{
+		padding: 10px 20px;
+		background: #0b5ed7;
+		border-radius: 10px;
+		font-size: 16px;
+		font-weight: 500;
+		border: none !important;
+		color: #fff;
+		cursor: pointer;
+		max-width: 100px;
+	}
+	.precedentBtn{
+		color: #333;
+		cursor: pointer;
+	}
+	.precedentBtn:hover{
+		color: rgb(107, 107, 107);
+	}
+	.precedentBtn{
+		margin-left: 40%;
+	}
+
+	@media screen and (max-width:991px) {
+		.contain{
+			max-width: 400px;
+			height: 650px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.contain .blueBg{
+			top: 0;
+			height: 100%;
+		}
+		.formBx{
+			width: 100%;
+			height: 500px;
+			top: 0;
+			box-shadow: none; 
+		}
+		.blueBg .box{
+			position: absolute;
+			width: 100%;
+			height: 150px;
+			bottom: 0;
+		}
+		.box.un{
+			top: 0;
+		}
+		.formBx.active{
+			left: 0;
+			top: 150px;
+		}
+
+		.precedentBtn{
+			margin-left: 20%;
+		}
+	}
+</style>
+
+<div class="contain">
+	<div class="blueBg">
+		<div class="box un">
+			<h2>Vous avez déja un compte ?</h2>
+			<a href="">Connexion</a>
+		</div>
+		<div class="box deux">
+			<h2>Vous avez déja un compte ?</h2>
+			<a href="">Connexion</a>
+		</div>
+	</div>
+	<form action="" method="POST">
+		{% csrf_token %}
+
+		<div class="formBx">
+			<div class="form registerForm1">
+				<h3>Inscription (1/2)</h3>
+				<input type="text" name="" id="" placeholder="Noms et prénoms">
+				<input type="text" name="" id="" placeholder="Niveau d'étude">
+				<input type="text" name="" id="" placeholder="Nom de l'université">
+				<select name="" id="">
+					<option value="Ville de résidence">Ville de résidence</option>
+				</select>
+				<span class="btnForm suivantBtn">Suivant</span>
+			</div>
+			<div class="form registerForm2">
+				<h3>Inscription (2/2)</h3>
+				<input type="email" name="" id="" placeholder="Adresse email">
+				<span style="font-size: 13px; font-style: italic; color: #333;">&emsp;(avec indicatif du pays, ex: +237)</span>
+				<input type="tel" name="" id="" placeholder="Numéro de téléphone">
+
+				<style>
+					.form-group {
+						position: relative;
+					}
+					.fom {
+					  align-items: center !important;
+					  display: flex;
+					}
+					.far {
+					  position: absolute;
+					  top: 15px;
+					  right: 4%;
+					  cursor: pointer;
+					  color: rgb(48, 48, 48);
+					  font-size: 20px;
+					}
+		
+					/* @media screen and (max-width: 991px) {
+					  .far {
+						right: 4%;
+					  }
+					}
+		
+					@media screen and (max-width: 767px) {
+					  .far {
+						right: 3%;
+					  }
+					} */
+				</style>
+				<div class="form-group">
+					<div class="fom"> 
+						<input type="password" name="id_password1" id="id_password1" placeholder="Mot de passe"><i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
+					</div>
+				</div>
+				<input type="password" name="id_password2" id="id_password2" placeholder="Confirmer mot de passe">
+				<div class="">
+					<input class="btnForm" type="submit" value="Enregister">
+					<span class="precedentBtn">Précédent</span>
+				</div> 
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+	const suivantBtn = document.querySelector('.suivantBtn');
+	const precedentBtn = document.querySelector('.precedentBtn');
+	const formBx = document.querySelector('.formBx');
+	const body = document.querySelector('body');
+
+	suivantBtn.onclick = function() {
+		formBx.classList.add('active');
+		body.classList.add('active');
+	}
+	precedentBtn.onclick = function() {
+		formBx.classList.remove('active');
+		body.classList.remove('active');
+	}
+
+	champsForm = document.getElementsByTagName('input');
+	for (let i = 0; i < (champsForm.length-1); i++) {
+		champsForm[i].classList.add('form-control');
+		
+	}
+
+	// affichage/masquage du mdp
+
+	var password1 = document.getElementById('id_password1');
+	var password2 = document.getElementById('id_password2');
+
+	var eyeVisible = document.querySelector('.fa-eye');
+	var eyeHidden = document.querySelector('.fa-eye-slash');
+	
+	eyeHidden.style.display = "none";
+	
+	function affiMdp() {
+		if (password1.type === "password") {
+		eyeHidden.style.display = "";
+		eyeVisible.style.display = "none";
+		password1.type = 'text';
+		password2.type = 'text';
+		// alert('mdp vers text');
+		} else {
+		eyeHidden.style.display = "none";
+		eyeVisible.style.display = "";
+		password1.type = 'password';
+		password2.type = 'password';
+		// alert('text vers mdp');
+		}
+	}
+</script>
 
 {% endblock %}

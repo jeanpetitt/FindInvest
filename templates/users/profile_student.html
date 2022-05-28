@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} FindInvest | Profil Etudiant {% endblock %}
+
+{% block content %}
+  
+<style>
+
+    .contain{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        position: relative;
+    }
+    .profil{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px 5px rgba(0, 0, 0, 0.459);
+    }
+
+    @media screen and (min-width: 992px) {
+        
+        .barre{
+            position: relative;
+            left: 0;
+            width: 300px;
+            position: relative;
+            height: 500px;
+            background: #ff8c2e;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+        }
+        .image{
+            position: relative;
+            left: -150px;
+        }
+        .image img{
+            width: 300px;
+            height: 300px;
+        }
+        .desc{
+            position: relative;
+            width: 300px;
+            left: -100px;
+        }
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+        .profil{
+            margin: 0 100px;
+        }
+        .barre{
+            position: relative;
+            top: 0;
+            width: 100%;
+            position: relative;
+            height: 200px;
+            background: #ff8c2e;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .image{
+            position: relative;
+            top: -150px;
+        }
+        .image img{
+            width: 300px;
+            height: 300px;
+        }
+        .desc{
+            position: relative;
+            width: 500px;
+            margin: 0 50px;
+            top: -100px;
+        }
+        .contain{
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .profil{
+            position: relative;
+            margin: 0 10px;
+        }
+        .barre{
+            position: relative;
+            width: 100%;
+            position: relative;
+            height: 200px;
+            background: #ff8c2e;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .image{
+            position: relative;
+            top: -100px;
+        }
+        .image img{
+            width: 300px;
+            height: 250px;
+        }
+        .desc{
+            position: relative;
+            margin: 0 15px;
+            top: -50px;
+        }
+    }
+
+    .image img{
+        border-radius: 20px;
+        /* box-shadow: 0 10px 25px 5px rgba(0, 0, 0, 0.459); */
+    }
+
+    body{
+        background: #ff8c2e !important;
+    }
+
+</style>
+
+<div class="contain">
+    <div class="profil">
+        <div class="barre">
+            <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi ratione doloribus vel similique enim perferendis, itaque magnam hic aperiam, quis molestias labore ea. Nisi at quaerat, sed exercitationem eos dolore. -->
+        </div>
+        <div class="image">
+            <img src="{{ etudiant.photoProfil.url }}" alt="">
+        </div>
+        <div class="desc">
+            <h1>Description</h1>
+            <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo incidunt aperiam nam est dolorem dolor error. Accusantium perferendis quod neque aperiam blanditiis laudantium, accusamus sed, ad quo, quaerat optio. Porro.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim molestiae ullam necessitatibus explicabo officiis minima possimus eum incidunt fugiat fuga magni eos, consectetur ratione consequatur eius distinctio non eveniet sequi.
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,343 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} FindInvest | Connexion {% endblock %}
+
+{% block content %}
+<style>
+	@font-face {
+		font-family: Poppins;
+		src: url(fonts/Poppins-Regular.ttf);
+	}
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-size: 'Poppins', sans-serif;
+	}
+	body{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+		/* background: #0b5ed7; */
+		transition: 0.5s; 
+	}
+	.contain{
+		position: relative;
+		width: 800px;
+		height: 500px;
+		margin: 20px;
+	}
+	.blueBg{
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #ff8c2ebd;
+		width: 50%;
+		left: 49%;
+		height: 400px;
+		top: 50px;
+		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.308);
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+	.blueBg .box{
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.blueBg .box h2{
+		color: #fff;
+		font-size: 1.2rem;
+		font-weight: 500;
+		margin-bottom: 10px;
+	}
+
+	.formBx{
+		position: absolute;
+		background: rgba(255, 255, 255, 0.767);
+		top: 0;
+		left: 0;
+		width: 50%;
+		height: 100%;
+		z-index: 1000;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.25);
+		transition: .3s ease-in-out;
+		overflow: hidden;
+		border-radius: 10px;
+	}
+	.formBx.active{
+		left: 50%;
+	}
+	.formBx .form{
+		position: absolute;
+		left: 0;
+		padding: 50px;
+		width: 100%;
+		transition: .5s;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	.formBx .registerForm1{
+		transition-delay: .2s;
+	}
+	.formBx.active .registerForm1{
+		left: -100%;
+		transition-delay: 0s;
+	}
+	.formBx .form h3{
+		font-size: 1.5rem;
+		color: #333;
+		font-weight: 500;
+		margin-bottom: 10px;
+	}
+	.formBx .form h3 i{
+		color: #ff8c2e;
+	}
+
+	.formBx .form input,
+	.formBx .form select{
+		width: 100%;
+		/* margin-bottom: 20px; */
+		padding: 10px;
+		border-radius: 10px;
+		outline: none;
+		font-size: 16px;
+		color: #333;
+		/* border: #333 solid 1px; */
+		border: 1px solid #ced4da;
+	}
+	.formBx .form input:focus,
+	.formBx .form select:focus{
+		border: 1px solid #ff8c2e;
+		box-shadow: 0 0 5px #ff8c2e;
+	}
+	
+	.precedentBtn{
+		color: #333;
+		cursor: pointer;
+	}
+	.precedentBtn:hover{
+		color: rgb(107, 107, 107);
+	}
+
+	@media screen and (max-width:991px) {
+		.contain{
+			max-width: 400px;
+			height: 550px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			top: -80px;
+		}
+		.contain .blueBg{
+			top: 90%;
+			height: 30%;
+			width: 100%;
+			left: 0%;
+			border-top-left-radius: 0px;
+			border-top-right-radius: 0px;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+		
+		.formBx{
+			width: 100%;
+			height: 500px;
+			top: 0;
+			box-shadow: none;
+			border-bottom-left-radius: 0px;
+			border-bottom-right-radius: 0px; 
+		}
+		.blueBg .box{
+			position: absolute;
+			width: 100%;
+			height: 150px;
+			bottom: 0;
+		}
+		.box.un{
+			top: 0;
+		}
+		.formBx.active{
+			left: 0;
+			top: 150px;
+		}
+	}
+	.fas{
+		color: #ff8c2e !important;
+		font-size: 2rem;
+	}
+
+	select{
+		height: 41px !important;
+	}
+
+	body{
+		background-image: url(../../static/img/bg_con.jpg);
+		background-attachment: fixed;
+		background-repeat: repeat;
+		background-size: cover;
+	}
+
+	/* @media screen and (min-width: 992px) {
+		.blueBg{
+			background: #0b5dd7e3;
+		}
+	} */
+
+	.btn-bleu{
+		max-width: 150px;
+	}
+</style>
+
+<div class="contain">
+	<div class="blueBg">
+		<div class="box deux">
+			<h2>Vous n'avez pas de compte ?</h2>
+			<a class="btn-blanc" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" href="">S'inscrire</a>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+			    <li><a class="dropdown-item" href="{% url 'register_student' %}">Etudiant</a></li>
+			    <li><a class="dropdown-item" href="{% url 'register_investor' %}">Investisseur</a></li>
+			</ul>
+		</div>
+	</div>
+	<form name="formConnexion" onsubmit="return validateFormConnex()" action="" method="POST">
+		{% csrf_token %}
+
+		<div class="formBx">
+			<div class="form registerForm1">
+				<h3><i class="fa-solid fa-arrow-right-to-bracket"></i> Connexion</h3>
+                <p></p><p></p>
+
+				<div class="mb-2">
+					{% for message in messages %}
+					  <p class="errornotes">{{message}}</p>
+					{% endfor %}
+	  
+					{% if user.is_authenticated %}
+					<p class="infonotes text-center pt-2">
+					  Vous êtes déja connecté en tant que <b>{{request.user.username}} 
+					</p>
+					{% endif %}
+				</div>
+
+                <input class="form-control" type="text" name="username" id="username" placeholder="Adresse email">
+                <p>
+					<span class="errorform" id="error_username"></span>
+				</p>
+
+                <style>
+					.form-group {
+						position: relative;
+					}
+					.fom {
+					  align-items: center !important;
+					  display: flex;
+					}
+					.far {
+					  position: absolute;
+					  top: 15px;
+					  right: 4%;
+					  cursor: pointer;
+					  color: rgb(48, 48, 48);
+					  font-size: 20px;
+					}
+				</style>
+
+				<div class="form-group mb-2">
+					<div class="fom"> 
+						<input class="form-control connect"  type="password" name="password" id="password" placeholder="Mot de passe">
+						<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
+					</div>
+					<p>
+						<span class="errorform" id="error_password"></span>
+					</p>
+				</div>
+                
+				<div class="mt-2">
+					{% if user.is_authenticated %}
+						<a class="btn-orange" href="{% url 'user_logout' %}">Déconnexion</a>
+					{% endif %}
+
+					{% if not user.is_authenticated %}
+						<input class="btn-orange" type="submit" id="myBtn" value="Connexion">
+						<p class="text-center mt-4">
+							<!-- <a data-bs-toggle="modal" data-bs-target="#mdp_oublie" href="{% url 'reset_pwd' %}">Mot de passe oublié ?</a> -->
+							<!-- <a href="{% url 'reset_pwd' %}">Mot de passe oublié ?</a> -->
+							<a href="{% url 'reset_password' %}">Mot de passe oublié ?</a>
+						</p>
+					{% endif %}
+  				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+    // affichage/masquage du mdp
+
+	var password1 = document.getElementById('password');
+
+	var eyeVisible = document.querySelector('.fa-eye');
+	var eyeHidden = document.querySelector('.fa-eye-slash');
+	
+	eyeHidden.style.display = "none";
+	
+	function affiMdp() {
+		if (password1.type === "password") {
+		eyeHidden.style.display = "";
+		eyeVisible.style.display = "none";
+		password1.type = 'text';
+		} else {
+		eyeHidden.style.display = "none";
+		eyeVisible.style.display = "";
+		password1.type = 'password';
+		}
+	}
+
+	// validation formulaire de connexion  
+
+	function validateFormConnex() {
+		var username = document.forms["formConnexion"]["username"];       
+		var password = document.forms["formConnexion"]["password"];
+
+		if (username.value == ""){ 
+			document.getElementById('error_username').innerHTML="*veuillez saisir votre d'utilisateur";  
+			username.focus();
+			// document.querySelector('.usernameC').classList.add('err');
+			username.classList.add('err');
+			return false; 
+		}else{
+			username.classList.remove('err');
+			document.getElementById('error_username').innerHTML="";  
+		}
+
+		if (password.value == ""){ 
+			document.getElementById('error_password').innerHTML="*veuillez saisir un votre mot de passe";  
+			password.focus();
+			password.classList.add('err');
+			return false; 
+		}else{
+			password.classList.remove('err');
+			document.getElementById('error_password').innerHTML="";  
+		}
+	}
+
+	window.addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			document.forms["formConnexion"].onsubmit();
+		}
+	});
+</script>
+
+{% endblock %}

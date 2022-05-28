@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;500;600;700&family=Pacifico&family=Righteous&family=Merienda&display=swap');
+
+@font-face {
+    font-family: Poppins;
+    src: url(../fonts/Poppins-Regular.ttf);
+}
+
+/* CSS page d'accueil*/
+
+*{
+    font-family: 'Poppins'!important;
+}
+
+/* erreurs de formulaire dans les champs */
+.err {
+    border: red solid 2px !important;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.301) !important;
+}
+.errorform{
+    padding-top: 5px;
+    font-size: 14px;
+    display: block;
+    margin: 0 0 0px 0;
+    color: #e35f5f;
+    overflow-wrap: break-word;
+    font-weight: 700;
+    font-size: 13px;
+}
+  
+.errorlist {
+    padding: 3px 0 8px !important;
+    margin: 0 !important;
+}
+.errorlist >li {
+    display: block;
+    color: #e35f5f !important;
+    font-weight: 700;
+    font-size: 13px !important;
+}
+
+.errornotes{
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    padding: 10px 12px;
+    color: #e35f5f;
+    border: 1px solid #e35f5f;;
+    border-radius: 4px;
+    background-color: rgb(255, 210, 210);
+    background-position: 5px 12px;
+    overflow-wrap: break-word;
+    /* width: 80%; */
+    margin: auto;
+  }
+  
+  .infonotes{
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    padding: 10px 12px;
+    color: #006b1b;
+    border: 1px solid #006b1b;;
+    border-radius: 4px;
+    background-color: rgb(215, 255, 210);
+    background-position: 5px 12px;
+    overflow-wrap: break-word;
+    /* width: 80%; */
+    margin: auto;
+  }
+
+
+/* les champs du formulaire */
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea{
+    width: 100%;
+    /* margin-bottom: 20px; */
+    padding: 10px !important;
+    /* border-radius: 10px !important; */
+    outline: none !important;
+    font-size: 16px !important;
+    color: #333 !important;
+    /* border: #333 solid 1px; */
+    border: 1px solid #ced4da !important;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus{
+    border: 1px solid #0b5ed7 !important;
+    box-shadow: 0 0 5px #0b5ed7 !important;
+}
+
+input[type="text"].err:focus,
+input[type="password"].err:focus,
+input[type="email"].err:focus,
+input[type="tel"].err:focus,
+input[type="date"].err:focus,
+select.err:focus,
+textarea.err:focus{
+    border: red solid 1px !important;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.301) !important;
+}
+
+input[type="text"].err,
+input[type="password"].err,
+input[type="email"].err,
+input[type="tel"].err,
+input[type="date"].err,
+select.err,
+textarea.err{
+    border: red solid 1px !important;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.301) !important;
+}
+
+/* les boutons */
+
+
+.btn-bleu,
+.btn-orange,
+.btn-blanc{
+    border-radius: 50rem !important;
+    padding: .5rem 1.5rem !important;
+    border-width: 2px !important;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    font-size: 1rem;
+}
+.btn-bleu:hover,
+.btn-orange:hover,
+.btn-blanc:hover{
+    transition: .2s;
+	transform: scale(1.05);
+}
+
+.btn-bleu{
+    border-color: #0b5ed7 !important;
+    background: #0b5ed7 !important;
+    color: #fff !important;
+}
+.btn-orange{
+    border-color: #ff8c2e !important;
+    background: #ff8c2e !important;
+    color: #fff !important;
+}
+.btn-blanc{
+    border-color: #fff !important;
+    background: #fff !important;
+    color: #333 !important;
+}
+
+@media screen and (max-width: 991px) {
+    .border-primary.active,
+    .border-warning.active{
+        padding: .5rem 2rem !important;
+    }
+}
+
+/* les champs du formulaire */
+
+input,
+select{
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #ced4da;
+}
+input:focus,
+select:focus{
+    border: 1px solid #0b5ed7;
+    box-shadow: 0 0 5px #0b5ed7;
+}

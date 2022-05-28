@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} FindIvest | Titre de la page {% endblock %}
+{% block title %} FindInvest | Recherche d'investissement {% endblock %}
 
 {% block content %}
   <br><br>

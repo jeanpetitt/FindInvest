@@ -1,0 +1,417 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} FindIvest | Inscription Etudiant porteur de projets {% endblock %}
+
+{% block content %}
+  
+<style>
+	@font-face {
+		font-family: Poppins;
+		src: url(fonts/Poppins-Regular.ttf);
+	}
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-size: 'Poppins', sans-serif;
+	}
+	body{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+		/* background: #0b5ed7; */
+		transition: 0.5s; 
+	}
+	body.active{
+		/* background: #ff8c2e; */
+	}
+	.contain{
+		position: relative;
+		width: 900px;
+		height: 550px;
+		margin: 20px;
+	}
+	.blueBg{
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		/* background: rgba(255, 255, 255, 0.2); */
+		background: #0b5ed7;
+		width: 100%;
+		height: 420px;
+		top: 65px;
+		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.308);
+		border-radius: 10px;
+	}
+	.blueBg .box{
+		position: relative;
+		width: 50%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.blueBg .box h2{
+		color: #fff;
+		font-size: 1.2rem;
+		font-weight: 500;
+		margin-bottom: 10px;
+	}
+	/* .box a{
+		padding: 10px 20px;
+		background: #fff;
+		border-radius: 10px;
+		font-size: 16px;
+		font-weight: 500;
+		border: none;
+		color: #333;
+		text-decoration: none;
+		cursor: pointer;
+	} */
+
+	.formBx{
+		position: absolute;
+		background: #fff;
+		top: 0;
+		left: 0;
+		width: 50%;
+		height: 100%;
+		z-index: 1000;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.479);
+		transition: .3s ease-in-out;
+		overflow: hidden;
+		border-radius: 10px;
+	}
+	.formBx.active{
+		left: 50%;
+	}
+	.formBx .form{
+		position: absolute;
+		left: 0;
+		padding: 50px;
+		width: 100%;
+		transition: .5s;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	.formBx .registerForm1{
+		transition-delay: .2s;
+	}
+	.formBx.active .registerForm1{
+		left: -100%;
+		transition-delay: 0s;
+	}
+	.formBx .registerForm2{
+		left: 100%;
+		transition-delay: 0s;
+	}
+	.formBx.active .registerForm2{
+		left: 0;
+		transition-delay: .2s;
+	}
+	.formBx .form h3{
+		font-size: 1.5rem;
+		color: #333;
+		font-weight: 500;
+		margin-bottom: 10px;
+	}
+	.formBx .form h3 i{
+		color: #0b5ed7;
+	}
+
+	.formBx .form input,
+	.formBx .form select{
+		width: 100%;
+		/* margin-bottom: 20px; */
+		padding: 10px;
+		border-radius: 10px;
+		outline: none;
+		font-size: 16px;
+		color: #333;
+		/* border: #333 solid 1px; */
+		border: 1px solid #ced4da;
+	}
+	.formBx .form input:focus,
+	.formBx .form select:focus{
+		border: 1px solid #0b5ed7;
+		box-shadow: 0 0 5px #0b5ed7;
+	}
+	
+	.precedentBtn{
+		color: #333;
+		cursor: pointer;
+	}
+	.precedentBtn:hover{
+		color: rgb(107, 107, 107);
+	}
+
+	@media screen and (max-width:991px) {
+		.contain{
+			max-width: 400px;
+			height: 800px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.contain .blueBg{
+			top: 0;
+			height: 100%;
+		}
+		.formBx{
+			width: 100%;
+			height: 650px;
+			top: 0;
+			box-shadow: none; 
+		}
+		.blueBg .box{
+			position: absolute;
+			width: 100%;
+			height: 150px;
+			bottom: 0;
+		}
+		.box.un{
+			top: 0;
+		}
+		.formBx.active{
+			left: 0;
+			top: 150px;
+		}
+	}
+	.fas{
+		color: #0b5ed7 !important;
+		font-size: 2rem;
+	}
+
+	select{
+		height: 41px !important;
+	}
+
+	body{
+		background-image: url(../../static/img/bg_reg.jpg);
+		background-attachment: fixed;
+		background-repeat: repeat;
+		background-size: cover;
+	}
+
+	@media screen and (min-width: 992px) {
+		.blueBg{
+			/* opacity: .8; */
+			background: #0b5dd7e3;
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		.formBx .form{
+			padding: 30px 20px;
+		}
+	}
+
+	.btn-bleu{
+		max-width: 150px;
+	}
+</style>
+
+
+<div class="contain">
+	<div class="blueBg">
+		<div class="box un">
+			<h2>Vous avez déja un compte ?</h2>
+			<a class="btn-blanc" href="{% url 'connexion' %}">Connexion</a>
+		</div>
+		<div class="box deux">
+			<h2>Vous avez déja un compte ?</h2>
+			<a class="btn-blanc" href="{% url 'connexion' %}">Connexion</a>
+		</div>
+	</div>
+	<form action="" method="POST">
+		{% csrf_token %}
+
+		{% if util == "" %}
+		<div class="formBx">
+		{% endif %}
+		{% if util != "" %}
+		<div class="formBx active">
+		{% endif %}
+			<div class="form registerForm1">
+				<h3><i class="fas fa-user-graduate"></i> Inscription (1/2)</h3>
+				<p></p>
+				{{user_form.last_name}}
+				<p><span class="errorform" id="error_last_nameEtu"></span></p>
+				{{etu_form.niveauEtude}}
+				<p><span class="errorform" id="error_niveauEtudeEtu"></span></p>
+				{{etu_form.universite}}
+				<p><span class="errorform" id="error_univEtu"></span></p>
+				{{etu_form.ville}}
+				<p><span class="errorform" id="error_villeEtu"></span></p>
+				<span style="font-size: 13px; color: #333; margin-bottom: 3px;">&emsp;(avec indicatif du pays, ex: +237)</span>
+				
+				{% if num_tel != "" %}
+				<input type="tel" value="{{num_tel}}" name="telephone" maxlength="200" required="" id="id_telephone" class="form-control" placeholder="Numéro de téléphone*">
+				{% endif %}
+				{% if num_tel == "" %}
+				<input type="tel" name="telephone" maxlength="200" required="" id="id_telephone" class="form-control" placeholder="Numéro de téléphone*">
+				{% endif %}
+				<p><span class="errorform" id="error_telephoneEtu"></span></p>
+				<p></p>
+				<span class="btn-bleu suivantBtnEtu">Suivant</span>
+			</div>
+			<div class="form registerForm2">
+				<h3><i class="fas fa-user-graduate"></i> Inscription (2/2)</h3>
+				<p></p>
+				{% if user_form.username.errors %}
+					<span class="errorform">Un utilisateur avec cette addresse existe déjà.</span>
+				{% endif %}
+				{{user_form.email}}
+				<p><span class="errorform" id="error_emailEtu"></span></p>
+				
+				<span style="display: none;">
+					{{user_form.username}}
+				</span>
+				
+				<style>
+					.form-group {
+						position: relative;
+					}
+					.fom {
+					  align-items: center !important;
+					  display: flex;
+					}
+					.far {
+					  position: absolute;
+					  top: 15px;
+					  right: 4%;
+					  cursor: pointer;
+					  color: rgb(48, 48, 48);
+					  font-size: 20px;
+					}
+				</style>
+				<!-- 
+				Votre mot de passe ne peut pas trop ressembler à vos autres informations personnelles.
+				Votre mot de passe doit contenir au minimum 8 caractères.
+				Votre mot de passe ne peut pas être un mot de passe couramment utilisé.
+				Votre mot de passe ne peut pas être entièrement numérique.
+				-->
+
+				<style>
+					#id_question, #id_reponse{
+						border-top: none !important;
+						border-left: none !important;
+						border-right: none !important;
+						border-radius: 0 !important;
+						box-shadow: none !important;
+						font-size: 15px !important;
+						/* border-bottom: #0b5ed7 solid 1px; */
+					}
+					#id_question:focus, #id_reponse:focus{
+						border-bottom: #0b5ed7 solid 1px !important;
+					}
+					.secure{
+						border-radius: 10px;
+						border: #ced4da solid 1px;
+						padding: 15px 15px 20px;
+					}
+				</style>
+
+				
+				<div class="form-group mb-2">
+					<div class="fom"> 
+						{{user_form.password1}}<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
+					</div>
+				</div>
+				{{user_form.password2}}
+				{{user_form.password2.errors}}
+				<span class="secure mt-2" id="quest_rep">
+					<span style="font-size: 14px; color: #333; margin-bottom: 2px;" class="mt-4">Définissez une question à poser en cas d'oublie de votre mot de passe*</span>
+					{{etu_form.question}}
+					<p></p>
+					{{etu_form.reponse}}
+				</span>
+				<p><span class="errorform" id="error_questionEtu"></span></p>
+				
+				
+				<div class="mt-2">
+					<input class="btn-bleu" type="submit" id="myBtn" onclick="return validateFormEnreg();" value="Enregister">
+					<span class="precedentBtn ms-5">Précédent</span>
+				</div> 
+				
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+
+
+
+	champsForm = document.getElementsByTagName('input');
+	for (let i = 0; i < (champsForm.length-1); i++) {
+		champsForm[i].classList.add('form-control');
+		champsForm[i].addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+			    event.preventDefault();
+			    document.getElementById("myBtn").click();
+			}
+		});
+	}
+	selectChamps = document.getElementsByTagName('select');
+	for (let i = 0; i < (selectChamps.length); i++) {
+		selectChamps[i].classList.add('form-control');
+		selectChamps[i].addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+			    event.preventDefault();
+			    document.getElementById("myBtn").click();
+			}
+		});
+	}
+
+	window.addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			document.getElementById("myBtn").click();
+		}
+	});
+
+	champsForm[1].placeholder = "Noms et prénoms*";
+	champsForm[2].placeholder="Nom de l'université*";
+	champsForm[3].placeholder="Ville de résidence*";
+	champsForm[4].placeholder="Numéro de téléphone*";
+	champsForm[5].placeholder="Adresse email*";
+	champsForm[7].placeholder="Mot de passe*";
+	champsForm[8].placeholder="Confirmer mot de passe*";
+	champsForm[9].placeholder="Votre question :";
+	champsForm[10].placeholder="Votre réponse :";
+
+	// affichage/masquage du mdp
+
+	var password1 = document.getElementById('id_password1');
+	var password2 = document.getElementById('id_password2');
+
+	var eyeVisible = document.querySelector('.fa-eye');
+	var eyeHidden = document.querySelector('.fa-eye-slash');
+	
+	eyeHidden.style.display = "none";
+	
+	function affiMdp() {
+		if (password1.type === "password") {
+		eyeHidden.style.display = "";
+		eyeVisible.style.display = "none";
+		password1.type = 'text';
+		password2.type = 'text';
+		} else {
+		eyeHidden.style.display = "none";
+		eyeVisible.style.display = "";
+		password1.type = 'password';
+		password2.type = 'password';
+		}
+	}
+    
+</script>
+
+{% endblock %}
