@@ -5,7 +5,6 @@ from users.models import *
 from .forms import ProjetForm
 from .models import Projet
 
-
 # Create your views here.
 
 
@@ -58,7 +57,7 @@ def accueil(request):
         'list_projet': list_projet,
 
     }
-    return render(request, "accueil.html", context)
+    return render(request, "posts/accueil.html", context)
 
 # update de project
 @login_required(login_url='connexion')
@@ -85,11 +84,12 @@ def update_post(request, pk):
 
     context = {
         'err': err,
+        'projet':projet,
         'projet_form': projet_form,
         'publied': publied
     }
 
-    return render(request, 'posts/accueil.html', context)
+    return render(request, 'posts/update_post.html', context)
 
 # delete de project
 @login_required(login_url='connexion')

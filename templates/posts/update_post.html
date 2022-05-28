@@ -2,7 +2,6 @@
 {% load static %}
 {% block title %} FindIvest | Accueil {% endblock %}
 
-
 {% block content %}
 
 
@@ -49,7 +48,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   margin: auto;
   border: 1px solid #888;
   width: 28%;
-  height: 75%;
+  height: 80%;
 }
 
 /* le bouton x de fermeture du modal */
@@ -135,9 +134,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
     }
 </style>
 
-<br>
+
 <!-- button qui ouvre le modal -->
-<button id="myBtn" class="btn btn-primary">publier</button>
+<br>
+<button id="myBtn" class="btn btn-secondary">modifier</button>
 
 <!-- la div  Modal -->
 <div id="myModal" class="modal">
@@ -149,7 +149,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
       <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
           <span class="close">&times;</span>
-          <h2 style="text-align: center; margin-left: 50px; margin-top: 10px;">Cr&eacuteer une publication</h2>
+          <h2 style="text-align: center; margin-left: 50px; margin-top: 10px;">modifier le projet {{ projet.title}} </h2>
           <div class="form-group">
               <label>titre </label>
               {{ projet_form.title }}
@@ -158,12 +158,17 @@ body {font-family: Arial, Helvetica, sans-serif;}
               <label>categorie</label>
               {{ projet_form.categorie }}
             </div>
+            
             <div class="form-group">
-              <label>media</label>
-              {{ projet_form.image }}
+            <a href="/media/images/post_image/278579277_727274298705621_824190993923983777_n.jpg" style="display: none;" class="text-center">images/post_image/278579277_727274298705621_824190993923983777_n.jpg</a>
+            <input type="checkbox" name="image-clear" style="display: none;" id="image-clear_id">
+            <label for="image-clear_id" style="display: none;">Effacer</label><br>
+
+            <input type="file" name="image" accept="image/*" id="id_image" value="{{ projet.image }}">
             </div>
+
             <div class="form-group">
-              <textarea name="description" cols="40" rows="10" maxlength="500" required="" id="id_description"></textarea>
+              <textarea name="description" cols="40" rows="10" maxlength="500" required="" id="id_description">{{ projet.description}}</textarea>
             </div>
                     <div class="form-group">
                         <select name="etudiant" style="display: none;" required="" id="id_etudiant">
@@ -186,23 +191,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
   </div>
 
 </div>
-
- <div style="margin: 5% 10%;">
-    {% for projet in list_projet %}
-        {% if not projet.image.url %}
-          <p style="margin-bottom: -3px;">titre: {{ projet.title }}</p>
-        {% else %}
-          <p style="margin-bottom: -3px;">titre: {{ projet.title }}</p>
-          <img src="{{ projet.image.url }}" width="200" height="200"><br>
-        {% endif %}
-        <sup style="margin-top: 8px;">publier le {{ projet.date_post }}</sup><br>
-
-        <a class="btn btn-danger" href="{% url 'delete' projet.id %}"> supprimer</a>
-        <a class="btn btn-secondary" href="{% url 'update' projet.id %}">modifier </a>
-    {% endfor %}
-</div>
 <script>
 // obtenir le modal
+
 var modal = document.getElementById("myModal");
 
 // obtnenir le bouton qui ouvre le modal
@@ -234,7 +225,11 @@ window.onclick = function(event) {
   }
 }
 
+
+
+
 </script>
 {% endblock %}
+
 
 
