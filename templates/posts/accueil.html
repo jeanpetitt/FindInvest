@@ -9,8 +9,12 @@
 <!-- ============== NAV ================= -->
 <nav>
     <div class="container">
-        <h2 class="log">
+        <!-- <h2 class="log">
             FindInvest
+        </h2> -->
+        <h2 class="log">
+            <span style="opacity: 0; visibility: hidden;">FindInvest</span>
+            <img src="./images/logo1.png" alt="">
         </h2>
         <div class="search-bar">
             <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
@@ -20,7 +24,7 @@
         <div class="create">
             <label class="btn btn-primary" for="create-post">Create</label>
             <div class="profile-photo">
-                <img src="{% static 'images/profile-1.jpg' %}" alt="">
+                <img src="./images/profile-1.jpg" alt="">
             </div>
         </div>
     </div>
@@ -33,22 +37,21 @@
         <div class="left">
             <a class="profile">
                 <div class="profile-photo">
-                    <img src="{% static 'images/profile-1.jpg' %}" alt="">
+                    <img src="./images/profile-1.jpg" alt="">
                 </div>
-                <div  class="handle">
+                <div class="handle">
                     <h4>Tom michel</h4>
                     <p class="text-muted">@tOm</p>
                 </div>
-                {% if user.is_authenticated %}
-                        <a href="{% url 'profile_student' request.user.etudiant.id %}">Mon profil Etu</a>
-                        {% comment %} <a href="{% url 'profile_investor' request.user.investisseur.id %}">Mon profil Inv</a> {% endcomment %}
-                {% endif %}
             </a>
 
             <!-- ---------- sidebar ---------- -->
             <div class="sidebar">
-                <a class="menu-item active">
+                <!-- <a class="menu-item active">
                     <span><i class="uil uil-home"></i></span><h3>Home</h3>
+                </a> -->
+                <a class="menu-item" id="messages-notifications">
+                    <span><i class="uil uil-envelope"><small class="notifications-count">6</small></i></span><h3>Messages</h3>
                 </a>
                 <a class="menu-item" id="notifications">
                     <span><i class="uil uil-bell"><small class="notifications-count">9+</small></i></span><h3>Notifications</h3>
@@ -56,7 +59,7 @@
                     <div class="notifications-popup">
                         <div>
                             <div class="profile-photo">
-                                <img src="./images/profile-2.jpg" alt="">
+                                <img src="./images/tm.jpg" alt="">
                             </div>
                             <div class="notifications-body">
                                 <b>Flavie Daniella</b> commened on your post
@@ -102,9 +105,6 @@
                     </div>
                     <!-- ------------ end notifications popup -------------- -->
                 </a>
-                <a class="menu-item" id="messages-notifications">
-                    <span><i class="uil uil-envelope"><small class="notifications-count">6</small></i></span><h3>Messages</h3>
-                </a>
                 <a class="menu-item">
                     <span><i class="uil uil-folder"></i></span><h3>Mes projets</h3>
                 </a>
@@ -114,12 +114,12 @@
                 <a class="menu-item">
                     <span><i class="uil uil-users-alt"></i></span><h3>Abonnées</h3>
                 </a>
-                <a class="menu-item">
+                <a class="menu-item" id="theme">
                     <span><i class="uil uil-palette"></i></span><h3>Thème</h3>
                 </a>
-                <a class="menu-item">
+                <!-- <a class="menu-item">
                     <span><i class="uil uil-setting"></i></span><h3>Paramètres</h3>
-                </a>
+                </a> -->
             </div>
 
             <!-- ------------ end of sidebar --------- -->
@@ -131,10 +131,40 @@
         <!-- ============== MIDDLE =============== -->
         <div class="middle">
             <!-- ---------- stories --------------- -->
-            <div class="stories">
+            <!-- <div class="stories">
                 <div class="story">
                     <div class="profile-photo">
-                        <img src="{% static 'images/profile-8.jpg' %}" alt="">
+                        <img src="{% static 'images/profile-1.jpg' %}" alt="">
+                    </div>
+                    <p class="name">Flavie Daniella</p>
+                </div>
+                <div class="story">
+                    <div class="profile-photo">
+                        <img src="./images/profile-11.jpg" alt="">
+                    </div>
+                    <p class="name">Bikim Yvelos</p>
+                </div>
+                <div class="story">
+                    <div class="profile-photo">
+                        <img src="./images/profile-12.jpg" alt="">
+                    </div>
+                    <p class="name">Nguete Dave</p>
+                </div>
+                <div class="story">
+                    <div class="profile-photo">
+                        <img src="./images/profile-13.jpg" alt="">
+                    </div>
+                    <p class="name">Nguete Dave</p>
+                </div>
+                <div class="story">
+                    <div class="profile-photo">
+                        <img src="./images/profile-13.jpg" alt="">
+                    </div>
+                    <p class="name">Nguete Dave</p>
+                </div>
+               <div class="story">
+                    <div class="profile-photo">
+                        <img src="./images/profile-8.jpg" alt="">
                     </div>
                     <p class="name">Tom Michel</p>
                 </div>
@@ -162,13 +192,14 @@
                     </div>
                     <p class="name">Nguete Dave</p>
                 </div>
+           
                 <div class="story">
                     <div class="profile-photo">
                         <img src="./images/profile-13.jpg" alt="">
                     </div>
                     <p class="name">Nguete Dave</p>
                 </div>
-            </div>
+            </div> -->
             <!-- ---------- end of stories --------------- -->
             <form class="create-post">
                 <div class="profile-photo">
@@ -431,22 +462,23 @@
 
         <!-- ============== RIGHT =============== -->
         <div class="right">
+            <!-- -------- catégories ---------- -->
             <div class="categories">
                 <div class="heading">
-                    <h4>Projets</h4>
-                    <i class="uil uil-0-plus"></i>
+                   <h4>Projets</h4>
+                   <i class="uil uil-0-plus"></i>
                 </div>
 
                 <!-- ---------- search bar ------------- -->
                 <div class="search-bar">
                     <i class="uil uil-search"></i>
-                    <input type="search" name="" id="category-search" placeholder="Recherche par types">
+                    <input type="search" name="" id="category-search" placeholder="Rechercher...">
                 </div>
                 <!-- -------- project categrories --------- -->
                 <div class="category">
-                    <h6 class="active">Types</h6>
-                    <h6>Plus Aimés</h6>
-                    <h6 class="invest-projects">Investis(6)</h6>
+                   <h6 class="active">Types</h6>
+                   <h6>Plus Aimés</h6>
+                   <h6 class="invest-projects">Investis(6)</h6>
                 </div>
                 <!-- ----------- projects lines ------------ -->
                 <div class="project-line">
@@ -466,7 +498,7 @@
                 <!-- ----------- projects lines ------------ -->
                 <div class="project-line">
                     <div class="project-body">
-                        <h5>Informatique</h5>
+                        <h5>Santé</h5>
                         <p class="text-muted">10 projets publiés</p>
                     </div>
                     <span class="">
@@ -477,7 +509,7 @@
                 <!-- ----------- projects lines ------------ -->
                 <div class="project-line">
                     <div class="project-body">
-                        <h5>Informatique</h5>
+                        <h5>Immobilier</h5>
                         <p class="text-muted">10 projets publiés</p>
                     </div>
                     <span class="">
@@ -546,7 +578,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+           </div>
         </div>
         <!-- ============== END OF RIGTH =============== -->
     </div>
@@ -555,6 +587,7 @@
 <!-- ==================== THEME CUSTOMIZATION ======================= -->
 <div class="customize-theme">
     <div class="carte">
+        <span class="bt-close"><i class="uil uil-multiply" id="close_modal"></i></span>
         <h2>Changez votre affichage</h2>
         <p class="text-muted">Gérez vos texte, couleurs, et arrière-plan</p>
 
@@ -565,8 +598,9 @@
                 <h6>Aa</h6>
                 <div class="choose-size">
                     <span class="font-size-1"></span>
-                    <span class="font-size-2 active"></span>
-                    <span class="font-size-3"></span>
+                    <span class="font-size-2"></span>
+                    <span class="font-size-3 active"></span>
+                    <span class="font-size-4"></span>
                 </div>
                 <h3>Aa</h3>
             </div>
@@ -578,7 +612,8 @@
             <div class="choose-color">
                 <span class="color-1 active"></span>
                 <span class="color-2"></span>
-                <span class="color-2"></span>
+                <span class="color-3"></span>
+                <span class="color-4"></span>
             </div>
         </div>
 
@@ -586,15 +621,15 @@
         <div class="background">
             <h4>Arrière-plan</h4>
             <div class="choose-bg">
-                <div class="bg-1 active">
+                <div class="bg bg-1 active">
                     <span></span>
                     <h5 for="bg-1">Clair</h5>
                 </div>
-                <div class="bg-2">
+                <div class="bg bg-2">
                     <span></span>
                     <h5 for="bg-2">Sombre</h5>
                 </div>
-                <div class="bg-3">
+                <div class="bg bg-3">
                     <span></span>
                     <h5 for="bg-3">Noir</h5>
                 </div>
