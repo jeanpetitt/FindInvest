@@ -561,15 +561,15 @@
 			</div>
 
 			<!-- inscription via les reseaux sociaux-->
-			{% comment %} {% load socialaccount %} {% endcomment %}
+			{% load socialaccount %}
 
 			<div class="col-lg-5 mx-auto text-center mt-5">
 				<div class="box_inscrip px-3 py-5 p-lg-5">
 					<h3>S'incrire via <br><br></h3>
 					
-					<a style='margin-right: 10px;' href=""><img class='img-social' src ="{% static 'img/Google.png'%}" height=50 width=50></a>
+					<a style='margin-right: 10px;' href="{% provider_login_url 'google' action='reauthenticate' %}"><img class='img-social' src ="{% static 'img/Google.png'%}" height=50 width=50></a>
 					&emsp;
-					<a  href=""><img class='img-social' src ="{% static 'img/GitHub.png'%}" height=50 width=50></a>
+					<a  href="{% provider_login_url 'github'  %}"><img class='img-social' src ="{% static 'img/GitHub.png'%}" height=50 width=50></a>
 				</div>
 				
 			</div>

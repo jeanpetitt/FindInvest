@@ -25,13 +25,9 @@ Travail réalisé dans le cadre des UEs:
 PROFIL MOA:
 -----------
 
-    * Etudiant
-
-
-    Je suis étudiant à l'université de Yaoundé 1. Très ambitieux, je possède plusieurs idées
-    de projets que je souhaiterais mettre sur la marché et me faire une place dans le monde professipnnel. Pour cela
-    j'aurai besoin de présenter mes projets aux investisseurs désirant miser sur des projets innovants: Une plateforme
-    où tout étudiant pourrais presenter ses projets aux yeux de tous serait très bénéfique pour moi et pour mes camarades étudiants.
-    
-    * Investisseur
-
+	Tout entrepreneur investisseur, Ingénieur, etc.. souhaite augmenter ses capitaux en misant sur des projets prométeurs qui 
+	peuvent lui rapporter un bon bénéfice. De part leur créativité et leur imagination, les étudiants semblent être la meilleure 
+	cible faire gagner beaucoup d'argent décidant décidant de concrétiser certain de leurs projets en y fournissant les fonds (investir) 
+	pour la mise en production.
+	Il est donc nécessaire de disposer d'une plateforme, où les etudiants peuvent venir y exposer leurs idées de projets aux 
+	yeux de potentiels investisseurs.
