@@ -37,6 +37,7 @@ PROFIL MOA:
 MODULE 1 : GESTION DES UTILISATEURS
 -----------------------------------
 
+
 Ce module conerne la gestion des utilisateur (visteurs, étudiants, investisseurs), c'est-à-dire tous les
 services agissant sur les profils utilisateurs.
 
@@ -46,3 +47,6 @@ Il permet aux viteurs d'effectuer les tâches suivantes :
 	- Consulter son profil : afin de véfier ses informations;
 	- Modifier son profil : mettre à jour ses informations;
 	- Se déconnecter : redevenir un simple visiteur.
+
+
+
