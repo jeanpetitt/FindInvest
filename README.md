@@ -31,3 +31,18 @@ PROFIL MOA:
 	pour la mise en production.
 	Il est donc nécessaire de disposer d'une plateforme, où les etudiants peuvent venir y exposer leurs idées de projets aux 
 	yeux de potentiels investisseurs.
+
+
+
+MODULE 1 : GESTION DES UTILISATEURS
+-----------------------------------
+
+Ce module conerne la gestion des utilisateur (visteurs, étudiants, investisseurs), c'est-à-dire tous les
+services agissant sur les profils utilisateurs.
+
+Il permet aux viteurs d'effectuer les tâches suivantes :
+	- S'inscrire : créer un compte etudiant ou investisseur;
+	- Se connecter : nécessaire pour éffectuer certaines action (publier, commenter, liker, etc.. un projet);
+	- Consulter son profil : afin de véfier ses informations;
+	- Modifier son profil : mettre à jour ses informations;
+	- Se déconnecter : redevenir un simple visiteur.
