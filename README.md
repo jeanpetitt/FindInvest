@@ -25,13 +25,28 @@ Travail réalisé dans le cadre des UEs:
 PROFIL MOA:
 -----------
 
-    * Etudiant
+	Tout entrepreneur investisseur, Ingénieur, etc.. souhaite augmenter ses capitaux en misant sur des projets prométeurs qui 
+	peuvent lui rapporter un bon bénéfice. De part leur créativité et leur imagination, les étudiants semblent être la meilleure 
+	cible faire gagner beaucoup d'argent décidant décidant de concrétiser certain de leurs projets en y fournissant les fonds (investir) 
+	pour la mise en production.
+	Il est donc nécessaire de disposer d'une plateforme, où les etudiants peuvent venir y exposer leurs idées de projets aux 
+	yeux de potentiels investisseurs.
 
 
-    Je suis étudiant à l'université de Yaoundé 1. Très ambitieux, je possède plusieurs idées
-    de projets que je souhaiterais mettre sur la marché et me faire une place dans le monde professipnnel. Pour cela
-    j'aurai besoin de présenter mes projets aux investisseurs désirant miser sur des projets innovants: Une plateforme
-    où tout étudiant pourrais presenter ses projets aux yeux de tous serait très bénéfique pour moi et pour mes camarades étudiants.
-    
-    * Investisseur
+
+MODULE 1 : GESTION DES UTILISATEURS
+-----------------------------------
+
+
+Ce module conerne la gestion des utilisateur (visteurs, étudiants, investisseurs), c'est-à-dire tous les
+services agissant sur les profils utilisateurs.
+
+Il permet aux viteurs d'effectuer les tâches suivantes :
+	- S'inscrire : créer un compte etudiant ou investisseur;
+	- Se connecter : nécessaire pour éffectuer certaines action (publier, commenter, liker, etc.. un projet);
+	- Consulter son profil : afin de véfier ses informations;
+	- Modifier son profil : mettre à jour ses informations;
+	- Se déconnecter : redevenir un simple visiteur.
+
+
 
