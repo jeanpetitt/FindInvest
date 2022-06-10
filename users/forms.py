@@ -15,7 +15,24 @@ class UserForm(UserCreationForm):
             'password1',
             'password2'
         ]
-
+# formulaire pour modifier DJANGO user
+class UserUpadateForm(forms.ModelForm):
+    class Meta():
+        model = User
+        fields = [
+            'username',
+            'last_name',
+            'email',
+        ]
+#  formulaire pour définir le nouveau password
+class PwdUpdateForm(forms.ModelForm):
+    class Meta():
+        model = User
+        fields = [
+            'username',
+            # 'password1',
+            # 'password2'
+        ]
 
 # formulaire pour Etudiant
 class EtuForm(forms.ModelForm):

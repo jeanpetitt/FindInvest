@@ -1,9 +1,11 @@
+from distutils.command.sdist import sdist
+from multiprocessing import context
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserForm, EtuForm, InvestForm
+from .forms import UserForm, EtuForm, InvestForm, UserUpadateForm, PwdUpdateForm
 from .models import Etudiant, Investisseur
 from django.contrib.auth.models import User
 
@@ -34,6 +36,92 @@ def connexion(request):
             return render(request, 'users/connexion.html', context)
     else:
         return render(request, 'users/connexion.html')
+
+
+
+# reinitialiser mot de passe
+
+def reset_pwd(request):
+    err = ""
+    question = ""
+    rep = ""
+    existe = False
+    listEtu = []
+    listInv = []
+    for etu in Etudiant.objects.all():
+        listEtu.append(etu.user.username)
+    for inv in Investisseur.objects.all():
+        listInv.append(inv.user.username)
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        methode = request.POST.get('methode')
+        reponse = request.POST.get('reponse')
+
+        # if methode == "1":
+        
+        for user in User.objects.all():
+            if user.username == username:
+                if username in listEtu:
+                    question = user.etudiant.question
+                    rep = user.etudiant.reponse
+                elif username in listInv:
+                    question = user.investisseur.question
+                    rep = user.investisseur.reponse
+                existe = True
+                break
+
+        if existe:
+            if reponse == rep:
+                return HttpResponseRedirect("new_password")
+            else:
+                err = messages.error(request, "Réponse incorrecte, Veuillez réessayer !")
+            context = {
+                'username':username,
+                'question':question,
+                'rep':rep,
+                'existe':existe,
+                'err':err
+            }
+            return render(request, 'users/reset_password.html', context)
+        else:
+            err = messages.error(request, "Il n'existe pas un utilisateur ayant cette adresse email. Veuillez réessayer !")
+            context = {
+                'err':err,
+                'existe':existe
+            }
+            return render(request, 'users/reset_password.html', context)
+    else:
+        return render(request, 'users/reset_password.html')
+       
+
+
+
+# définir le nouveau mot de passe
+
+def new_password(request):
+    pwd_form = PwdUpdateForm()
+    if request.method == 'POST':
+        existe = False
+        username = request.POST.get('username')
+        for use in User.objects.all():
+            if use.username == username:
+                pwd_form = PwdUpdateForm(data=request.POST, instance=use)
+                break
+
+        # pwd_form = PwdUpdateForm(data=request.POST)
+        
+        if pwd_form.is_valid():
+
+            # enregistrer dans la BD
+            pwd = pwd_form.save()
+            pwd.save()
+            return HttpResponseRedirect("connexion")
+            
+    return render(request, 'users/new_password.html')
+
+
+
 
 
 # se déconnecter
@@ -265,24 +353,14 @@ def investor_signup(request, pk):
 
 
 @login_required(login_url='connexion')
-def update_profile_student(request, id_e):
+def update_profile_student(request):
     err1 = ''
     err2 = ''
-    registered = False
-    etuList = Etudiant.objects.all()
-
-    # identifier un étudiant spécifique par son id
-    etudiant = Etudiant.objects.get(id=id_e)
-
-    # identifier le user associé à cet etudiant, par son id
-    user = User.objects.get(id=etudiant.user.id)
-
-    # remplir le formulaire avec les info de l'etudiant
-    etu_form = EtuForm(instance=etudiant)
-    user_form = UserForm(instance=user)
+    etu_form = EtuForm(instance=request.user.etudiant)
+    user_form = UserUpadateForm(instance=request.user)
     if request.method == "POST":
-        etu_form = EtuForm(request.POST, request.FILES, instance=etudiant)
-        user_form = UserForm(data=request.POST, instance=user)
+        etu_form = EtuForm(request.POST, request.FILES, instance=request.user.etudiant)
+        user_form = UserUpadateForm(data=request.POST, instance=request.user)
         username = request.POST.get('username')
         password = request.POST.get('password1')
 
@@ -294,8 +372,7 @@ def update_profile_student(request, id_e):
             etudiant = etu_form.save(commit=False)
             etudiant.user = user
             etudiant.save()
-            registered = True
-
+            
             # connecter le user
             user_log = authenticate(username=username, password=password)
             if user_log:
@@ -309,36 +386,34 @@ def update_profile_student(request, id_e):
             err2 = etu_form.errors
 
     context = {
-        'registered': registered,
-        'user_form': user_form,
-        'etu_form': etu_form,
-        'err1': err1,
-        'err2': err2,
+        'user_form':user_form,
+        'etu_form':etu_form,
+        'err1':err1,
+        'err2':err2,
     }
     return render(request, 'users/update_profile_student.html', context)
 
 
-# page modifier profil
+
+# page modifier profil investisseur
 
 @login_required(login_url='connexion')
-def update_profile_investor(request, id_i):
+def update_profile_investor(request):
     err1 = ''
     err2 = ''
-    registered = False
-    investList = Investisseur.objects.all()
 
     # identifier un étudiant spécifique par son id
-    investisseur = Investisseur.objects.get(id=id_i)
-
+    # investisseur = Investisseur.objects.get(id=id_i)
+    
     # identifier le user associé à cet investissuer, par son id
-    user = User.objects.get(id=investisseur.user.id)
-
+    # user = User.objects.get(id=investisseur.user.id)
+    
     # remplir le formulaire avec les info de l'etudiant
-    invest_form = InvestForm(instance=investisseur)
-    user_form = UserForm(instance=user)
+    invest_form = InvestForm(instance=request.user.investisseur)
+    user_form = UserUpadateForm(instance=request.user)
     if request.method == "POST":
-        invest_form = InvestForm(request.POST, request.FILES, instance=investisseur)
-        user_form = UserForm(data=request.POST, instance=user)
+        invest_form = InvestForm(request.POST, request.FILES, instance=request.user.investisseur)
+        user_form = UserUpadateForm(data=request.POST, instance=request.user)
         username = request.POST.get('username')
         password = request.POST.get('password1')
 
@@ -350,8 +425,7 @@ def update_profile_investor(request, id_i):
             investisseur = invest_form.save(commit=False)
             investisseur.user = user
             investisseur.save()
-            registered = True
-
+            
             # connecter le user
             user_log = authenticate(username=username, password=password)
             if user_log:
@@ -365,11 +439,10 @@ def update_profile_investor(request, id_i):
             err2 = invest_form.errors
 
     context = {
-        'registered': registered,
-        'user_form': user_form,
-        'invest_form': invest_form,
-        'err1': err1,
-        'err2': err2,
+        'user_form':user_form,
+        'invest_form':invest_form,
+        'err1':err1,
+        'err2':err2,
     }
     return render(request, 'users/update_profile_investor.html', context)
 
@@ -381,10 +454,26 @@ def profile_student(request, id_e):
     etudiant = Etudiant.objects.get(id=id_e)
 
     # identifier le user
-    user = User.objects.get(id=etudiant.user.id)
-
+    util = User.objects.get(id=etudiant.user.id)
+    
     context = {
-        'etudiant': etudiant,
-        'user': user,
+        'etudiant':etudiant,
+        'util':util,
     }
     return render(request, 'users/profile_student.html', context)
+
+
+
+
+
+#consulter profil investisseur
+
+@login_required(login_url='connexion')
+def profile_investor(request,id_i):
+    investor=Investisseur.objects.get(id=id_i)
+    util=User.objects.get(id=investor.user.id)
+    context={
+        'util':util,
+        'investor':investor,
+    }
+    return render(request, 'users/profile_investor.html',context)
