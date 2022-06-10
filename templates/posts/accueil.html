@@ -66,7 +66,9 @@
                 <!-- <a class="menu-item active">
                     <span><i class="uil uil-home"></i></span><h3>Home</h3>
                 </a> -->
-                <a class="menu-item" id="messages-notifications">
+
+                <!-- lance le modal des discussions -->
+                <a class="menu-item" id="messages-notifications"  data-bs-toggle="modal" data-bs-target="#discussionModal">
                     <span><i class="uil uil-envelope"><small class="notifications-count">6</small></i></span><h3>Messages</h3>
                 </a>
                 <a class="menu-item" id="notifications">
@@ -548,22 +550,25 @@
                 <!-- ----------- Discussions ------------ -->
                 <div class="discussions">
                     <h4>Discussions</h4>
-                    <div class="discussion">
+                    <div class="discussion" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#discussionModal">
                         <div class="info">
                             <div class="profile-photo">
                                 <img src="{% static 'images/profile-14.jpg' %}">
                             </div>
                             <div>
                                 <span>
-                                    <h5>Nom Investisseur (2)</h5>
+                                    <h5>Mes discussions (12)</h5>
                                 </span>
                                 <p class="text-muted">
-                                    Application de recherche d'investissement
+                                    12 personnes
+                                </p>
+                                <p class="text-muted">
+                                    <b>Sujets :</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam perferendis repudiandae repellat quidem tempore voluptatibus enim distinctio est nesciunt eveniet.
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div class="discussion">
+                    <!-- <div class="discussion">
                         <div class="info">
                             <div class="profile-photo">
                                 <img src="{% static 'images/profile-17.jpg' %}">
@@ -577,28 +582,13 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="discussion">
-                        <div class="info">
-                            <div class="profile-photo">
-                                <img src="{% static 'images/profile-19.jpg' %}">
-                            </div>
-                            <div>
-                                <span>
-                                    <h5>Nom Investisseur (2)</h5>
-                                </span>
-                                <p class="text-muted">
-                                    Application de gestion des tontines
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <style>
+                    </div> -->
+                    <!-- <style>
                         .discussion .info{
                             cursor: pointer;
                         }
-                    </style>
-                    <div class="discussion">
+                    </style> -->
+                    <!-- <div class="discussion">
                         <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
                             <div class="accordion-item">
                                 
@@ -648,13 +638,54 @@
                                 </div>
                               </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
            </div>
         </div>
         <!-- ============== END OF RIGTH =============== -->
     </div>
 </main>
+
+<!-- ================ DISCUSSIONS MODAL ====================== -->
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#discussionModal">
+    Launch demo modal
+  </button> -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="discussionModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Discussions</h5>
+          <i class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
+        </div>
+        <div class="modal-body">
+            <div class="discussionMod">
+                <div class="info">
+                    <div class="profile-photo">
+                        <img src="{% static 'images/profile-17.jpg' %}">
+                    </div>
+                    <div>
+                        <span>
+                            <h5>Nom Investisseur (1)</h5>
+                        </span>
+                        <p class="text-muted mb-0">
+                            Application de recherche de répétiteur
+                        </p>
+                    </div>
+                </div>
+                <div class="chat">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est ut quas, ipsam alias aut excepturi omnis voluptates voluptatibus. Eligendi ab reiciendis dolorem nesciunt molestias voluptate distinctio amet? Obcaecati, soluta ipsam.
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
 <!-- ==================== THEME CUSTOMIZATION ======================= -->
 <div class="customize-theme">

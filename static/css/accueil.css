@@ -636,6 +636,75 @@ main .container .right{
 
 
 
+
+
+
+/* ====================== MODAL DISCUSSIONS ====================== */
+
+.modal-dialog .modal-content{
+    background: var(--color-light) !important;
+}
+
+.modal-content .uil-multiply{
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modal-body .discussionMod {
+    cursor: pointer;
+}
+.discussionMod h4{
+    color: var(--color-gray);
+    margin: 1rem 0;
+}
+.discussionMod{
+    background: var(--color-white);
+    padding: 0.8rem var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-bottom: 0.7rem;
+    height: auto;
+    overflow: hidden;
+}
+.discussionMod .info{
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+.discussionMod .info:last-child{
+    margin-bottom: 0;
+}
+.discussionMod .info p{
+    font-size: 0.8rem;
+}
+.discussionMod span h5{
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.discussionMod .active{
+
+}
+
+
+/* @media screen and (max-width: 1200px) and (min-width: 768px){
+    .modal-dialog {
+        max-width: 70vw;
+        margin: 1.75rem auto;
+    }
+    .modal-content {
+        width: 70vw !important;
+    }
+} */
+
+/* @media (min-width: 576px){
+    .modal-dialog {
+        max-width: 500px;
+        margin: 1.75rem auto;
+    }
+} */
+
+
 /* ================ THEME CUSTOMMIZATION ================ */
 
 .customize-theme{
@@ -1015,7 +1084,7 @@ MEDIA QUERIES FOR MOBILE PHONES
     }
     
     .left .sidebar .menu-item{
-        height: 3.5rem;
+        height: 4rem;
         opacity: 1;
     }
 

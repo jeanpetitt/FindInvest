@@ -65,13 +65,13 @@ window.addEventListener('click', function(e){
 // =============== discussions =============
 
 discNotification.addEventListener('click', () =>{
-    discussion.forEach(item => {
-        discNotification.querySelector('.notifications-count').style.display = "none";
-        item.style.boxShadow = '0 0 1rem var(--color-primary)';
-        setTimeout(() =>{
-            item.style.boxShadow = 'none';
-        }, 2000);
-    })
+    discNotification.querySelector('.notifications-count').style.display = "none";
+    // discussion.forEach(item => {
+    //     item.style.boxShadow = '0 0 1rem var(--color-primary)';
+    //     setTimeout(() =>{
+    //         item.style.boxShadow = 'none';
+    //     }, 2000);
+    // })
 })
 
 
