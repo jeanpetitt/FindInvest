@@ -48,8 +48,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
   background-color: #fefefe;
   margin: auto;
   border: 1px solid #888;
-  width: 28%;
-  height: 75%;
+  width: 540px;
+  height: 85%;
 }
 
 /* le bouton x de fermeture du modal */
@@ -58,7 +58,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
   font-size: 28px;
   font-weight: bold;
   float: right;
-  margin-right: -90px;
 }
 
 .close:hover,
@@ -87,18 +86,23 @@ body {font-family: Arial, Helvetica, sans-serif;}
       
       margin-left: 20%;
     }
-    .form-group input{
+    #id_title, #id_categorie, #id_description{
       width: 150px;
     /* margin-bottom: 20px; */
       padding: 10px;
       height: 55px;
       width: 350px;
-      border-radius: 10px;
-      outline: none;
+      border-radius: 0 !important;
       font-size: 16px;
-      color: #333;
+      box-shadow: none;
       /* border: #333 solid 1px; */
-      border: 1px solid #ced4da;
+      border-top: none !important;
+      border-left: none !important;
+      border-right: none !important;
+    }
+
+    #id_title: focus, #id_categorie: focus, #id_description: focus{
+      border-bottom: #0b5ed7 solid 1px !important
     }
     /* gestion des bouton */
     .btn1,
@@ -106,10 +110,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
       margin-top: 20px;
       display: flex;
       width: 150px;
-      height: 50px;
+      height: 50px 
       font-size: 1.5rem;
       padding: 5px 20px;
-      border-radius: 10px;
+      border-radius: 0;
       }
     .form-group textarea{
       margin-top: 10px;
@@ -126,11 +130,16 @@ body {font-family: Arial, Helvetica, sans-serif;}
       float: right;
       margin-top: -48px;
     }
+    .bloc{
+            border-radius: 10px;
+            border: #ced4da solid 1px;
+            padding: 15px 15px 20px;
+          }
 
     @media screen and (max-width: 992px){
       .modal-content{
-        width: 540px;
-        height: 90%;
+        width: 440px;
+        height: 80%;
       }
     }
 </style>
@@ -149,21 +158,23 @@ body {font-family: Arial, Helvetica, sans-serif;}
       <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
           <span class="close">&times;</span>
-          <h2 style="text-align: center; margin-left: 50px; margin-top: 10px;">Cr&eacuteer une publication</h2>
+          <h2 style="text-align: center; margin-left: 40px; margin-top: 10px;">Cr&eacuteer une publication</h2>
+          <span class="bloc mt-4" id="block">
           <div class="form-group">
-              <label>titre </label>
               {{ projet_form.title }}
+              <p><span class="errorform" id="error_title"></span></p>
             </div>
             <div class="form-group">
               <label>categorie</label>
               {{ projet_form.categorie }}
+              <p><span class="errorform" id="error_categorie"></span></p>
             </div>
             <div class="form-group">
-              <label>media</label>
               {{ projet_form.image }}
             </div>
             <div class="form-group">
-              <textarea name="description" cols="40" rows="10" maxlength="500" required="" id="id_description"></textarea>
+              <textarea name="description" cols="40" rows="10" maxlength="500" placeholder="Decrivez votre  projet en quelques lignes" required="" id="id_description"></textarea>
+              <p><span class="errorform" id="error_description"></span></p>
             </div>
                     <div class="form-group">
                         <select name="etudiant" style="display: none;" required="" id="id_etudiant">
@@ -171,15 +182,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             <option value="{{ request.user.etudiant.id }}">{{ request.user.etudiant }}</option>
 
                         </select>
-                    </div>
+            </div>
                 
             <div class="form-group">
-              <button type="submit" class="btn1">publier</button>
+              <button type="submit" class="btn1" onclick="validatePost()">publier</button>
                         {{ err }}
               <span class="btn2">annuler</span> 
           </div>
-            
-      
+          </span>
       
       </form>
     </div>
@@ -231,6 +241,50 @@ btn2.onclick = function(){
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
+  }
+}
+
+// champs placeholder
+champsForm = document.getElementsByTagName('input');
+champsForm[1].placeholder=" Titre";
+champsForm[2].placeholder="Categorie";
+champsForm[3].placeholder="Description";
+
+
+var id_title = document.getElementById('id_title')
+var error_title = document.getElementById('error_title')
+
+var id_categorie = document.getElementById('id_categorie')
+var error_categorie = document.getElementById('error_categorie')
+
+var id_description = document.getElementById('id_description')
+var error_description = document.getElementById('error_description')
+
+
+function valChapmsText(champs, errClass) {
+    if (champs.value == "") {
+    errClass.innerHTML="*veuillez remplir ce champs";
+    champs.focus();
+    champs.classList.add('err');
+    return false;
+    } else {
+    errClass.innerHTML="";
+    champs.classList.remove('err');
+    return true;
+    }
+}
+
+function validatePost() {
+
+  // body...
+  if (valChapmsText(id_title, error_title)
+    && valChapmsText(id_categorie, error_categorie)
+    && valChapmsText(id_description, error_description)
+    ){
+    return true;
+  }
+  else{
+    return false;
   }
 }
 
