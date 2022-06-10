@@ -216,7 +216,7 @@
 
 		<div class="formBx">
 			<div class="form registerForm1">
-				<h3><i class="fa-solid fa-arrow-right-to-bracket"></i> Connexion</h3>
+				<h3><i class="uil uil-signin"></i> Connexion</h3>
                 <p></p><p></p>
 
 				<div class="mb-2">
@@ -244,9 +244,9 @@
 					  align-items: center !important;
 					  display: flex;
 					}
-					.far {
+					.uil-eye, .uil-eye-slash {
 					  position: absolute;
-					  top: 15px;
+					  top: 8px;
 					  right: 4%;
 					  cursor: pointer;
 					  color: rgb(48, 48, 48);
@@ -257,7 +257,8 @@
 				<div class="form-group mb-2">
 					<div class="fom"> 
 						<input class="form-control connect"  type="password" name="password" id="password" placeholder="Mot de passe">
-						<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
+						{% comment %} <i class="uil uil-eye" onclick="affiMdp()"></i> <i class="uil uil-eye-slash" onclick="affiMdp()"></i> {% endcomment %}
+						<i class="uil uil-eye" onclick="affiMdp()"></i> <i class="uil uil-eye-slash" onclick="affiMdp()"></i>
 					</div>
 					<p>
 						<span class="errorform" id="error_password"></span>
@@ -288,8 +289,8 @@
 
 	var password1 = document.getElementById('password');
 
-	var eyeVisible = document.querySelector('.fa-eye');
-	var eyeHidden = document.querySelector('.fa-eye-slash');
+	var eyeVisible = document.querySelector('.uil-eye');
+	var eyeHidden = document.querySelector('.uil-eye-slash');
 	
 	eyeHidden.style.display = "none";
 	

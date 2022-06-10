@@ -9,23 +9,39 @@
 <!-- ============== NAV ================= -->
 <nav>
     <div class="container">
-        <!-- <h2 class="log">
-            FindInvest
-        </h2> -->
-        <h2 class="log">
-            <span style="opacity: 0; visibility: hidden;">FindInvest</span>
-            <img src="./images/logo1.png" alt="">
-        </h2>
+        <a href="#create-post">
+            <!-- <h2 class="log">
+                FindInvest
+            </h2> -->
+            <h2 class="log">
+                <span style="opacity: 0; visibility: hidden;">FindInvest</span>
+                <img src="{% static 'images/logo1.png' %}">
+            </h2>
+        </a>
+        
         <div class="search-bar">
             <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
             <i class="uil uil-search"></i>
             <input type="search" name="" id="" placeholder="Rechercher...">
         </div>
-        <div class="create">
+        <div class="create dropdown">
             <label class="btn btn-primary" for="create-post">Create</label>
-            <div class="profile-photo">
-                <img src="./images/profile-1.jpg" alt="">
+            <div class="profile-photo" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{% static 'images/profile-1.jpg' %}">
             </div>
+            <ul class="dropdown-menu">
+                <li>
+                    {% if request.user.etudiant.id %}
+                        <a class="dropdown-item" href="{% url 'profile_student' request.user.etudiant.id %}">
+                    {% else %}
+                        <a class="dropdown-item" href="{% url 'profile_investor' request.user.investisseur.id %}">
+                    {% endif %}
+                    <i class="uil uil-user"></i> Profil</a>
+                </li>
+                <li><a class="dropdown-item" href="{% url 'user_logout' %}">
+                    <i class="uil uil-sign-out-alt"></i> Logout
+                </a></li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -37,7 +53,7 @@
         <div class="left">
             <a class="profile">
                 <div class="profile-photo">
-                    <img src="./images/profile-1.jpg" alt="">
+                    <img src="{% static 'images/profile-1.jpg' %}">
                 </div>
                 <div class="handle">
                     <h4>Tom michel</h4>
@@ -59,7 +75,7 @@
                     <div class="notifications-popup">
                         <div>
                             <div class="profile-photo">
-                                <img src="./images/tm.jpg" alt="">
+                                <img src="{% static 'images/tm.jpg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Flavie Daniella</b> commened on your post
@@ -68,7 +84,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="./images/profile-3.jpg" alt="">
+                                <img src="{% static 'images/profile-3.jpg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Mengue Victor</b> liked your post
@@ -77,7 +93,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="./images/profile-4.jpg" alt="">
+                                <img src="{% static 'images/profile-4.jpg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Nguete Dave</b> commened on your post
@@ -86,7 +102,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="./images/profile-5.jpg" alt="">
+                                <img src="{% static 'images/profile-5.jpg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Bikim Yvelos</b> liked your post
@@ -95,7 +111,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="./images/profile-6.jpg" alt="">
+                                <img src="{% static 'images/profile-6.jpg' %}">
                             </div>
                             <div class="notifications-body">
                                 <b>Tom Michel</b> commened on a post you are tagged
@@ -134,76 +150,76 @@
             <!-- <div class="stories">
                 <div class="story">
                     <div class="profile-photo">
-                        <img src="{% static 'images/profile-1.jpg' %}" alt="">
+                        <img src="{% static 'images/profile-1.jpg' %}' %}">
                     </div>
                     <p class="name">Flavie Daniella</p>
                 </div>
                 <div class="story">
                     <div class="profile-photo">
-                        <img src="./images/profile-11.jpg" alt="">
+                        <img src="{% static 'images/profile-11.jpg' %}">
                     </div>
                     <p class="name">Bikim Yvelos</p>
                 </div>
                 <div class="story">
                     <div class="profile-photo">
-                        <img src="./images/profile-12.jpg" alt="">
+                        <img src="{% static 'images/profile-12.jpg' %}">
                     </div>
                     <p class="name">Nguete Dave</p>
                 </div>
                 <div class="story">
                     <div class="profile-photo">
-                        <img src="./images/profile-13.jpg" alt="">
+                        <img src="{% static 'images/profile-13.jpg' %}">
                     </div>
                     <p class="name">Nguete Dave</p>
                 </div>
                 <div class="story">
                     <div class="profile-photo">
-                        <img src="./images/profile-13.jpg" alt="">
+                        <img src="{% static 'images/profile-13.jpg' %}">
                     </div>
                     <p class="name">Nguete Dave</p>
                 </div>
                <div class="story">
                     <div class="profile-photo">
-                        <img src="./images/profile-8.jpg" alt="">
+                        <img src="{% static 'images/profile-8.jpg' %}">
                     </div>
                     <p class="name">Tom Michel</p>
                 </div>
                 <div class="story">
                     <div class="profile-photo">
-                        <img src="./images/profile-9.jpg" alt="">
+                        <img src="{% static 'images/profile-9.jpg' %}">
                     </div>
                     <p class="name">Mengue Victor</p>
                 </div>
                 <div class="story">
                     <div class="profile-photo">
-                        <img src="./images/profile-10.jpg" alt="">
+                        <img src="{% static 'images/profile-10.jpg' %}">
                     </div>
                     <p class="name">Flavie Daniella</p>
                 </div>
                 <div class="story">
                     <div class="profile-photo">
-                        <img src="./images/profile-11.jpg" alt="">
+                        <img src="{% static 'images/profile-11.jpg' %}">
                     </div>
                     <p class="name">Bikim Yvelos</p>
                 </div>
                 <div class="story">
                     <div class="profile-photo">
-                        <img src="./images/profile-12.jpg" alt="">
+                        <img src="{% static 'images/profile-12.jpg' %}">
                     </div>
                     <p class="name">Nguete Dave</p>
                 </div>
            
                 <div class="story">
                     <div class="profile-photo">
-                        <img src="./images/profile-13.jpg" alt="">
+                        <img src="{% static 'images/profile-13.jpg' %}">
                     </div>
                     <p class="name">Nguete Dave</p>
                 </div>
             </div> -->
             <!-- ---------- end of stories --------------- -->
-            <form class="create-post">
+            <form class="create-post" id="create-post">
                 <div class="profile-photo">
-                    <img src="./images/profile-1.jpg" alt="">
+                    <img src="{% static 'images/profile-1.jpg' %}">
                 </div>
                 <input type="search" name="" id="create-post" placeholder="Une idée de projet ?">
                 <input type="submit" value="Poster" class="btn btn-primary">
@@ -216,7 +232,7 @@
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <img src="./images/profile-14.jpg" alt="">
+                                <img src="{% static 'images/profile-14.jpg' %}">
                             </div>
                             <div class="autor">
                                 <h3>Tom Michel - Informatique</h3>
@@ -230,7 +246,7 @@
                     </div>
 
                     <div class="photo">
-                        <img src="./images/feed-1.jpg" alt="">
+                        <img src="{% static 'images/feed-1.jpg' %}">
                     </div>
 
                     <div class="action-buttons">
@@ -245,9 +261,9 @@
                     </div>
 
                     <div class="liked-by">
-                        <span><img src="./images/profile-15.jpg" alt=""></span>
-                        <span><img src="./images/profile-16.jpg" alt=""></span>
-                        <span><img src="./images/profile-18.jpg" alt=""></span>
+                        <span><img src="{% static 'images/profile-15.jpg' %}"></span>
+                        <span><img src="{% static 'images/profile-16.jpg' %}"></span>
+                        <span><img src="{% static 'images/profile-18.jpg' %}"></span>
                         <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
                     </div>
 
@@ -265,7 +281,7 @@
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <img src="./images/profile-15.jpg" alt="">
+                                <img src="{% static 'images/profile-15.jpg' %}">
                             </div>
                             <div class="autor">
                                 <h3>Tom Michel - Informatique</h3>
@@ -279,7 +295,7 @@
                     </div>
 
                     <div class="photo">
-                        <img src="./images/feed-2.jpg" alt="">
+                        <img src="{% static 'images/feed-2.jpg' %}">
                     </div>
 
                     <div class="action-buttons">
@@ -294,9 +310,9 @@
                     </div>
 
                     <div class="liked-by">
-                        <span><img src="./images/profile-15.jpg" alt=""></span>
-                        <span><img src="./images/profile-16.jpg" alt=""></span>
-                        <span><img src="./images/profile-18.jpg" alt=""></span>
+                        <span><img src="{% static 'images/profile-15.jpg' %}"></span>
+                        <span><img src="{% static 'images/profile-16.jpg' %}"></span>
+                        <span><img src="{% static 'images/profile-18.jpg' %}"></span>
                         <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
                     </div>
 
@@ -314,7 +330,7 @@
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <img src="./images/profile-16.jpg" alt="">
+                                <img src="{% static 'images/profile-16.jpg' %}">
                             </div>
                             <div class="autor">
                                 <h3>Tom Michel - Informatique</h3>
@@ -328,7 +344,7 @@
                     </div>
 
                     <div class="photo">
-                        <img src="./images/feed-3.jpg" alt="">
+                        <img src="{% static 'images/feed-3.jpg' %}">
                     </div>
 
                     <div class="action-buttons">
@@ -343,9 +359,9 @@
                     </div>
 
                     <div class="liked-by">
-                        <span><img src="./images/profile-15.jpg" alt=""></span>
-                        <span><img src="./images/profile-16.jpg" alt=""></span>
-                        <span><img src="./images/profile-18.jpg" alt=""></span>
+                        <span><img src="{% static 'images/profile-15.jpg' %}"></span>
+                        <span><img src="{% static 'images/profile-16.jpg' %}"></span>
+                        <span><img src="{% static 'images/profile-18.jpg' %}"></span>
                         <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
                     </div>
 
@@ -363,7 +379,7 @@
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <img src="./images/profile-17.jpg" alt="">
+                                <img src="{% static 'images/profile-17.jpg' %}">
                             </div>
                             <div class="autor">
                                 <h3>Tom Michel - Informatique</h3>
@@ -377,7 +393,7 @@
                     </div>
 
                     <div class="photo">
-                        <img src="./images/feed-4.jpg" alt="">
+                        <img src="{% static 'images/feed-4.jpg' %}">
                     </div>
 
                     <div class="action-buttons">
@@ -392,9 +408,9 @@
                     </div>
 
                     <div class="liked-by">
-                        <span><img src="./images/profile-15.jpg" alt=""></span>
-                        <span><img src="./images/profile-16.jpg" alt=""></span>
-                        <span><img src="./images/profile-18.jpg" alt=""></span>
+                        <span><img src="{% static 'images/profile-15.jpg' %}"></span>
+                        <span><img src="{% static 'images/profile-16.jpg' %}"></span>
+                        <span><img src="{% static 'images/profile-18.jpg' %}"></span>
                         <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
                     </div>
 
@@ -412,7 +428,7 @@
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <img src="./images/profile-19.jpg" alt="">
+                                <img src="{% static 'images/profile-19.jpg' %}">
                             </div>
                             <div class="autor">
                                 <h3>Tom Michel - Informatique</h3>
@@ -426,7 +442,7 @@
                     </div>
 
                     <div class="photo">
-                        <img src="./images/feed-5.jpg" alt="">
+                        <img src="{% static 'images/feed-5.jpg' %}">
                     </div>
 
                     <div class="action-buttons">
@@ -441,9 +457,9 @@
                     </div>
 
                     <div class="liked-by">
-                        <span><img src="./images/profile-15.jpg" alt=""></span>
-                        <span><img src="./images/profile-16.jpg" alt=""></span>
-                        <span><img src="./images/profile-18.jpg" alt=""></span>
+                        <span><img src="{% static 'images/profile-15.jpg' %}"></span>
+                        <span><img src="{% static 'images/profile-16.jpg' %}"></span>
+                        <span><img src="{% static 'images/profile-18.jpg' %}"></span>
                         <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
                     </div>
 
@@ -483,7 +499,7 @@
                 <!-- ----------- projects lines ------------ -->
                 <div class="project-line">
                     <!-- <div class="profile-photo">
-                        <img src="./images/profile-9.jpg" alt="">
+                        <img src="{% static 'images/profile-9.jpg' %}">
                     </div> -->
                     <div class="project-body">
                         <h5>Informatique</h5>
@@ -535,7 +551,7 @@
                     <div class="discussion">
                         <div class="info">
                             <div class="profile-photo">
-                                <img src="./images/profile-14.jpg" alt="">
+                                <img src="{% static 'images/profile-14.jpg' %}">
                             </div>
                             <div>
                                 <span>
@@ -550,7 +566,7 @@
                     <div class="discussion">
                         <div class="info">
                             <div class="profile-photo">
-                                <img src="./images/profile-17.jpg" alt="">
+                                <img src="{% static 'images/profile-17.jpg' %}">
                             </div>
                             <div>
                                 <span>
@@ -565,7 +581,7 @@
                     <div class="discussion">
                         <div class="info">
                             <div class="profile-photo">
-                                <img src="./images/profile-19.jpg" alt="">
+                                <img src="{% static 'images/profile-19.jpg' %}">
                             </div>
                             <div>
                                 <span>
@@ -575,6 +591,62 @@
                                     Application de gestion des tontines
                                 </p>
                             </div>
+                        </div>
+                    </div>
+                    <style>
+                        .discussion .info{
+                            cursor: pointer;
+                        }
+                    </style>
+                    <div class="discussion">
+                        <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
+                            <div class="accordion-item">
+                                
+                                <div class="info collapsed"  data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                    <div class="profile-photo">
+                                        <img src="{% static 'images/profile-19.jpg' %}">
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <h5>Nom Investisseur (2)</h5>
+                                        </span>
+                                        <p class="text-muted">
+                                            Application de gestion des tontines
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                                    <div class="accordion-body">
+                                    <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="discussion">
+                        <div class="info">
+                            <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
+                                <div class="accordion-item">
+                                    <div class="info" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                        <div class="profile-photo">
+                                            <img src="{% static 'images/profile-17.jpg' %}">
+                                        </div>
+                                        <div>
+                                            <span>
+                                                <h5>Nom Investisseur (1)</h5>
+                                            </span>
+                                            <p class="text-muted">
+                                                Application de recherche de répétiteur
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                                        <div class="accordion-body">
+                                        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
                         </div>
                     </div>
                 </div>
