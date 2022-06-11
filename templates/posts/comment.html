@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post" id="com">
+    {% csrf_token %}
+    <div style="width: 300px; margin: 100px;">
+        {{ comment.title }}
+            {{errors}}
+    <input type="submit" class="btn btn-primary" value="commenter">
+    </div>
+    <br>
+
+    {% for comment in comments %}
+        <div class="" id="container">
+            <p id="title">{{ comment.title}}</p>
+        </div>
+        
+    {% endfor %}
+    
+</form>
+
+<script>
+     let form = document.getElementById('com');
+     
+     let container = document.getElementById('container')
+     form.addEventListener('submit', StopReload)
+     function StopReload(e){
+       e.preventDefault();
+       let title = document.createElement('p');
+        $.ajax({
+            type: "POST",
+            url: "{% url 'comments' %}",
+            data: $('#com').serialize(),
+            dataType: "json",
+
+            success:function(data){
+                  title.innerText = data.new_comment;
+                  container.appendChild(title)
+                  form.reset()
+                    }
+            })
+   }
+
+</script>
+
+{% endblock %}

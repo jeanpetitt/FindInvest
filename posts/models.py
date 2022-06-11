@@ -6,6 +6,13 @@ from django.utils import timezone
 
 # creation de la classe Projet
 
+class Comment(models.Model):
+    
+    title = models.CharField(max_length=600, blank=False)
+    
+    def __str__(self):
+        return self.title
+    
 
 
 def posts_image(instance, filename):

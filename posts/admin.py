@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Projet
+from .models import Projet, Comment
 
 
 # Register your models here.
@@ -9,7 +9,7 @@ class AdminProjet(admin.ModelAdmin):
 	list_filter    = ('title','categorie',)
 	ordering       = ('date_post', )
 	search_fields  = ('title', 'etudiant')
-
+"""
 	fieldsets = (
     	# Fieldset 1 : meta-info (titre, auteur…)
        ('Général', {
@@ -22,6 +22,7 @@ class AdminProjet(admin.ModelAdmin):
            'fields': ('description', )
         }),
     )
-
+"""
+admin.site.register(Comment)
 
 admin.site.register(Projet, AdminProjet)

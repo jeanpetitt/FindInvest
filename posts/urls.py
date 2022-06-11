@@ -8,4 +8,5 @@ urlpatterns = [
 
     path('delete/<str:pk>', delete_post, name='delete'),
     path('update_post/<str:pk>', update_post, name='update'),
+    path('comment', commenterPublication, name='comments')
 ]

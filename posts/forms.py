@@ -1,5 +1,7 @@
+from dataclasses import field
+from pyexpat import model
 from django import forms
-from .models import Projet
+from .models import Comment, Projet
 
 
 class ProjetForm(forms.ModelForm):
@@ -17,3 +19,12 @@ class ProjetForm(forms.ModelForm):
 			'etudiant',
 
 		]
+  
+class CommentForm(forms.ModelForm):
+      class Meta():
+          
+          model = Comment
+          
+          fields = [
+			  'title'
+		  ]

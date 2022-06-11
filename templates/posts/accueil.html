@@ -24,7 +24,7 @@
         <div class="create">
             <label class="btn btn-primary" for="create-post">Create</label>
             <div class="profile-photo">
-                <img src="./images/profile-1.jpg" alt="">
+                <img src="{% static 'images/profile-1.jpg' %}" alt="">
             </div>
         </div>
     </div>
@@ -37,11 +37,11 @@
         <div class="left">
             <a class="profile">
                 <div class="profile-photo">
-                    <img src="./images/profile-1.jpg" alt="">
+                    <img src="{% static 'images/profile-1.jpg' %}" alt="">
                 </div>
                 <div class="handle">
-                    <h4>Tom michel</h4>
-                    <p class="text-muted">@tOm</p>
+                    <h4>Jean petit</h4>
+                    <p class="text-muted">@jean</p>
                 </div>
             </a>
 
@@ -59,7 +59,7 @@
                     <div class="notifications-popup">
                         <div>
                             <div class="profile-photo">
-                                <img src="./images/tm.jpg" alt="">
+                                <img src="{% static 'images/tm.jpg' %}" alt="">
                             </div>
                             <div class="notifications-body">
                                 <b>Flavie Daniella</b> commened on your post
@@ -68,7 +68,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="./images/profile-3.jpg" alt="">
+                                <img src="{% static 'images/profile-3.jpg' %}" alt="">
                             </div>
                             <div class="notifications-body">
                                 <b>Mengue Victor</b> liked your post
@@ -77,7 +77,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="./images/profile-4.jpg" alt="">
+                                <img src="{% static 'images/profile-4.jpg' %}" alt="">
                             </div>
                             <div class="notifications-body">
                                 <b>Nguete Dave</b> commened on your post
@@ -86,7 +86,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="./images/profile-5.jpg" alt="">
+                                <img src="{% static 'images/profile-5.jpg' %}" alt="">
                             </div>
                             <div class="notifications-body">
                                 <b>Bikim Yvelos</b> liked your post
@@ -95,7 +95,7 @@
                         </div>
                         <div>
                             <div class="profile-photo">
-                                <img src="./images/profile-6.jpg" alt="">
+                                <img src="{% static 'images/profile-6.jpg' %}" alt="">
                             </div>
                             <div class="notifications-body">
                                 <b>Tom Michel</b> commened on a post you are tagged
@@ -203,7 +203,7 @@
             <!-- ---------- end of stories --------------- -->
             <form class="create-post">
                 <div class="profile-photo">
-                    <img src="./images/profile-1.jpg" alt="">
+                    <img src="{% static 'images/profile-1.jpg' %}" alt="">
                 </div>
                 <input type="search" name="" id="create-post" placeholder="Une idée de projet ?">
                 <input type="submit" value="Poster" class="btn btn-primary">
@@ -216,7 +216,7 @@
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <img src="./images/profile-14.jpg" alt="">
+                                <img src="{% static 'images/profile-14.jpg' %}" alt="">
                             </div>
                             <div class="autor">
                                 <h3>Tom Michel - Informatique</h3>
@@ -228,11 +228,11 @@
                             <i class="uil uil-ellipsis-h"></i> 
                         </span>
                     </div>
-
+                    {% for projet in list_projet %}
                     <div class="photo">
-                        <img src="./images/feed-1.jpg" alt="">
+                        <img src="{{projet.image.url}}" alt="">
                     </div>
-
+                    {% endfor %}
                     <div class="action-buttons">
                         <div class="interaction-buttons">
                             <span><i class="uil uil-heart"></i></span>
@@ -265,7 +265,7 @@
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <img src="./images/profile-15.jpg" alt="">
+                                <img src="{% static 'images/profile-15.jpg' %}" alt="">
                             </div>
                             <div class="autor">
                                 <h3>Tom Michel - Informatique</h3>
@@ -279,7 +279,7 @@
                     </div>
 
                     <div class="photo">
-                        <img src="./images/feed-2.jpg" alt="">
+                        <img src="{% static 'images/feed-2.jpg' %}" alt="">
                     </div>
 
                     <div class="action-buttons">
@@ -294,9 +294,9 @@
                     </div>
 
                     <div class="liked-by">
-                        <span><img src="./images/profile-15.jpg" alt=""></span>
-                        <span><img src="./images/profile-16.jpg" alt=""></span>
-                        <span><img src="./images/profile-18.jpg" alt=""></span>
+                        <span><img src="{% static 'images/profile-15.jpg' %}" alt=""></span>
+                        <span><img src="{% static 'images/profile-16.jpg' %}" alt=""></span>
+                        <span><img src="{% static 'images/profile-17.jpg' %}" alt=""></span>
                         <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
                     </div>
 
@@ -314,7 +314,7 @@
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <img src="./images/profile-16.jpg" alt="">
+                                <img src="{% static 'images/profile-16.jpg' %}" alt="">
                             </div>
                             <div class="autor">
                                 <h3>Tom Michel - Informatique</h3>
@@ -343,9 +343,9 @@
                     </div>
 
                     <div class="liked-by">
-                        <span><img src="./images/profile-15.jpg" alt=""></span>
-                        <span><img src="./images/profile-16.jpg" alt=""></span>
-                        <span><img src="./images/profile-18.jpg" alt=""></span>
+                        <span><img src="{% static 'images/profile-15.jpg'%} " alt=""></span>
+                        <span><img src="{% static 'images/profile-16.jpg'%}" alt=""></span>
+                        <span><img src="{% static 'images/profile-18.jpg'%}" alt=""></span>
                         <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
                     </div>
 
@@ -363,7 +363,7 @@
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <img src="./images/profile-17.jpg" alt="">
+                                <img src="{% static 'images/profile-17.jpg'%}" alt="">
                             </div>
                             <div class="autor">
                                 <h3>Tom Michel - Informatique</h3>
@@ -377,7 +377,7 @@
                     </div>
 
                     <div class="photo">
-                        <img src="./images/feed-4.jpg" alt="">
+                        <img src="{% static 'images/feed-4.jpg' %}" alt="">
                     </div>
 
                     <div class="action-buttons">
@@ -392,9 +392,9 @@
                     </div>
 
                     <div class="liked-by">
-                        <span><img src="./images/profile-15.jpg" alt=""></span>
-                        <span><img src="./images/profile-16.jpg" alt=""></span>
-                        <span><img src="./images/profile-18.jpg" alt=""></span>
+                        <span><img src="{% static 'images/profile-15.jpg'%}" alt=""></span>
+                        <span><img src="{% static 'images/profile-17.jpg' %}" alt=""></span>
+                        <span><img src="{% static 'images/profile-18.jpg'%}" alt=""></span>
                         <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
                     </div>
 
@@ -412,7 +412,7 @@
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <img src="./images/profile-19.jpg" alt="">
+                                <img src="{% static 'images/profile-19.jpg'%}" alt="">
                             </div>
                             <div class="autor">
                                 <h3>Tom Michel - Informatique</h3>
@@ -426,7 +426,7 @@
                     </div>
 
                     <div class="photo">
-                        <img src="./images/feed-5.jpg" alt="">
+                        <img src="{% static 'images/feed-5.jpg' %}" alt="">
                     </div>
 
                     <div class="action-buttons">
@@ -441,9 +441,9 @@
                     </div>
 
                     <div class="liked-by">
-                        <span><img src="./images/profile-15.jpg" alt=""></span>
-                        <span><img src="./images/profile-16.jpg" alt=""></span>
-                        <span><img src="./images/profile-18.jpg" alt=""></span>
+                        <span><img src="{% static 'images/profile-15.jpg' %}" alt=""></span>
+                        <span><img src="{% static 'images/profile-16.jpg' %}" alt=""></span>
+                        <span><img src="{% static 'images/profile-17.jpg' %}" alt=""></span>
                         <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
                     </div>
 
@@ -535,7 +535,7 @@
                     <div class="discussion">
                         <div class="info">
                             <div class="profile-photo">
-                                <img src="./images/profile-14.jpg" alt="">
+                                <img src="{% static 'images/profile-14.jpg' %}" alt="">
                             </div>
                             <div>
                                 <span>
@@ -550,7 +550,7 @@
                     <div class="discussion">
                         <div class="info">
                             <div class="profile-photo">
-                                <img src="./images/profile-17.jpg" alt="">
+                                <img src="{% static 'images/profile-17.jpg' %}" alt="">
                             </div>
                             <div>
                                 <span>
@@ -565,7 +565,7 @@
                     <div class="discussion">
                         <div class="info">
                             <div class="profile-photo">
-                                <img src="./images/profile-19.jpg" alt="">
+                                <img src="{% static 'images/profile-19.jpg' %}" alt="">
                             </div>
                             <div>
                                 <span>
@@ -638,130 +638,10 @@
     </div>
 </div>
 
+<br><br>
 
-
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  border: 1px solid #888;
-  width: 540px;
-  height: 85%;
-}
-
-/* le bouton x de fermeture du modal */
-.close {
-  color: #aaaaaa;
-  font-size: 28px;
-  font-weight: bold;
-  float: right;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* gestion du formulaire */
-.form{
-    position: absolute;
-    background: #f2f2f2;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    
-    transition: .3s ease-in-out;
-    overflow: hidden;
-    border-radius: 10px;
-  }
-    
-    .form .form-group{
-      
-      margin-left: 20%;
-    }
-    #id_title, #id_categorie, #id_description{
-      width: 150px;
-    /* margin-bottom: 20px; */
-      padding: 10px;
-      height: 55px;
-      width: 350px;
-      border-radius: 0 !important;
-      font-size: 16px;
-      box-shadow: none;
-      /* border: #333 solid 1px; */
-      border-top: none !important;
-      border-left: none !important;
-      border-right: none !important;
-    }
-
-    #id_title: focus, #id_categorie: focus, #id_description: focus{
-      border-bottom: #0b5ed7 solid 1px !important
-    }
-    /* gestion des bouton */
-    .btn1,
-    .btn2{
-      margin-top: 20px;
-      display: flex;
-      width: 150px;
-      height: 50px 
-      font-size: 1.5rem;
-      padding: 5px 20px;
-      border-radius: 0;
-      }
-    .form-group textarea{
-      margin-top: 10px;
-      height: 150px;
-      min-height: 150px;
-      max-height: 170px;
-      width: 350px;
-    }
-    .btn1{
-      background: #1b65d5d9;
-    }
-    .btn2{
-      background: orange;
-      float: right;
-      margin-top: -48px;
-    }
-    .bloc{
-            border-radius: 10px;
-            border: #ced4da solid 1px;
-            padding: 15px 15px 20px;
-          }
-
-    @media screen and (max-width: 992px){
-      .modal-content{
-        width: 440px;
-        height: 80%;
-      }
-    }
-</style>
-
-<br>
 <!-- button qui ouvre le modal -->
-<button id="myBtn" class="btn btn-primary">publier</button>
+
 
 <!-- la div  Modal -->
 <div id="myModal" class="modal">
@@ -812,52 +692,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 </div>
 
- <div style="margin: 5% 10%;">
-    {% for projet in list_projet %}
-        {% if not projet.image.url %}
-          <p style="margin-bottom: -3px;">titre: {{ projet.title }}</p>
-        {% else %}
-          <p style="margin-bottom: -3px;">titre: {{ projet.title }}</p>
-          <img src="{{ projet.image.url }}" width="200" height="200"><br>
-        {% endif %}
-        <sup style="margin-top: 8px;">publier le {{ projet.date_post }}</sup><br>
-
-        <a class="btn btn-danger" href="{% url 'delete' projet.id %}"> supprimer</a>
-        <a class="btn btn-secondary" href="{% url 'update' projet.id %}">modifier </a>
-    {% endfor %}
-</div>
 <script>
-// obtenir le modal
-var modal = document.getElementById("myModal");
 
-// obtnenir le bouton qui ouvre le modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-var btn2 = document.getElementsByClassName("btn2")[0]
-
-// quand l'utilisateur click sur le bouton le modal s'ouvre 
-btn.onclick = function() {
-  modal.style.display = "block";
-
-}
-
-
-// quans l'utilisateur clic sur le span x ou sur annuler le modals se ferme
-span.onclick = function() {
-  modal.style.display = "none";
-}
-btn2.onclick = function(){
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
 
 // champs placeholder
 champsForm = document.getElementsByTagName('input');

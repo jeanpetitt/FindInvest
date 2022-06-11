@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from users.models import *
-from .forms import ProjetForm
-from .models import Projet
+from .forms import ProjetForm, CommentForm
+from .models import Projet, Comment
 
 # Create your views here.
 
@@ -58,7 +58,6 @@ def accueil(request):
 
     }
     return render(request, "posts/accueil.html", context)
-
 # update de project
 @login_required(login_url='connexion')
 def update_post(request, pk):
@@ -106,3 +105,36 @@ def delete_post(request, pk):
     }
 
     return render(request, 'posts/delete_projet.html', context)
+
+
+# commenter un projet
+
+@login_required(login_url='connexion')
+def commenterPublication(request):
+    comments = Comment.objects.all()
+    list_comment = []
+    
+    for com in comments:
+        list_comment.append(com)
+    comment_form = CommentForm()
+    error = ''
+    if request.method == "POST":
+        title = request.POST.get('title')
+        comment_form = CommentForm(request.POST)
+        
+        if comment_form.is_valid:
+            comment = comment_form.save()
+            comment.save()
+            return JsonResponse({'new_comment':comment.title})
+            
+        else:
+            error = comment_form.errors()
+            comment_form = CommentForm()
+            
+    context = {
+        'comment':comment_form,
+        'error': error,
+        'comments':list_comment,
+    }
+            
+    return render(request, 'posts/comment.html', context)
