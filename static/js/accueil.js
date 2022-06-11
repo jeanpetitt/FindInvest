@@ -6,6 +6,9 @@ const discNotification = document.getElementById('messages-notifications');
 // const notifPopup = document.querySelector('.notifications-popup');
 const discussion = document.querySelectorAll('.discussion');
 
+// modal discussion
+const discussionMod = document.querySelectorAll('.discussionMod');
+const discussionInfoMod = document.querySelectorAll('.discussionMod .info');
 
 // catégories
 const category = document.querySelectorAll('.project-line');
@@ -73,6 +76,38 @@ discNotification.addEventListener('click', () =>{
     //     }, 2000);
     // })
 })
+
+
+// ================ discussion modal ====================
+
+// hidden active class from all menu items
+const hiddenDisc = () =>{
+    discussionMod.forEach(item => {
+        // item.style.display = "none";
+        item.classList.toggle('hidenn');
+    })
+}
+
+// discussionInfoMod.forEach(item => {
+//     item.addEventListener('click', ()=>{
+//         hiddenDisc();
+//         item.style.display = "block";
+//         item.classList.toggle('active');
+//         discRetourn.classList.toggle('active');
+//     })
+// })
+
+
+for (let i = 0; i < discussionInfoMod.length; i++) {
+    discussionInfoMod[i].addEventListener("click", () => {
+        hiddenDisc();
+        discussionMod[i].classList.toggle('hidenn');
+        // discussionMod[i].style.display = "block";
+        discussionMod[i].classList.toggle('active');
+    });
+    
+}
+
 
 
 // =============== end discussions ================

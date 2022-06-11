@@ -641,8 +641,14 @@ main .container .right{
 
 /* ====================== MODAL DISCUSSIONS ====================== */
 
+.modal {
+    background: rgba(255, 255, 255, 0.055) !important;
+}
+
 .modal-dialog .modal-content{
     background: var(--color-light) !important;
+    box-shadow: 0 0 0.5rem var(--color-primary);
+    border-radius: var(--card-border-radius) !important;
 }
 
 .modal-content .uil-multiply{
@@ -650,59 +656,133 @@ main .container .right{
     cursor: pointer;
 }
 
-.modal-body .discussionMod {
-    cursor: pointer;
+.modal-body .line_disc{
+    display: flex;
+    padding: 0;
+    align-items: start;
 }
-.discussionMod h4{
-    color: var(--color-gray);
-    margin: 1rem 0;
-}
-.discussionMod{
+
+.discussionMod {
+    position: relative;
     background: var(--color-white);
     padding: 0.8rem var(--card-padding);
     border-radius: var(--card-border-radius);
     margin-bottom: 0.7rem;
-    height: auto;
+    height: 69px;
     overflow: hidden;
+    transition: 0.3s;
+}
+.discussionMod h4{
+    color: var(--color-gray);
+    margin: 1rem 0;
 }
 .discussionMod .info{
     display: flex;
     gap: 1rem;
     margin-bottom: 1rem;
     align-items: center;
-}
-.discussionMod .info:last-child{
-    margin-bottom: 0;
+    cursor: pointer;
 }
 .discussionMod .info p{
     font-size: 0.8rem;
 }
 .discussionMod span h5{
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
 }
 
-.discussionMod .active{
+.discussionMod.hidenn{
+    display: none;
+    transition: 0.3s;
+}
 
+.discussionMod.active{
+    height: 500px;
+    transition: 0.3s;
+    overflow-y: scroll;
 }
 
 
-/* @media screen and (max-width: 1200px) and (min-width: 768px){
-    .modal-dialog {
-        max-width: 70vw;
-        margin: 1.75rem auto;
-    }
-    .modal-content {
-        width: 70vw !important;
-    }
-} */
+/* ------------- chat ----------- */
 
-/* @media (min-width: 576px){
+.discussionMod .chat{
+    border-top: #dee2e6 solid 1px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat .text-muted{
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+}
+
+.chat .disc-left,
+.chat .disc-right{
+    position: relative;
+    width: 100%;
+}
+
+.avatar{
+    width: 1.8rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.avatar img{
+    display: block;
+    width: 100%;
+}
+
+.card-text-left {
+    border-radius: var(--card-border-radius);
+    background: var(--color-light);
+    font-size: 0.8rem;
+    margin-bottom: 0.1rem;
+}
+.card-text-right {
+    border-radius: var(--card-border-radius);
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 0.8rem;
+    margin-bottom: 0.1rem;
+}
+
+.discussionMod{
+    position: relative !important;
+}
+.discussionMod .disc-send{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+}
+
+
+@media (min-width: 576px){
     .modal-dialog {
-        max-width: 500px;
+        max-width: 400px;
         margin: 1.75rem auto;
     }
-} */
+}
+
+@media (max-width: 576px){
+    .modal-dialog {
+        position: relative;
+        width: 90%;
+        margin: 0.5rem auto;
+        pointer-events: none;
+    }
+    .discussionMod .info p{
+        font-size: 0.7rem;
+    }
+    .discussionMod span h5{
+        font-size: 0.9rem;
+    }
+}
+
+
+
+
+
 
 
 /* ================ THEME CUSTOMMIZATION ================ */

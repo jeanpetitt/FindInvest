@@ -653,15 +653,75 @@
     Launch demo modal
   </button> -->
   
-  <!-- Modal -->
-  <div class="modal fade" id="discussionModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <!-- Modal discussions -->
+<!-- <div class="modal fade" id="discussionModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Discussions</h5>
           <i class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
         </div>
         <div class="modal-body">
+            <div class="discussionMod active">
+                <div class="info">
+                    <div class="profile-photo">
+                        <img src="{% static 'images/profile-17.jpg' %}">
+                    </div>
+                    <div>
+                        <span>
+                            <h5>Nom Investisseur (01)</h5>
+                        </span>
+                        <p class="text-muted mb-0">
+                            Application de recherche de répétiteur
+                        </p>
+                    </div>
+                </div>
+                <div class="chat pt-4">
+                    <div class=".disc-left d-flex align-items-start text-start justify-content-start mb-4">
+                        <div>
+                            <div class="avatar">
+                                <img src="{% static 'images/profile-17.jpg' %}">
+                            </div>
+                        </div>
+                        <div>
+                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                Sure
+                            </span>
+                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                Let me know when you're available?
+                            </span>
+                            <div class="ms-2">
+                                <span class="text-muted">01:13PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=".disc-right d-flex align-items-baseline text-end justify-content-end mb-4">
+                        <div>
+                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
+                                Sure
+                            </span>
+                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
+                                Let me know when you're available?
+                            </span>
+                            <div class="me-2">
+                                <span class="text-muted">01:13PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="disc-send">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="" id="">
+                        <div class="send">
+                            <input type="submit" id="send-message" value="Envoer" hidden>
+                            <label for="send-message"><i class="uil uil-message"></i></label>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
             <div class="discussionMod">
                 <div class="info">
                     <div class="profile-photo">
@@ -669,21 +729,43 @@
                     </div>
                     <div>
                         <span>
-                            <h5>Nom Investisseur (1)</h5>
+                            <h5>Nom Investisseur (02)</h5>
                         </span>
                         <p class="text-muted mb-0">
                             Application de recherche de répétiteur
                         </p>
                     </div>
                 </div>
-                <div class="chat">
+                <div class="chat mt-4">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est ut quas, ipsam alias aut excepturi omnis voluptates voluptatibus. Eligendi ab reiciendis dolorem nesciunt molestias voluptate distinctio amet? Obcaecati, soluta ipsam.
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est ut quas, ipsam alias aut excepturi omnis voluptates voluptatibus. Eligendi ab reiciendis dolorem nesciunt molestias voluptate distinctio amet? Obcaecati, soluta ipsam.
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est ut quas, ipsam alias aut excepturi omnis voluptates voluptatibus. Eligendi ab reiciendis dolorem nesciunt molestias voluptate distinctio amet? Obcaecati, soluta ipsam.
+                </div>
+            </div>
+            <div class="discussionMod">
+                <div class="info">
+                    <div class="profile-photo">
+                        <img src="{% static 'images/profile-17.jpg' %}">
+                    </div>
+                    <div>
+                        <span>
+                            <h5>Nom Investisseur (03)</h5>
+                        </span>
+                        <p class="text-muted mb-0">
+                            Application de recherche de répétiteur
+                        </p>
+                    </div>
+                </div>
+                <div class="chat mt-4">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est ut quas, ipsam alias aut excepturi omnis voluptates voluptatibus. Eligendi ab reiciendis dolorem nesciunt molestias voluptate distinctio amet? Obcaecati, soluta ipsam.
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est ut quas, ipsam alias aut excepturi omnis voluptates voluptatibus. Eligendi ab reiciendis dolorem nesciunt molestias voluptate distinctio amet? Obcaecati, soluta ipsam.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est ut quas, ipsam alias aut excepturi omnis voluptates voluptatibus. Eligendi ab reiciendis dolorem nesciunt molestias voluptate distinctio amet? Obcaecati, soluta ipsam.
                 </div>
             </div>
         </div>
       </div>
     </div>
-  </div>
+<!-- </div> -->
 
 
 
