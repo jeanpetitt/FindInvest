@@ -552,13 +552,11 @@
                     <h4>Discussions</h4>
                     <div class="discussion" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#discussionModal">
                         <div class="info">
-                            <div class="profile-photo">
-                                <img src="{% static 'images/profile-14.jpg' %}">
-                            </div>
                             <div>
                                 <span>
-                                    <h5>Mes discussions (12)</h5>
+                                    <h5><i class="uil uil-envelope"></i> Mes discussions (12)</h5>
                                 </span>
+                                <p></p>
                                 <p class="text-muted">
                                     12 personnes
                                 </p>
@@ -568,77 +566,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="discussion">
-                        <div class="info">
-                            <div class="profile-photo">
-                                <img src="{% static 'images/profile-17.jpg' %}">
-                            </div>
-                            <div>
-                                <span>
-                                    <h5>Nom Investisseur (1)</h5>
-                                </span>
-                                <p class="text-muted">
-                                    Application de recherche de répétiteur
-                                </p>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- <style>
-                        .discussion .info{
-                            cursor: pointer;
-                        }
-                    </style> -->
-                    <!-- <div class="discussion">
-                        <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
-                            <div class="accordion-item">
-                                
-                                <div class="info collapsed"  data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
-                                    <div class="profile-photo">
-                                        <img src="{% static 'images/profile-19.jpg' %}">
-                                    </div>
-                                    <div>
-                                        <span>
-                                            <h5>Nom Investisseur (2)</h5>
-                                        </span>
-                                        <p class="text-muted">
-                                            Application de gestion des tontines
-                                        </p>
-                                    </div>
-                                </div>
-                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                                    <div class="accordion-body">
-                                    <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="discussion">
-                        <div class="info">
-                            <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
-                                <div class="accordion-item">
-                                    <div class="info" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                        <div class="profile-photo">
-                                            <img src="{% static 'images/profile-17.jpg' %}">
-                                        </div>
-                                        <div>
-                                            <span>
-                                                <h5>Nom Investisseur (1)</h5>
-                                            </span>
-                                            <p class="text-muted">
-                                                Application de recherche de répétiteur
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                                        <div class="accordion-body">
-                                        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes
-                                        </div>
-                                    </div>
-                                </div>
-                              </div>
-                        </div>
-                    </div> -->
                 </div>
            </div>
         </div>
@@ -647,14 +574,9 @@
 </main>
 
 <!-- ================ DISCUSSIONS MODAL ====================== -->
-
-<!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#discussionModal">
-    Launch demo modal
-  </button> -->
   
   <!-- Modal discussions -->
-<!-- <div class="modal fade" id="discussionModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<div class="modal fade" id="discussionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -662,7 +584,7 @@
           <i class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
         </div>
         <div class="modal-body">
-            <div class="discussionMod active">
+            <div class="discussionMod">
                 <div class="info">
                     <div class="profile-photo">
                         <img src="{% static 'images/profile-17.jpg' %}">
@@ -713,7 +635,7 @@
                 <div class="disc-send">
                     <form action="" method="post">
                         {% csrf_token %}
-                        <input type="text" name="" id="">
+                        <input type="text" name="" id="" placeholder="Message">
                         <div class="send">
                             <input type="submit" id="send-message" value="Envoer" hidden>
                             <label for="send-message"><i class="uil uil-message"></i></label>
@@ -729,17 +651,57 @@
                     </div>
                     <div>
                         <span>
-                            <h5>Nom Investisseur (02)</h5>
+                            <h5>Nom Investisseur (01)</h5>
                         </span>
                         <p class="text-muted mb-0">
                             Application de recherche de répétiteur
                         </p>
                     </div>
                 </div>
-                <div class="chat mt-4">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est ut quas, ipsam alias aut excepturi omnis voluptates voluptatibus. Eligendi ab reiciendis dolorem nesciunt molestias voluptate distinctio amet? Obcaecati, soluta ipsam.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est ut quas, ipsam alias aut excepturi omnis voluptates voluptatibus. Eligendi ab reiciendis dolorem nesciunt molestias voluptate distinctio amet? Obcaecati, soluta ipsam.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est ut quas, ipsam alias aut excepturi omnis voluptates voluptatibus. Eligendi ab reiciendis dolorem nesciunt molestias voluptate distinctio amet? Obcaecati, soluta ipsam.
+                <div class="chat pt-4">
+                    <div class=".disc-left d-flex align-items-start text-start justify-content-start mb-4">
+                        <div>
+                            <div class="avatar">
+                                <img src="{% static 'images/profile-17.jpg' %}">
+                            </div>
+                        </div>
+                        <div>
+                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                Sure
+                            </span>
+                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                Let me know when you're available?
+                            </span>
+                            <div class="ms-2">
+                                <span class="text-muted">01:13PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=".disc-right d-flex align-items-baseline text-end justify-content-end mb-4">
+                        <div>
+                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
+                                Sure
+                            </span>
+                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
+                                Let me know when you're available?
+                            </span>
+                            <div class="me-2">
+                                <span class="text-muted">01:13PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="disc-send">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="" id="" placeholder="Message">
+                        <div class="send">
+                            <input type="submit" id="send-message" value="Envoer" hidden>
+                            <label for="send-message"><i class="uil uil-message"></i></label>
+                        </div>
+
+                    </form>
                 </div>
             </div>
             <div class="discussionMod">
@@ -749,25 +711,65 @@
                     </div>
                     <div>
                         <span>
-                            <h5>Nom Investisseur (03)</h5>
+                            <h5>Nom Investisseur (01)</h5>
                         </span>
                         <p class="text-muted mb-0">
                             Application de recherche de répétiteur
                         </p>
                     </div>
                 </div>
-                <div class="chat mt-4">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est ut quas, ipsam alias aut excepturi omnis voluptates voluptatibus. Eligendi ab reiciendis dolorem nesciunt molestias voluptate distinctio amet? Obcaecati, soluta ipsam.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est ut quas, ipsam alias aut excepturi omnis voluptates voluptatibus. Eligendi ab reiciendis dolorem nesciunt molestias voluptate distinctio amet? Obcaecati, soluta ipsam.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est ut quas, ipsam alias aut excepturi omnis voluptates voluptatibus. Eligendi ab reiciendis dolorem nesciunt molestias voluptate distinctio amet? Obcaecati, soluta ipsam.
+                <div class="chat pt-4">
+                    <div class=".disc-left d-flex align-items-start text-start justify-content-start mb-4">
+                        <div>
+                            <div class="avatar">
+                                <img src="{% static 'images/profile-17.jpg' %}">
+                            </div>
+                        </div>
+                        <div>
+                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                Sure
+                            </span>
+                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                Let me know when you're available?
+                            </span>
+                            <div class="ms-2">
+                                <span class="text-muted">01:13PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=".disc-right d-flex align-items-baseline text-end justify-content-end mb-4">
+                        <div>
+                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
+                                Sure
+                            </span>
+                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
+                                Let me know when you're available?
+                            </span>
+                            <div class="me-2">
+                                <span class="text-muted">01:13PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="disc-send">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="" id="" placeholder="Message">
+                        <div class="send">
+                            <input type="submit" id="send-message" value="Envoer" hidden>
+                            <label for="send-message"><i class="uil uil-message"></i></label>
+                        </div>
+
+                    </form>
                 </div>
             </div>
         </div>
       </div>
     </div>
-<!-- </div> -->
+</div>
 
-
+<!-- ================ END DISCUSSIONS MODAL ====================== -->
 
 <!-- ==================== THEME CUSTOMIZATION ======================= -->
 <div class="customize-theme">

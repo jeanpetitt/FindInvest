@@ -9,6 +9,7 @@ const discussion = document.querySelectorAll('.discussion');
 // modal discussion
 const discussionMod = document.querySelectorAll('.discussionMod');
 const discussionInfoMod = document.querySelectorAll('.discussionMod .info');
+const discSend = document.querySelectorAll('.disc-send');
 
 // catégories
 const category = document.querySelectorAll('.project-line');
@@ -104,6 +105,7 @@ for (let i = 0; i < discussionInfoMod.length; i++) {
         discussionMod[i].classList.toggle('hidenn');
         // discussionMod[i].style.display = "block";
         discussionMod[i].classList.toggle('active');
+        discSend[i].classList.toggle('active');
     });
     
 }

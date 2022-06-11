@@ -629,10 +629,17 @@ main .container .right{
 .right .discussion .info:last-child{
     margin-bottom: 0;
 }
-
+.right .discussion .info span h5{
+    font-size: 1rem;
+}
 .right .discussion .info p{
     font-size: 0.8rem;
 }
+
+
+
+/* ================ COMMENTAIRES ===================== */
+
 
 
 
@@ -647,7 +654,7 @@ main .container .right{
 
 .modal-dialog .modal-content{
     background: var(--color-light) !important;
-    box-shadow: 0 0 0.5rem var(--color-primary);
+    box-shadow: 0 0 0.2rem var(--color-primary);
     border-radius: var(--card-border-radius) !important;
 }
 
@@ -753,7 +760,47 @@ main .container .right{
 .discussionMod .disc-send{
     position: absolute;
     bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    padding: 0.2rem 0.5rem;
+    height: 3rem;
+    display: none;
+}
+.disc-send.active{
+    display: block;
+}
+.disc-send form{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.disc-send form input{
+    width: 85%;
+    height: 2.2rem;
+    /* border: #dee2e6 solid 1px; */
+    border: none;
+    border-radius: var(--card-border-radius);
+    background: var(--color-light);
+    padding-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-dark) !important;
+}
+.disc-send form label{
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    background: var(--color-light);
+    border-radius: 50%;
+    padding: 2px 3px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.disc-send form label:hover{
+    color: #fff;
+    background: var(--color-primary);
+    transition: 0.3s;
 }
 
 
