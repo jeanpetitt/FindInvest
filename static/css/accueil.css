@@ -472,6 +472,15 @@ main .container .left .profile .handle p{
     gap: 1rem;
 }
 
+.middle .posts .post .post-description{
+    padding: 0 0.8rem 0 0.5rem;
+    margin-top: 1rem;
+}
+.post-description .post-title h5{
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
 .middle .posts .post .photo{
     border-radius: var(--card-border-radius);
     overflow: hidden;
@@ -484,6 +493,14 @@ main .container .left .profile .handle p{
     align-items: center;
     font-size: 1.4rem;
     margin: 0.6rem;
+}
+.post .action-buttons i{
+    cursor: pointer;
+    transition: 0.3s;
+}
+.post .action-buttons i:hover{
+    color: var(--color-primary);
+    transition: 0.3s;
 }
 
 .middle .posts .post .liked-by{
@@ -506,6 +523,92 @@ main .container .left .profile .handle p{
 .middle .posts .post .liked-by p{
     margin-left: 0.5rem;
 }
+
+.post .comments .toggle-comments{
+    cursor: pointer;
+}
+.post .comments .toggle-comments:hover{
+    color: var(--color-primary) !important;
+    text-decoration: underline !important;
+}
+
+.post .comments{
+    padding-right: 1rem;
+}
+.post .caption{
+    padding-right: 0.5rem;
+}
+
+.post .comments .list-comments{
+
+}
+
+.comments .send-comment{
+
+}
+.send-comment form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.send-comment form input{
+    width: 85%;
+    height: 2.2rem;
+    border: none;
+    border-radius: var(--card-border-radius);
+    background: var(--color-light);
+    padding-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-dark) !important;
+}
+.send-comment form label{
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    background: var(--color-light);
+    border-radius: 50%;
+    padding: 2px 3px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.send-comment form label:hover{
+    color: #fff;
+    background: var(--color-primary);
+    transition: 0.3s;
+}
+
+
+.reply-comment form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.reply-comment form input{
+    width: 85%;
+    height: 2.2rem;
+    border: none;
+    border-radius: var(--card-border-radius);
+    background: var(--color-light);
+    padding-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-dark) !important;
+}
+.reply-comment form label{
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    background: var(--color-light);
+    border-radius: 50%;
+    padding: 2px 3px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.reply-comment form label:hover{
+    color: #fff;
+    background: var(--color-primary);
+    transition: 0.3s;
+}
+
 
 
 /* ================= RIGHT ======================== */
@@ -728,6 +831,10 @@ main .container .right{
     position: relative;
     width: 100%;
 }
+.chat .right-messages,
+.chat .left-messages{
+    margin-top: -1rem;
+}
 
 .avatar{
     width: 1.8rem;
@@ -743,14 +850,14 @@ main .container .right{
 .card-text-left {
     border-radius: var(--card-border-radius);
     background: var(--color-light);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     margin-bottom: 0.1rem;
 }
 .card-text-right {
     border-radius: var(--card-border-radius);
     background: var(--color-primary);
     color: #fff;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     margin-bottom: 0.1rem;
 }
 

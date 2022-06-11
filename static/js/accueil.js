@@ -103,7 +103,6 @@ for (let i = 0; i < discussionInfoMod.length; i++) {
     discussionInfoMod[i].addEventListener("click", () => {
         hiddenDisc();
         discussionMod[i].classList.toggle('hidenn');
-        // discussionMod[i].style.display = "block";
         discussionMod[i].classList.toggle('active');
         discSend[i].classList.toggle('active');
     });
