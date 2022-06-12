@@ -539,13 +539,40 @@ main .container .left .profile .handle p{
     padding-right: 0.5rem;
 }
 
-.post .comments .list-comments{
 
+
+.post .comments .list-comments{
+    height: 0;
+    overflow: hidden;
+    transition: 0.3s;
+}
+.post .comments .list-comments.active{
+    height: 300px;
+    overflow: scroll;
+    transition: 0.5s;
+}
+
+
+
+.text-small{
+    position: relative;
+    font-size: 0.9rem;
+    margin-left: -5px;
 }
 
 .comments .send-comment{
-
+    height: 2rem;
+    padding-top: 0.2rem;
 }
+
+.post .comments .btn-reply-comment{
+    cursor: pointer;
+}
+.post .comments .btn-reply-comment:hover{
+    color: var(--color-primary) !important;
+    text-decoration: underline !important;
+}
+
 .send-comment form{
     display: flex;
     justify-content: space-between;
@@ -575,6 +602,19 @@ main .container .left .profile .handle p{
     color: #fff;
     background: var(--color-primary);
     transition: 0.3s;
+}
+
+
+
+.reply-comment{
+    height: 0;
+    overflow: hidden;
+    transition: 0.3s;
+}
+.reply-comment.active{
+    height: 40px;
+    transition: 0.3s;
+    overflow: scroll;
 }
 
 

@@ -11,6 +11,13 @@ const discussionMod = document.querySelectorAll('.discussionMod');
 const discussionInfoMod = document.querySelectorAll('.discussionMod .info');
 const discSend = document.querySelectorAll('.disc-send');
 
+// commentaires
+const iconToggleComments = document.querySelectorAll('.icon-toggle-comments');
+const toggleComments = document.querySelectorAll('.toggle-comments');
+const listComments = document.querySelectorAll('.list-comments');
+const btnReplyComment = document.querySelectorAll('.btn-reply-comment');
+const replyComment = document.querySelectorAll('.reply-comment');
+
 // catégories
 const category = document.querySelectorAll('.project-line');
 const categorySearch = document.getElementById('category-search');
@@ -41,23 +48,15 @@ menuItems.forEach(item => {
     item.addEventListener('click', ()=>{
         changeActiveItem();
         item.classList.add('active');
-        // if(item.id != 'notifications'){
-        //     document.querySelector('.notifications-popup').style.display  = "none";
-        // } else{
-        //     document.querySelector('#notifications .notifications-count').style.display = "none";
-        //     document.querySelector('.notifications-popup').style.display  = "block";
-        // }
     })
 })
 
 // notifPopup.style.display  = "none";
 window.addEventListener('click', function(e){
     if(document.getElementById('notifications').contains(e.target)){
-        // alert("aff");
         document.querySelector('#notifications .notifications-count').style.display = "none";
         document.querySelector('.notifications-popup').style.display  = "block";
     } else{
-        // alert("cache");
         document.querySelector('.notifications-popup').style.display  = "none";
     }
 })
@@ -70,12 +69,7 @@ window.addEventListener('click', function(e){
 
 discNotification.addEventListener('click', () =>{
     discNotification.querySelector('.notifications-count').style.display = "none";
-    // discussion.forEach(item => {
-    //     item.style.boxShadow = '0 0 1rem var(--color-primary)';
-    //     setTimeout(() =>{
-    //         item.style.boxShadow = 'none';
-    //     }, 2000);
-    // })
+
 })
 
 
@@ -84,20 +78,9 @@ discNotification.addEventListener('click', () =>{
 // hidden active class from all menu items
 const hiddenDisc = () =>{
     discussionMod.forEach(item => {
-        // item.style.display = "none";
         item.classList.toggle('hidenn');
     })
 }
-
-// discussionInfoMod.forEach(item => {
-//     item.addEventListener('click', ()=>{
-//         hiddenDisc();
-//         item.style.display = "block";
-//         item.classList.toggle('active');
-//         discRetourn.classList.toggle('active');
-//     })
-// })
-
 
 for (let i = 0; i < discussionInfoMod.length; i++) {
     discussionInfoMod[i].addEventListener("click", () => {
@@ -112,6 +95,36 @@ for (let i = 0; i < discussionInfoMod.length; i++) {
 
 
 // =============== end discussions ================
+
+
+// ================== COMMENTAIRES ======================
+
+const affCachComments = () =>{
+
+}
+
+// toggle list comments
+
+for (let i = 0; i < toggleComments.length; i++) {
+    toggleComments[i].addEventListener("click", () => {
+        listComments[i].classList.toggle('active');
+    });
+}
+for (let i = 0; i < iconToggleComments.length; i++) {
+    iconToggleComments[i].addEventListener("click", () => {
+        listComments[i].classList.toggle('active');
+    });
+}
+
+// toggle reply input for a comment
+
+for (let i = 0; i < btnReplyComment.length; i++) {
+    btnReplyComment[i].addEventListener("click", () => {
+        replyComment[i].classList.toggle('active');
+    });
+}
+
+
 
 
 // ============== SEARCH CATEGORIE ===============
