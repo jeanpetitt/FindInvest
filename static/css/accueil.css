@@ -147,10 +147,15 @@ nav .log img{
     top: -1.5rem;
 }
 
+.searchNav .result .search-bar{
+    display: none;
+}
+
 .search-bar{
     background: var(--color-light);
     border-radius: var(--border-radius);
     padding: var(--search-padding);
+    cursor: pointer;
 }
 
 .search-bar input[type="search"]{
@@ -182,17 +187,30 @@ nav .create{
     background: var(--color-white);
     padding: 0.1rem 1rem;
     box-shadow: 0 0 0.3rem var(--color-primary);
-    position: absolute;
-    top: -1rem;
-    /* top: 4rem; */
-    /* z-index: 12; */
-    width: 100%;
-    /* position: fixed; */
+    /* position: absolute;
+    top: -1rem; */
+    top: 4rem;
+    z-index: 12;
+    /* width: 100%; */
+    position: fixed;
+    display: flex;
+    left: 25%;
+    right: 25%;
+    display: none;
+}
+
+.middle .searchNav.active{
+    display: block;
 }
 
 .searchNav .result{
-    /* width: 50%; */
+    width: 100%;
 }
+
+.result .to-search-project{
+    display: none;
+}
+
 .searchNav .result a{
     display: flex;
     align-items: center;
@@ -1299,6 +1317,11 @@ MEDIA QUERIES FOR SMAL LAPTOP AND BIG TABLETS
     .customize-theme .carte{
         width: 70vw;
     }
+
+    .middle .searchNav{
+        left: 25%;
+        right: 25%;
+    }
 }
 
 
@@ -1365,6 +1388,11 @@ MEDIA QUERIES FOR SMAL TABLETS
     .left .sidebar{
         box-shadow: 0 0 1rem rgba(0, 0, 0, 0.479);
     }
+
+    .middle .searchNav{
+        left: 20%;
+        right: 20%;
+    }
 }
 
 
@@ -1376,8 +1404,11 @@ MEDIA QUERIES FOR MOBILE PHONES
 
 @media screen and (max-width: 767px) {
     
-    nav .search-bar {
+    nav .search-bar input {
         display: none;
+    }
+    .searchNav .result .search-bar{
+        display: block;
     }
 
     nav .log img{
@@ -1489,6 +1520,10 @@ MEDIA QUERIES FOR MOBILE PHONES
         height: auto;
     }
 
+    .middle .searchNav{
+        left: 10%;
+        right: 10%;
+    }
 
 }
 

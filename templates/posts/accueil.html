@@ -19,10 +19,10 @@
             </h2>
         </a>
         
-        <div class="search-bar">
+        <div class="search-bar" id="search-bar-id">
             <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
             <i class="uil uil-search"></i>
-            <input type="search" name="" id="" placeholder="Rechercher...">
+            <input class="" type="search" name="" id="search-bar-input" placeholder="Rechercher...">
         </div>
 
         <!-- --------- début recherche ------------ -->
@@ -66,7 +66,7 @@
 
         <div class="create dropdown">
             {% if request.user.etudiant.id %}
-                <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal" >Create a post</label>
+                <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal" >Poster</label>
             {% endif %}
                 <div class="profile-photo" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="{% static 'images/profile-1.jpg' %}">
@@ -192,37 +192,49 @@
         <div class="middle">
             <!-- --------- début recherche ------------ -->
         
-            <div class="searchNav">
+            <div class="searchNav" id="searchNavId">
                 <div class="result">
-                    <a href="#post1">
-                        <div class="profile-photo">
-                            <img src="{% static 'images/profile-14.jpg' %}">
-                        </div>
-                        <span>
-                            <h3>Tom Michel - Informatique</h3>
-                            <h5>Application de gestion des tontines</h5>
-                        </span>
-                    </a>
-                    <a href="#post2">
-                        <div class="profile-photo">
-                            <img src="{% static 'images/profile-14.jpg' %}">
-                        </div>
-                        <span>
-                            <h3>Tom Michel - Informatique</h3>
-                            <h5>Application de gestion des tontines</h5>
-                        </span>
-                    </a>
-                    <a href="#post3">
-                        <div class="profile-photo">
-                            <img src="{% static 'images/profile-14.jpg' %}">
-                        </div>
-                        <span>
-                            <h3>Tom Michel - Informatique</h3>
-                            <h5>Application de gestion des tontines</h5>
-                        </span>
-                    </a>
+                    <div class="search-bar mt-2">
+                        <i class="uil uil-search"></i>
+                        <input class="" type="search" name="" id="search-bar-input-2" placeholder="Rechercher...">
+                    </div>
+                    <div class="to-search-project">
+                        <a href="#post1">
+                            <div class="profile-photo">
+                                <img src="{% static 'images/profile-14.jpg' %}">
+                            </div>
+                            <span>
+                                <h3>Tom Michel - <span>Informatique</span></h3>
+                                <h5>Application de gestion des tontines</h5>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="to-search-project">
+                        <a href="#post2">
+                            <div class="profile-photo">
+                                <img src="{% static 'images/profile-14.jpg' %}">
+                            </div>
+                            <span>
+                                <h3>Stone Mengue - <span>Informatique</span></h3>
+                                <h5>Application de gestion des tontines</h5>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="to-search-project">
+                        <a href="#post3">
+                            <div class="profile-photo">
+                                <img src="{% static 'images/profile-14.jpg' %}">
+                            </div>
+                            <span>
+                                <h3>Tom Michel - <span>Informatique</span></h3>
+                                <h5>Application de gestion des tontines</h5>
+                            </span>
+                        </a>
+                    </div>
                 </div>
             </div>
+
+            <!-- -------------- fin recherche ------------ -->
             {% if request.user.etudiant.id %}
                 <div class="create-post" id="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">
                     <div class="profile-photo">

@@ -1,3 +1,11 @@
+// recherche nav
+
+const searchBar = document.getElementById('search-bar-id');
+const searchBarInput = document.getElementById('search-bar-input');
+const searchBarInput2 = document.getElementById('search-bar-input-2');
+const searchNavId = document.getElementById('searchNavId');
+const toSearchProject = document.querySelectorAll('.to-search-project');
+
 // sidebar
 const menuItems = document.querySelectorAll('.menu-item');
 
@@ -32,6 +40,50 @@ const bgPalette = document.querySelectorAll('.choose-bg .bg');
 const Bg1 = document.querySelector('.bg-1');
 const Bg2 = document.querySelector('.bg-2');
 const Bg3 = document.querySelector('.bg-3');
+
+
+// ================ RECHERCHE NAV ============
+
+// searchBar.addEventListener("click", () =>{
+    // searchNavId.classList.toggle('active');
+//     searchNavId.style.display = "block";
+// })
+window.addEventListener('click', function(e){
+    if(searchNavId.contains(e.target) || searchBar.contains(e.target)){
+        // alert("ok");
+        searchNavId.style.display = "block";
+        toSearchProject.forEach(pro =>{
+            pro.style.display = "none";
+        })
+    }else{
+        // alert("cache");
+        searchNavId.style.display = "none";
+    }
+})
+
+// searches project
+const searchProject = () =>{
+    const val = searchBarInput.value.toLowerCase();
+    console.log(val);
+    if(val === ""){
+        
+    }else{
+        toSearchProject.forEach(pro =>{
+            pro.style.display = "none";
+            let name = pro.querySelector('a span h3 span').textContent.toLowerCase();
+            let title = pro.querySelector('a span h5').textContent.toLowerCase();
+            // console.log(name);
+            if(name.indexOf(val) != -1 || title.indexOf(val) != -1){
+                pro.style.display = "block";
+            }else{
+                pro.style.display = "none";
+            }
+        })
+    }
+}
+
+// search projects
+searchBarInput.addEventListener('keyup', searchProject);
 
 
 
@@ -136,7 +188,7 @@ const searchCategory = () =>{
     // console.log(val);
     category.forEach(cat =>{
         let name = cat.querySelector('h5').textContent.toLowerCase();
-        console.log(name);
+        // console.log(name);
         if(name.indexOf(val) != -1){
             cat.style.display = "flex";
         }else{
