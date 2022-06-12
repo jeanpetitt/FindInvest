@@ -24,9 +24,51 @@
             <i class="uil uil-search"></i>
             <input type="search" name="" id="" placeholder="Rechercher...">
         </div>
+
+        <!-- --------- début recherche ------------ -->
+        
+        <div class="searchNav">
+            <div class="result">
+                <a href="#post1">
+                    <div class="profile-photo">
+                        <img src="{% static 'images/profile-14.jpg' %}">
+                    </div>
+                    <span>
+                        <h3>Tom Michel - Informatique</h3>
+                        <h5>Application de gestion des tontines</h5>
+                    </span>
+                </a>
+                <a href="#post2">
+                    <div class="profile-photo">
+                        <img src="{% static 'images/profile-14.jpg' %}">
+                    </div>
+                    <span>
+                        <h3>Tom Michel - Informatique</h3>
+                        <h5>Application de gestion des tontines</h5>
+                    </span>
+                </a>
+                <a href="#post3">
+                    <div class="profile-photo">
+                        <img src="{% static 'images/profile-14.jpg' %}">
+                    </div>
+                    <span>
+                        <h3>Tom Michel - Informatique</h3>
+                        <h5>Application de gestion des tontines</h5>
+                    </span>
+                </a>
+            </div>
+        </div>
+
+
+
+
+        <!-- --------- fin recherche ------------ -->
+
         <div class="create dropdown">
-            <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal" >Create</label>
-            <div class="profile-photo" data-bs-toggle="dropdown" aria-expanded="false">
+            {% if request.user.etudiant.id %}
+                <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal" >Create a post</label>
+            {% endif %}
+                <div class="profile-photo" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="{% static 'images/profile-1.jpg' %}">
             </div>
             <ul class="dropdown-menu">
@@ -148,18 +190,20 @@
 
         <!-- ============== MIDDLE =============== -->
         <div class="middle">
-            <form class="create-post" id="create-post">
-                <div class="profile-photo">
-                    <img src="{% static 'images/profile-1.jpg' %}">
+            {% if request.user.etudiant.id %}
+                <div class="create-post" id="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">
+                    <div class="profile-photo">
+                        <img src="{% static 'images/profile-1.jpg' %}">
+                    </div>
+                    <input type="search" name="" id="create-post" placeholder="Une idée de projet ?">
+                    <button class="btn btn-primary">Poster</button>
                 </div>
-                <input type="search" name="" id="create-post" placeholder="Une idée de projet ?">
-                <input type="submit" value="Poster" class="btn btn-primary">
-            </form>
+            {% endif %}
 
             <!-- ------------ posts --------------- -->
             <div class="posts">
                 <!-- ------------ post 1 --------------- -->
-                <div class="post">
+                <div class="post" id="post1">
                     <div class="head">
                         <div class="user">
                             <a href="#">
@@ -168,8 +212,10 @@
                                 </div>
                             </a>
                             <div class="autor">
-                                <h3>Tom Michel - Informatique</h3>
-                                <small>Yaoundé, 15 MINUTES AGO</small>
+                                <a href="#post1">
+                                    <h3>Tom Michel - Informatique</h3>
+                                    <small>Yaoundé, 15 MINUTES AGO</small>
+                                </a>
                             </div>
                         </div>
                         <span class="edit">
@@ -372,7 +418,7 @@
                     </div>
                 </div>
                 <!-- ------------ post 2 --------------- -->
-                <div class="post">
+                <div class="post" id="post2">
                     <div class="head">
                         <div class="user">
                             <a href="#">
@@ -381,8 +427,10 @@
                                 </div>
                             </a>
                             <div class="autor">
-                                <h3>Tom Michel - Informatique</h3>
-                                <small>Yaoundé, 15 MINUTES AGO</small>
+                                <a href="#post2">
+                                    <h3>Tom Michel - Informatique</h3>
+                                    <small>Yaoundé, 15 MINUTES AGO</small>
+                                </a>
                             </div>
                         </div>
                         <span class="edit">
@@ -585,7 +633,7 @@
                     </div>
                 </div>
                 <!-- ------------ post 3 --------------- -->
-                <div class="post">
+                <div class="post" id="post3">
                     <div class="head">
                         <div class="user">
                             <a href="#">
@@ -594,8 +642,10 @@
                                 </div>
                             </a>
                             <div class="autor">
-                                <h3>Tom Michel - Informatique</h3>
-                                <small>Yaoundé, 15 MINUTES AGO</small>
+                                <a href="#post3">
+                                    <h3>Tom Michel - Informatique</h3>
+                                    <small>Yaoundé, 15 MINUTES AGO</small>
+                                </a>
                             </div>
                         </div>
                         <span class="edit">
