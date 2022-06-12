@@ -27,7 +27,7 @@
 
         <!-- --------- début recherche ------------ -->
         
-        <div class="searchNav">
+        <!-- <div class="searchNav">
             <div class="result">
                 <a href="#post1">
                     <div class="profile-photo">
@@ -57,7 +57,7 @@
                     </span>
                 </a>
             </div>
-        </div>
+        </div> -->
 
 
 
@@ -190,6 +190,39 @@
 
         <!-- ============== MIDDLE =============== -->
         <div class="middle">
+            <!-- --------- début recherche ------------ -->
+        
+            <div class="searchNav">
+                <div class="result">
+                    <a href="#post1">
+                        <div class="profile-photo">
+                            <img src="{% static 'images/profile-14.jpg' %}">
+                        </div>
+                        <span>
+                            <h3>Tom Michel - Informatique</h3>
+                            <h5>Application de gestion des tontines</h5>
+                        </span>
+                    </a>
+                    <a href="#post2">
+                        <div class="profile-photo">
+                            <img src="{% static 'images/profile-14.jpg' %}">
+                        </div>
+                        <span>
+                            <h3>Tom Michel - Informatique</h3>
+                            <h5>Application de gestion des tontines</h5>
+                        </span>
+                    </a>
+                    <a href="#post3">
+                        <div class="profile-photo">
+                            <img src="{% static 'images/profile-14.jpg' %}">
+                        </div>
+                        <span>
+                            <h3>Tom Michel - Informatique</h3>
+                            <h5>Application de gestion des tontines</h5>
+                        </span>
+                    </a>
+                </div>
+            </div>
             {% if request.user.etudiant.id %}
                 <div class="create-post" id="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">
                     <div class="profile-photo">

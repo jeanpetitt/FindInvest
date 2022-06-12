@@ -174,18 +174,24 @@ nav .create{
 
 /* resultat recherche */
 
-nav .searchNav{
+.middle {
+    position: relative;
+}
+.middle .searchNav{
     border-radius: var(--card-border-radius);
     background: var(--color-white);
     padding: 0.1rem 1rem;
-    box-shadow: 0 0 0.1rem var(--color-primary);
+    box-shadow: 0 0 0.3rem var(--color-primary);
     position: absolute;
-    top: 5rem;
-    z-index: 12;
+    top: -1rem;
+    /* top: 4rem; */
+    /* z-index: 12; */
+    width: 100%;
+    /* position: fixed; */
 }
 
 .searchNav .result{
-    width: 50%;
+    /* width: 50%; */
 }
 .searchNav .result a{
     display: flex;
@@ -216,19 +222,15 @@ nav .searchNav{
     font-size: 0.8rem;
 }
 
-.middle .posts .post .head h3 {
-    font-size: 1.18em;
-    font-weight: 600;
-}
-
-.middle .posts .post .head h5 {
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
-.middle .posts .post .head{
-    display: flex;
-    justify-content: space-between;
+/* @media screen and (min-width: 1201px) {
+    nav .searchNav .result{
+        top: 4rem;
+        width: 40vw;
+    }
+    nav .searchNav{
+        margin-left: 22vw;
+        margin-right: 30vw;
+    }
 }
 
 @media screen and (max-width: 1200px) and (min-width: 768px) {
@@ -246,7 +248,7 @@ nav .searchNav{
         margin-left: auto;
         margin-right: auto;
     }
-}
+} */
 
 
 /* ============== MAIN ================ */
