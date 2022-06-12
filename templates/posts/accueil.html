@@ -14,7 +14,7 @@
         </h2> -->
         <h2 class="log">
             <span style="opacity: 0; visibility: hidden;">FindInvest</span>
-            <img src="./images/logo1.png" alt="">
+            <img src="{% static 'images/logo1.png' %}" alt="">
         </h2>
         <div class="search-bar">
             <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
@@ -123,7 +123,7 @@
             </div>
 
             <!-- ------------ end of sidebar --------- -->
-            <label class="btn btn-primary" for="create-post">Create post</label>
+            <label class="btn btn-primary" id="myBtn" for="create-post">Create post</label>
         </div>
         <!-- ============== END OF LEFT =============== -->
 
@@ -206,7 +206,7 @@
                     <img src="{% static 'images/profile-1.jpg' %}" alt="">
                 </div>
                 <input type="search" name="" id="create-post" placeholder="Une idée de projet ?">
-                <input type="submit" value="Poster" class="btn btn-primary">
+                <button type="submit" value="Poster" class="btn btn-primary"></button>
             </form>
 
             <!-- ------------ posts --------------- -->
@@ -245,9 +245,9 @@
                     </div>
 
                     <div class="liked-by">
-                        <span><img src="./images/profile-15.jpg" alt=""></span>
-                        <span><img src="./images/profile-16.jpg" alt=""></span>
-                        <span><img src="./images/profile-18.jpg" alt=""></span>
+                        <span><img src="{% static 'images/profile-15.jpg' %}" alt=""></span>
+                        <span><img src="{% static 'images/profile-16.jpg' %}" alt=""></span>
+                        <span><img src="{% static 'images/profile-18.jpg' %}" alt=""></span>
                         <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
                     </div>
 
@@ -641,58 +641,225 @@
 <br><br>
 
 <!-- button qui ouvre le modal -->
+<style>
+/* The Modal (background) */
+/*  le modla pour poster une publication */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1; 
+    padding-top: 100px; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4);
+}
+
+		/* Modal Content */
+.modal-content {
+		  /*background-color: #040E15;*/
+	  background-color: white;
+	  margin: auto;
+		  border: 1px solid #888;
+		  width: 500px;
+		 /* border-radius: 25px;*/
+		}
+
+		/* le bouton x de fermeture du modal */
+		.close {
+		  color: #aaaaaa;
+		  font-size: 2em;
+		  float: right;
+		}
+		/* titre du modal de l'application */
+		.titre_modal{
+			text-align: center;
+			font-size: 2rem;
+			color: blueviolet;
+			margin-top: -45px;
+		}
+
+		.trait{
+			margin-top: 15px;
+			height: 1px;
+			background: #aaaaaa;
+			opacity: 0.5;
+		}
 
 
-<!-- la div  Modal -->
+		/* formulaire */
+		.form{
+			margin: 10px;
+		}
+
+		.champs{
+			margin-left: 10%;
+		}
+
+		/* imput et textarea */
+		
+#id_title, #id_categorie{
+			border-top: none !important;
+			border-left: none !important;
+			border-right: none !important;
+			border-radius: 0 !important;
+			box-shadow: none !important;
+			font-size: 1.5rem !important;
+			outline: none;
+			width: 350px;
+
+		}
+
+#id_description{
+			min-height: 150px;
+			max-height: 200px;
+			border-top: none !important;
+			font-size: 1.5rem;
+			border-radius: 5px;
+			width: 350px;
+			max-width: 350px;
+			box-shadow: none !important;
+			outline: none;
+		}
+
+		#id_title:focus, #id_categorie:focus, #id_description:focus{
+			border-bottom: #0b5ed7 solid 1px;
+		}
+
+		.image{
+						border-radius: 10px;
+						border: #ced4da solid 1px;
+						padding: 15px 15px 20px;
+						margin-right: 60px;
+		}
+
+		/* fermuture du modale */
+		.close{
+			width: 50px;
+			height: 50px;
+			border-radius: 25px;
+			margin-left: 425px;
+			margin-top: 10px;
+			background: slateblue;
+			font-size: 2rem;
+		}
+		
+		.close:hover {
+			background: #1C293C;
+			opacity: 1.9;
+		  transform: scale(1.1);
+		  transform: .3s;
+		  cursor: pointer;
+		}
+		.btn1{
+			margin-top: 15px;
+			height: 50px;
+			margin-left: 20%;
+			width: 325px;
+			font-size: 1.5em;
+			background: #cacaca ;
+			border-radius: 10px;
+			margin-left: 0!important;
+		}
+
+		.btn1:hover{
+			transform: scale(1.07);
+		}
+
+@media screen and (min-width: 740px) and (max-width: 1112px){
+	.close{
+			margin-left: 25px;
+			height: 45px;
+			border-radius: 30px;
+		}
+}
+@media screen and (max-width: 739px){
+	.modal-content{
+		width: 500px;
+		}
+	.close{
+		margin-left: 430px;
+		}
+	}
+
+ </style>
+
 <div id="myModal" class="modal">
-
   <!-- Modal content -->
   <div class="modal-content">
-    
-    <div class="form">
+  	<div class="close">x</div>
+  	<h3 class="titre_modal"> Poster un Projet</h3>
+  	<div class="trait"></div>
+  		<div class="form">
       <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-          <span class="close">&times;</span>
-          <h2 style="text-align: center; margin-left: 40px; margin-top: 10px;">Cr&eacuteer une publication</h2>
-          <span class="bloc mt-4" id="block">
-          <div class="form-group">
-              {{ projet_form.title }}
-              <p><span class="errorform" id="error_title"></span></p>
-            </div>
-            <div class="form-group">
-              <label>categorie</label>
-              {{ projet_form.categorie }}
-              <p><span class="errorform" id="error_categorie"></span></p>
-            </div>
-            <div class="form-group">
-              {{ projet_form.image }}
-            </div>
-            <div class="form-group">
-              <textarea name="description" cols="40" rows="10" maxlength="500" placeholder="Decrivez votre  projet en quelques lignes" required="" id="id_description"></textarea>
-              <p><span class="errorform" id="error_description"></span></p>
-            </div>
-                    <div class="form-group">
-                        <select name="etudiant" style="display: none;" required="" id="id_etudiant">
+                 {% csrf_token %}
+      			<div class="champs">
+		       	{{ projet_form.title }}
+		       	<p><span id='error_title'></span></p>
+
+		       	{{ projet_form.categorie }}
+		       	<p><span id="errror_categorie"></span></p>
+		       	
+		      	<textarea name="description" cols="40" rows="10" maxlength="500" placeholder="Decrivez votre  projet en quelques lignes" required="" id="id_description"></textarea>
+		       	<p><span id="errror_description"></span></p>
+		       	
+		        
+		        <div class="image">
+		        	{{ projet_form.image }}
+		        </div>
+                <div>
+                    <select name="etudiant" style="display: none;" required="" id="id_etudiant">
 
                             <option value="{{ request.user.etudiant.id }}">{{ request.user.etudiant }}</option>
 
                         </select>
-            </div>
-                
-            <div class="form-group">
-              <button type="submit" class="btn1" onclick="validatePost()">publier</button>
-                        {{ err }}
-              <span class="btn2">annuler</span> 
-          </div>
-          </span>
-      
+                </div>
+		        <div>
+		        	<input class="btn1" type="submit" onclick="validatePost()" name="" value="Publier">
+		        </div>
+		        {{ err }}
+		        
+      </div>
       </form>
     </div>
   </div>
-
 </div>
 
 <script>
+// obtenir le modal
+var modal = document.getElementById("myModal");
+
+// obtnenir le bouton qui ouvre le modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+var btn2 = document.getElementsByClassName("btn2")[0]
+
+// quand l'utilisateur click sur le bouton le modal s'ouvre 
+btn.onclick = function() {
+  modal.style.display = "block";
+
+}
+
+
+// quans l'utilisateur clic sur le span x ou sur annuler le modals se ferme
+span.onclick = function() {
+modal.style.display = "none";
+}
+btn2.onclick = function(){
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
 
 
 // champs placeholder
@@ -738,6 +905,7 @@ function validatePost() {
     return false;
   }
 }
+
 
 </script>
 {% endblock %}
