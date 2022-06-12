@@ -149,10 +149,15 @@ nav .log img{
     top: -1.5rem;
 }
 
+.searchNav .result .search-bar{
+    display: none;
+}
+
 .search-bar{
     background: var(--color-light);
     border-radius: var(--border-radius);
     padding: var(--search-padding);
+    cursor: pointer;
 }
 
 .search-bar input[type="search"]{
@@ -172,6 +177,98 @@ nav .create{
     align-items: center;
     gap: 2rem;
 }
+
+
+/* resultat recherche */
+
+.middle {
+    position: relative;
+}
+.middle .searchNav{
+    border-radius: var(--card-border-radius);
+    background: var(--color-white);
+    padding: 0.1rem 1rem;
+    box-shadow: 0 0 0.3rem var(--color-primary);
+    /* position: absolute;
+    top: -1rem; */
+    top: 4rem;
+    z-index: 12;
+    /* width: 100%; */
+    position: fixed;
+    display: flex;
+    left: 25%;
+    right: 25%;
+    display: none;
+}
+
+.middle .searchNav.active{
+    display: block;
+}
+
+.searchNav .result{
+    width: 100%;
+}
+
+.result .to-search-project{
+    display: none;
+}
+
+.searchNav .result a{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 0.8rem;
+    padding: var(--card-padding);
+}
+.searchNav .result a:hover{
+    background: var(--color-light);
+    border-radius: var(--card-border-radius);
+}
+.searchNav .result a:last-child{
+    margin-bottom: 0;
+}
+
+.searchNav .result a .profile-photo{
+    width: 2rem;
+}
+.searchNav .result a h3{
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.searchNav .result a small{
+    font-size: 0.7rem;
+}
+.searchNav .result a h5{
+    font-size: 0.8rem;
+}
+
+/* @media screen and (min-width: 1201px) {
+    nav .searchNav .result{
+        top: 4rem;
+        width: 40vw;
+    }
+    nav .searchNav{
+        margin-left: 22vw;
+        margin-right: 30vw;
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 768px) {
+    nav .searchNav .result{
+        top: 4rem;
+        width: 70vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+@media screen and (max-width: 767px) {
+    nav .searchNav .result{
+        top: 4rem;
+        width: 90vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+} */
 
 
 /* ============== MAIN ================ */
@@ -427,8 +524,9 @@ main .container .left .profile .handle p{
     justify-content: space-between;
     margin-top: 1rem;
     background: var(--color-white);
-    padding: 0.4rem var(--card-padding);
-    border-radius: var(--border-radius);
+    padding: 1rem var(--card-padding);
+    border-radius: var(--card-border-radius);
+    cursor: pointer;
 }
 
 .middle .create-post input[type="search"]{
@@ -474,6 +572,16 @@ main .container .left .profile .handle p{
     gap: 1rem;
 }
 
+.middle .posts .post .post-description{
+    padding: 0 0.8rem 0 0.5rem;
+    margin-top: 1rem;
+}
+.post-description .post-title h5{
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
 .middle .posts .post .photo{
     border-radius: var(--card-border-radius);
     overflow: hidden;
@@ -486,6 +594,14 @@ main .container .left .profile .handle p{
     align-items: center;
     font-size: 1.4rem;
     margin: 0.6rem;
+}
+.post .action-buttons i{
+    cursor: pointer;
+    transition: 0.3s;
+}
+.post .action-buttons i:hover{
+    color: var(--color-primary);
+    transition: 0.3s;
 }
 
 .middle .posts .post .liked-by{
@@ -508,6 +624,132 @@ main .container .left .profile .handle p{
 .middle .posts .post .liked-by p{
     margin-left: 0.5rem;
 }
+
+.post .comments .toggle-comments{
+    cursor: pointer;
+}
+.post .comments .toggle-comments:hover{
+    color: var(--color-primary) !important;
+    text-decoration: underline !important;
+}
+
+.post .comments{
+    padding-right: 1rem;
+}
+.post .caption{
+    padding-right: 0.5rem;
+}
+
+
+
+.post .comments .list-comments{
+    height: 0;
+    overflow: hidden;
+    transition: 0.3s;
+}
+.post .comments .list-comments.active{
+    height: 300px;
+    overflow: scroll;
+    transition: 0.5s;
+}
+
+
+
+.text-small{
+    position: relative;
+    font-size: 0.9rem;
+    margin-left: -5px;
+}
+
+.comments .send-comment{
+    height: 2rem;
+    padding-top: 0.2rem;
+}
+
+.post .comments .btn-reply-comment{
+    cursor: pointer;
+}
+.post .comments .btn-reply-comment:hover{
+    color: var(--color-primary) !important;
+    text-decoration: underline !important;
+}
+
+.send-comment form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.send-comment form input{
+    width: 85%;
+    height: 2.2rem;
+    border: none;
+    border-radius: var(--card-border-radius);
+    background: var(--color-light);
+    padding-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-dark) !important;
+}
+.send-comment form label{
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    background: var(--color-light);
+    border-radius: 50%;
+    padding: 2px 3px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.send-comment form label:hover{
+    color: #fff;
+    background: var(--color-primary);
+    transition: 0.3s;
+}
+
+
+
+.reply-comment{
+    height: 0;
+    overflow: hidden;
+    transition: 0.3s;
+}
+.reply-comment.active{
+    height: 40px;
+    transition: 0.3s;
+    overflow: scroll;
+}
+
+
+.reply-comment form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.reply-comment form input{
+    width: 85%;
+    height: 2.2rem;
+    border: none;
+    border-radius: var(--card-border-radius);
+    background: var(--color-light);
+    padding-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-dark) !important;
+}
+.reply-comment form label{
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    background: var(--color-light);
+    border-radius: 50%;
+    padding: 2px 3px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.reply-comment form label:hover{
+    color: #fff;
+    background: var(--color-primary);
+    transition: 0.3s;
+}
+
 
 
 /* ================= RIGHT ======================== */
@@ -631,10 +873,210 @@ main .container .right{
 .right .discussion .info:last-child{
     margin-bottom: 0;
 }
-
+.right .discussion .info span h5{
+    font-size: 1rem;
+}
 .right .discussion .info p{
     font-size: 0.8rem;
 }
+
+
+
+/* ================ COMMENTAIRES ===================== */
+
+
+
+
+
+
+
+/* ====================== MODAL DISCUSSIONS ====================== */
+
+.modal {
+    background: rgba(255, 255, 255, 0.055) !important;
+}
+
+.modal-dialog .modal-content{
+    background: var(--color-light) !important;
+    box-shadow: 0 0 0.2rem var(--color-primary);
+    border-radius: var(--card-border-radius) !important;
+}
+
+.modal-content .uil-multiply{
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modal-body .line_disc{
+    display: flex;
+    padding: 0;
+    align-items: start;
+}
+
+.discussionMod {
+    position: relative;
+    background: var(--color-white);
+    padding: 0.8rem var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-bottom: 0.7rem;
+    height: 69px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+.discussionMod h4{
+    color: var(--color-gray);
+    margin: 1rem 0;
+}
+.discussionMod .info{
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    cursor: pointer;
+}
+.discussionMod .info p{
+    font-size: 0.8rem;
+}
+.discussionMod span h5{
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.discussionMod.hidenn{
+    display: none;
+    transition: 0.3s;
+}
+
+.discussionMod.active{
+    height: 500px;
+    transition: 0.3s;
+    overflow-y: scroll;
+}
+
+
+/* ------------- chat ----------- */
+
+.discussionMod .chat{
+    border-top: #dee2e6 solid 1px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat .text-muted{
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+}
+
+.chat .disc-left,
+.chat .disc-right{
+    position: relative;
+    width: 100%;
+}
+.chat .right-messages,
+.chat .left-messages{
+    margin-top: -1rem;
+}
+
+.avatar{
+    width: 1.8rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.avatar img{
+    display: block;
+    width: 100%;
+}
+
+.card-text-left {
+    border-radius: var(--card-border-radius);
+    background: var(--color-light);
+    font-size: 0.9rem;
+    margin-bottom: 0.1rem;
+}
+.card-text-right {
+    border-radius: var(--card-border-radius);
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 0.9rem;
+    margin-bottom: 0.1rem;
+}
+
+.discussionMod{
+    position: relative !important;
+}
+.discussionMod .disc-send{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    padding: 0.2rem 0.5rem;
+    height: 3rem;
+    display: none;
+}
+.disc-send.active{
+    display: block;
+}
+.disc-send form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.disc-send form input{
+    width: 85%;
+    height: 2.2rem;
+    /* border: #dee2e6 solid 1px; */
+    border: none;
+    border-radius: var(--card-border-radius);
+    background: var(--color-light);
+    padding-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-dark) !important;
+}
+.disc-send form label{
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    background: var(--color-light);
+    border-radius: 50%;
+    padding: 2px 3px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.disc-send form label:hover{
+    color: #fff;
+    background: var(--color-primary);
+    transition: 0.3s;
+}
+
+
+@media (min-width: 576px){
+    .modal-dialog {
+        max-width: 400px;
+        margin: 1.75rem auto;
+    }
+}
+
+@media (max-width: 576px){
+    .modal-dialog {
+        position: relative;
+        width: 90%;
+        margin: 0.5rem auto;
+        pointer-events: none;
+    }
+    .discussionMod .info p{
+        font-size: 0.7rem;
+    }
+    .discussionMod span h5{
+        font-size: 0.9rem;
+    }
+}
+
+
+
+
 
 
 
@@ -876,6 +1318,11 @@ MEDIA QUERIES FOR SMAL LAPTOP AND BIG TABLETS
     .customize-theme .carte{
         width: 70vw;
     }
+
+    .middle .searchNav{
+        left: 25%;
+        right: 25%;
+    }
 }
 
 
@@ -942,6 +1389,11 @@ MEDIA QUERIES FOR SMAL TABLETS
     .left .sidebar{
         box-shadow: 0 0 1rem rgba(0, 0, 0, 0.479);
     }
+
+    .middle .searchNav{
+        left: 20%;
+        right: 20%;
+    }
 }
 
 
@@ -953,8 +1405,11 @@ MEDIA QUERIES FOR MOBILE PHONES
 
 @media screen and (max-width: 767px) {
     
-    nav .search-bar {
+    nav .search-bar input {
         display: none;
+    }
+    .searchNav .result .search-bar{
+        display: block;
     }
 
     nav .log img{
@@ -1016,7 +1471,7 @@ MEDIA QUERIES FOR MOBILE PHONES
     }
     
     .left .sidebar .menu-item{
-        height: 3.5rem;
+        height: 4rem;
         opacity: 1;
     }
 
@@ -1066,6 +1521,10 @@ MEDIA QUERIES FOR MOBILE PHONES
         height: auto;
     }
 
+    .middle .searchNav{
+        left: 10%;
+        right: 10%;
+    }
 
 }
 
