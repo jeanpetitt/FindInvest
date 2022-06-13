@@ -22,47 +22,8 @@
         <div class="search-bar" id="search-bar-id">
             <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
             <i class="uil uil-search"></i>
-            <input class="" type="search" name="" id="search-bar-input" placeholder="Rechercher...">
+            <input class="search-bar-input" type="search" name="" id="search-bar-input" placeholder="Rechercher...">
         </div>
-
-        <!-- --------- début recherche ------------ -->
-        
-        <!-- <div class="searchNav">
-            <div class="result">
-                <a href="#post1">
-                    <div class="profile-photo">
-                        <img src="{% static 'images/profile-14.jpg' %}">
-                    </div>
-                    <span>
-                        <h3>Tom Michel - Informatique</h3>
-                        <h5>Application de gestion des tontines</h5>
-                    </span>
-                </a>
-                <a href="#post2">
-                    <div class="profile-photo">
-                        <img src="{% static 'images/profile-14.jpg' %}">
-                    </div>
-                    <span>
-                        <h3>Tom Michel - Informatique</h3>
-                        <h5>Application de gestion des tontines</h5>
-                    </span>
-                </a>
-                <a href="#post3">
-                    <div class="profile-photo">
-                        <img src="{% static 'images/profile-14.jpg' %}">
-                    </div>
-                    <span>
-                        <h3>Tom Michel - Informatique</h3>
-                        <h5>Application de gestion des tontines</h5>
-                    </span>
-                </a>
-            </div>
-        </div> -->
-
-
-
-
-        <!-- --------- fin recherche ------------ -->
 
         <div class="create dropdown">
             {% if request.user.etudiant.id %}
@@ -194,9 +155,9 @@
         
             <div class="searchNav" id="searchNavId">
                 <div class="result">
-                    <div class="search-bar mt-2">
+                    <div class="search-bar my-2">
                         <i class="uil uil-search"></i>
-                        <input class="" type="search" name="" id="search-bar-input-2" placeholder="Rechercher...">
+                        <input class="search-bar-input" type="search" name="" id="search-bar-input-2" placeholder="Rechercher...">
                     </div>
                     <div class="to-search-project">
                         <a href="#post1">
@@ -235,6 +196,7 @@
             </div>
 
             <!-- -------------- fin recherche ------------ -->
+
             {% if request.user.etudiant.id %}
                 <div class="create-post" id="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">
                     <div class="profile-photo">
@@ -919,9 +881,6 @@
                 </div>
                 <!-- ----------- projects lines ------------ -->
                 <div class="project-line">
-                    <!-- <div class="profile-photo">
-                        <img src="{% static 'images/profile-9.jpg' %}">
-                    </div> -->
                     <div class="project-body">
                         <h5>Informatique</h5>
                         <p class="text-muted">10 projets publiés</p>
