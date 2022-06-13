@@ -64,6 +64,8 @@
 
         <!-- --------- fin recherche ------------ -->
 
+
+
         <div class="create dropdown">
             {% if request.user.etudiant.id %}
                 <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal" >Poster</label>
@@ -281,7 +283,6 @@
                     <div class="photo">
                         <img src="{% static 'images/feed-1.jpg' %}">
                     </div>
-                    {% endfor %}
                     <div class="action-buttons">
                         <div class="interaction-buttons">
                             <span>
@@ -1224,187 +1225,44 @@
 
 <br><br>
 
-<!-- button qui ouvre le modal -->
-<style>
-/* The Modal (background) */
-/*  le modla pour poster une publication */
-.modal {
-    display: none; 
-    position: fixed;
-    z-index: 1; 
-    padding-top: 100px; 
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4);
-}
-
-		/* Modal Content */
-.modal-content {
-		  /*background-color: #040E15;*/
-	  background-color: white;
-	  margin: auto;
-		  border: 1px solid #888;
-		  width: 500px;
-		 /* border-radius: 25px;*/
-		}
-
-		/* le bouton x de fermeture du modal */
-		.close {
-		  color: #aaaaaa;
-		  font-size: 2em;
-		  float: right;
-		}
-		/* titre du modal de l'application */
-		.titre_modal{
-			text-align: center;
-			font-size: 2rem;
-			color: blueviolet;
-			margin-top: -45px;
-		}
-
-		.trait{
-			margin-top: 15px;
-			height: 1px;
-			background: #aaaaaa;
-			opacity: 0.5;
-		}
-
-
-		/* formulaire */
-		.form{
-			margin: 10px;
-		}
-
-		.champs{
-			margin-left: 10%;
-		}
-
-		/* imput et textarea */
-		
-#id_title, #id_categorie{
-			border-top: none !important;
-			border-left: none !important;
-			border-right: none !important;
-			border-radius: 0 !important;
-			box-shadow: none !important;
-			font-size: 1.5rem !important;
-			outline: none;
-			width: 350px;
-
-		}
-
-#id_description{
-			min-height: 150px;
-			max-height: 200px;
-			border-top: none !important;
-			font-size: 1.5rem;
-			border-radius: 5px;
-			width: 350px;
-			max-width: 350px;
-			box-shadow: none !important;
-			outline: none;
-		}
-
-		#id_title:focus, #id_categorie:focus, #id_description:focus{
-			border-bottom: #0b5ed7 solid 1px;
-		}
-
-		.image{
-						border-radius: 10px;
-						border: #ced4da solid 1px;
-						padding: 15px 15px 20px;
-						margin-right: 60px;
-		}
-
-		/* fermuture du modale */
-		.close{
-			width: 50px;
-			height: 50px;
-			border-radius: 25px;
-			margin-left: 425px;
-			margin-top: 10px;
-			background: slateblue;
-			font-size: 2rem;
-		}
-		
-		.close:hover {
-			background: #1C293C;
-			opacity: 1.9;
-		  transform: scale(1.1);
-		  transform: .3s;
-		  cursor: pointer;
-		}
-		.btn1{
-			margin-top: 15px;
-			height: 50px;
-			margin-left: 20%;
-			width: 325px;
-			font-size: 1.5em;
-			background: #cacaca ;
-			border-radius: 10px;
-			margin-left: 0!important;
-		}
-
-		.btn1:hover{
-			transform: scale(1.07);
-		}
-
-@media screen and (min-width: 740px) and (max-width: 1112px){
-	.close{
-			margin-left: 25px;
-			height: 45px;
-			border-radius: 30px;
-		}
-}
-@media screen and (max-width: 739px){
-	.modal-content{
-		width: 500px;
-		}
-	.close{
-		margin-left: 430px;
-		}
-	}
-
- </style>
-
+        <!-- la div  Modal -->
 <div id="myModal" class="modal">
+
   <!-- Modal content -->
   <div class="modal-content">
-  	<div class="close">x</div>
+  	<div class="close" id='close'>x</div>
   	<h3 class="titre_modal"> Poster un Projet</h3>
-  	<div class="trait"></div>
   		<div class="form">
       <form method="post" enctype="multipart/form-data">
-                 {% csrf_token %}
+      	
       			<div class="champs">
 		       	{{ projet_form.title }}
 		       	<p><span id='error_title'></span></p>
 
 		       	{{ projet_form.categorie }}
-		       	<p><span id="errror_categorie"></span></p>
-		       	
+		       	<p><span id="error_categorie"></span></p>
+		       	   
 		      	<textarea name="description" cols="40" rows="10" maxlength="500" placeholder="Decrivez votre  projet en quelques lignes" required="" id="id_description"></textarea>
-		       	<p><span id="errror_description"></span></p>
+		       	<p><span id="error_description"></span></p>
 		       	
-		        
-		        <div class="image">
-		        	{{ projet_form.image }}
+		       	<!-- div ou s'affichera la previsualisation de l'image ou du ficier -->
+
+		        <div id="img-show" style="display: none;margin-bottom: 5px;height: 100px; width: 350px; border: #ced4da solid 1px;">
+		        	<div style="margin: 20px 0 0 165px; height: 30px; width: 30px; background: bisque; border-radius: 20px; font-size: 2em;">+</div>
 		        </div>
-                <div>
-                    <select name="etudiant" style="display: none;" required="" id="id_etudiant">
-
-                            <option value="{{ request.user.etudiant.id }}">{{ request.user.etudiant }}</option>
-
-                        </select>
-                </div>
+		        <div id="file-show" style="display: none;margin-bottom: 5px;height: 100px; width: 350px; border: #ced4da solid 1px;">
+		        	
+		        </div>
+		        <!-- div permettant de choisir d'oujouter une image ou un fichier -->
+		        <div class="image">
+		        	
+		        	<span>joindre a votre publication<i id="imgs" class="uil uil-image-plus"></i><img id='file' src="{% static 'img/file.png' %}"></span> 
+		        </div>
 		        <div>
+		        <!-- fin div -->
 		        	<input class="btn1" type="submit" onclick="validatePost()" name="" value="Publier">
 		        </div>
-		        {{ err }}
+		       
 		        
       </div>
       </form>
@@ -1412,51 +1270,18 @@
   </div>
 </div>
 
+
+<script src="{% static 'js/jquery-2.1.0.min.js' %}"></script>
 <script>
-// obtenir le modal
-var modal = document.getElementById("myModal");
 
-// obtnenir le bouton qui ouvre le modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-var btn2 = document.getElementsByClassName("btn2")[0]
-
-// quand l'utilisateur click sur le bouton le modal s'ouvre 
-btn.onclick = function() {
-  modal.style.display = "block";
-
-}
-
-
-// quans l'utilisateur clic sur le span x ou sur annuler le modals se ferme
-span.onclick = function() {
-modal.style.display = "none";
-}
-btn2.onclick = function(){
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-
-// champs placeholder
-champsForm = document.getElementsByTagName('input');
-champsForm[1].placeholder=" Titre";
-champsForm[2].placeholder="Categorie";
-champsForm[3].placeholder="Description";
 
 
 var id_title = document.getElementById('id_title')
+    id_title.placeholder = "Titre"
 var error_title = document.getElementById('error_title')
 
 var id_categorie = document.getElementById('id_categorie')
+    id_categorie.placeholder = 'Categorie'
 var error_categorie = document.getElementById('error_categorie')
 
 var id_description = document.getElementById('id_description')
@@ -1489,7 +1314,20 @@ function validatePost() {
     return false;
   }
 }
-
+// obtenir le modal 
+$(document).ready(function(){
+        // click sur le bouton  qui ouvre le modal
+		$('#myBtn').click(function(){
+		$('#myModal').show(1000);
+		$('#close').click(function(){
+			$('#myModal').hide(1000);
+			$('#img-show').hide();
+		});
+		$('#imgs').click(function(){
+			$('#img-show').show();
+		});
+	});
+});
 
 </script>
 {% endblock %}
