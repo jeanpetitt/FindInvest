@@ -1,0 +1,27 @@
+ {% extends 'base.html' %}
+ {% load static %}
+ {% block title %} FindIvest | supprimer un projet {% endblock %}
+
+ {% block content %}
+
+ <div style="margin: 10% 20%; height: 500px; width: 500px; position: relative;">
+    <h2 class="text-center"> voulez vous vraiment suprimerz {{ projet_del }}</h2>
+    <style type="text/css">
+        .btn{
+            margin-left: 50px;
+        }
+
+        #del{
+            margin-left: 100px;
+        }
+    </style>
+  <form action="{% url 'delete_post' projet_del.id %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" id='del' class="btn btn-danger" value="delete">
+    <a href="{% url 'accueil' %}" class="btn btn-primary">annuler</a>
+
+  </form>
+ </div>
+ 
+
+ {% endblock %}

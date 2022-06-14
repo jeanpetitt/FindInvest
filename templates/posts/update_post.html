@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} FindIvest | Accueil {% endblock %}
+
+{% block content %}
+
+
+{% if user.is_authenticated %}
+      <h1> Bienvenue<u>{{request.user.last_name}}</u></h1>
+      {% if user.etudiant.id %}
+        <a href="{% url 'update_profile_student' %}">Modifier profil Etudiant</a> 
+          {{request.user.etudiant.photoProfil.url}}
+      <br>
+          <a href="{% url 'profile_student' request.user.etudiant.id %}">Profil etudiant</a>
+          <br>
+      {% endif %}
+      {% if user.investisseur.id %}
+          <a href="{% url 'update_profile_investor' %}">Modifier profil Investisseur</a> 
+          {{request.user.investisseur.photoProfil.url}}
+          <br><br>
+      {% endif %}
+
+      <a href="{% url 'user_logout' %}">se déconnecter</a>
+{% endif %} 
+
+
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  border: 1px solid #888;
+  width: 28%;
+  height: 80%;
+}
+
+/* le bouton x de fermeture du modal */
+.close {
+  color: #aaaaaa;
+  font-size: 28px;
+  font-weight: bold;
+  float: right;
+  margin-right: -90px;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* gestion du formulaire */
+.form{
+    position: absolute;
+    background: #f2f2f2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    
+    transition: .3s ease-in-out;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+    
+    .form .form-group{
+      
+      margin-left: 20%;
+    }
+    .form-group input{
+      width: 150px;
+    /* margin-bottom: 20px; */
+      padding: 10px;
+      height: 55px;
+      width: 350px;
+      border-radius: 10px;
+      outline: none;
+      font-size: 16px;
+      color: #333;
+      /* border: #333 solid 1px; */
+      border: 1px solid #ced4da;
+    }
+    /* gestion des bouton */
+    .btn1,
+    .btn2{
+      margin-top: 20px;
+      display: flex;
+      width: 150px;
+      height: 50px;
+      font-size: 1.5rem;
+      padding: 5px 20px;
+      border-radius: 10px;
+      }
+    .form-group textarea{
+      margin-top: 10px;
+      height: 150px;
+      min-height: 150px;
+      max-height: 170px;
+      width: 350px;
+    }
+    .btn1{
+      background: #1b65d5d9;
+    }
+    .btn2{
+      background: orange;
+      float: right;
+      margin-top: -48px;
+    }
+
+    @media screen and (max-width: 992px){
+      .modal-content{
+        width: 540px;
+        height: 90%;
+      }
+    }
+</style>
+
+
+<!-- button qui ouvre le modal -->
+<br>
+<button id="myBtn" class="btn btn-secondary">modifier</button>
+
+<!-- la div  Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    
+    <div class="form">
+      <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+          <span class="close">&times;</span>
+          <h2 style="text-align: center; margin-left: 50px; margin-top: 10px;">modifier le projet {{ projet.title}} </h2>
+          <div class="form-group">
+              <label>titre </label>
+              {{ projet_form.title }}
+            </div>
+            <div class="form-group">
+              <label>categorie</label>
+              {{ projet_form.categorie }}
+            </div>
+            
+            <div class="form-group">
+            <a href="/media/images/post_image/278579277_727274298705621_824190993923983777_n.jpg" style="display: none;" class="text-center">images/post_image/278579277_727274298705621_824190993923983777_n.jpg</a>
+            <input type="checkbox" name="image-clear" style="display: none;" id="image-clear_id">
+            <label for="image-clear_id" style="display: none;">Effacer</label><br>
+
+            <input type="file" name="image" accept="image/*" id="id_image" value="{{ projet.image }}">
+            </div>
+
+            <div class="form-group">
+              <textarea name="description" cols="40" rows="10" maxlength="500" required="" id="id_description">{{ projet.description}}</textarea>
+            </div>
+                    <div class="form-group">
+                        <select name="etudiant" style="display: none;" required="" id="id_etudiant">
+
+                            <option value="{{ request.user.etudiant.id }}">{{ request.user.etudiant }}</option>
+
+                        </select>
+                    </div>
+                
+            <div class="form-group">
+              <button type="submit" class="btn1">publier</button>
+                        {{ err }}
+              <span class="btn2">annuler</span> 
+          </div>
+            
+      
+      
+      </form>
+    </div>
+  </div>
+
+</div>
+<script>
+// obtenir le modal
+
+var modal = document.getElementById("myModal");
+
+// obtnenir le bouton qui ouvre le modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+var btn2 = document.getElementsByClassName("btn2")[0]
+
+// quand l'utilisateur click sur le bouton le modal s'ouvre 
+btn.onclick = function() {
+  modal.style.display = "block";
+
+}
+
+
+// quans l'utilisateur clic sur le span x ou sur annuler le modals se ferme
+span.onclick = function() {
+  modal.style.display = "none";
+}
+btn2.onclick = function(){
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+
+
+</script>
+{% endblock %}
+
+
+

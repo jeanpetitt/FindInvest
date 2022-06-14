@@ -1,0 +1,211 @@
+
+<!-- formualire pour RECHERCHER D'UN REPETITEUR -->
+
+              <form action="" method="post">
+                {% csrf_token %}
+
+                <div class="modal-body">
+                  <div class="container-fluid text-center">
+                    <div class="row">
+                      <div class="col-md-8 offset-md-2">
+                        <div class="form-group">
+                          <label for="typeRech">Critères de recherche</label>
+                          <select class="form-control" name="typeRech" id="typeRech">
+                            <option value="1">Tous les profs</option>
+                            <option value="2">Matière + Ville</option>
+                            <option value="3">Classe + Ville</option>
+                            <option value="4">Matière + Classe + Ville</option>
+                            <option value="5">Matière + Classe + Ville + Quartier</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <p id="indication" style="color: rgb(56, 51, 133) !important; font-style: italic; font-size: 13px;" class="text-center align-items-center mt-4">
+                      <i style="font-size: 20px;" class="bi-question-circle"></i> 
+                        Si une <b>classe ou matière ou ville ou quartier</b> n'apparaît pas dans la liste, alors aucun répétiteur avec cette information n'est encore enregistré !
+                    </p>
+                    <div class="row mt-2" id="form2">
+                      <div class="col-md-5 offset-md-1 mt-3">
+                        <div class="form-group">
+                          <label for="">Matière</label>
+                          <select class="form-control" name="matiere2" id="matiere2">
+                            {% for mat in coursL %}
+                            <option value="{{mat}}">{{mat}}</option>
+                            {% endfor %} 
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-5 mt-3">
+                        <div class="form-group">
+                          <label for="ville2">Ville</label>
+                          <select class="form-control" name="ville2" id="ville2">
+                            {% for ville in villeL %}
+                            <option value="{{ville}}">{{ville}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-2" id="form3">
+                      <div class="col-md-5 offset-md-1 mt-3">
+                        <div class="form-group">
+                          <label for="classe3">Classe</label>
+                          <select class="form-control" name="classe3" id="classe3">
+                            {% for classe in classeL %}
+                            <option value="{{classe}}">{{classe}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-5 mt-3">
+                        <div class="form-group">
+                          <label for="ville3">Ville</label>
+                          <select class="form-control" name="ville3" id="ville3">
+                            {% for ville in villeL %}
+                            <option value="{{ville}}">{{ville}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-2" id="form4">
+                      <div class="col-md-5 offset-md-1 mt-3">
+                        <div class="form-group">
+                          <label for="matiere4">Matière</label>
+                          <select class="form-control" name="matiere4" id="matiere4">
+                            {% for mat in coursL %}
+                            <option value="{{mat}}">{{mat}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-5 mt-3">
+                        <div class="form-group">
+                          <label for="classe4">Classe</label>
+                          <select class="form-control" name="classe4" id="classe4">
+                            {% for classe in classeL %}
+                            <option value="{{classe}}">{{classe}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-4 offset-md-4 mt-3">
+                        <div class="form-group">
+                          <label for="ville4">Ville</label>
+                          <select class="form-control" name="ville4" id="ville4">
+                            {% for ville in villeL %}
+                            <option value="{{ville}}">{{ville}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-2" id="form5">
+                      <div class="col-md-5 offset-md-1 mt-3">
+                        <div class="form-group">
+                          <label for="matiere5">Matière</label>
+                          <select class="form-control" name="matiere5" id="matiere5">
+                            {% for mat in coursL %}
+                            <option value="{{mat}}">{{mat}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-5 mt-3">
+                        <div class="form-group">
+                          <label for="classe5">Classe</label>
+                          <select class="form-control" name="classe5" id="classe5">
+                            {% for classe in classeL %}
+                            <option value="{{classe}}">{{classe}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-5 offset-md-1 mt-3">
+                        <div class="form-group">
+                          <label for="ville5">Ville</label>
+                          <select class="form-control" name="ville5" id="ville5">
+                            {% for ville in villeL %}
+                            <option value="{{ville}}">{{ville}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-5 mt-3">
+                        <div class="form-group">
+                          <label for="quartier5">Quartier</label>
+                          <select class="form-control" name="quartier5" id="quartier5">
+                            {% for qua in quartierL %}
+                            <option value="{{qua}}">{{qua}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                  <input class="btn-connexion" type="submit" value="Rechercher">
+                  <button type="button" class="btn-register annuler" data-bs-dismiss="modal">Annuler</button>
+                </div>
+              </form>
+              
+              
+              
+<!-- javaScritp -->
+
+
+            var form2 = document.getElementById('form2');
+            var form3 = document.getElementById('form3');
+            var form4 = document.getElementById('form4');
+            var form5 = document.getElementById('form5');
+            var indication = document.getElementById('indication');
+
+            form2.style.display = "none";
+            form3.style.display = "none";
+            form4.style.display = "none";
+            form5.style.display = "none";
+            indication.style.display = "none";
+
+            document.getElementById('typeRech').addEventListener('change', function(e) {
+            var selectUser = e.target.value;
+            if (selectUser == 1) {
+              form2.style.display = "none";
+              form3.style.display = "none";
+              form4.style.display = "none";
+              form5.style.display = "none";
+              indication.style.display = "none";
+            }
+            if (selectUser == 2) {
+              form2.style.display = "";
+              form3.style.display = "none";
+              form4.style.display = "none";
+              form5.style.display = "none";
+              indication.style.display = "";
+            }
+            if (selectUser == 3) {
+              form2.style.display = "none";
+              form3.style.display = "";
+              form4.style.display = "none";
+              form5.style.display = "none";
+              indication.style.display = "";
+            }
+            if (selectUser == 4) {
+              form2.style.display = "none";
+              form3.style.display = "none";
+              form4.style.display = "";
+              form5.style.display = "none";
+              indication.style.display = "";
+            }
+            if (selectUser == 5) {
+              form2.style.display = "none";
+              form3.style.display = "none";
+              form4.style.display = "none";
+              form5.style.display = "";
+              indication.style.display = "";
+            }
+          });
+
+
+
+

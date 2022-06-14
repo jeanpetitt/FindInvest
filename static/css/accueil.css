@@ -570,6 +570,16 @@ main .container .left .profile .handle p{
     gap: 1rem;
 }
 
+.middle .posts .post .head .edit{
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+.middle .posts .post .head .edit:hover{
+    background-color: var(--color-primary);
+    color: #fff;
+    border-radius: 50%;
+}
+
 .middle .posts .post .post-description{
     padding: 0 0.8rem 0 0.5rem;
     margin-top: 1rem;
@@ -579,11 +589,16 @@ main .container .left .profile .handle p{
     margin-bottom: 1rem;
     font-weight: 600;
 }
+.post-description a {
+    color: var(--color-primary);
+    font-weight: 600;
+}
 
 .middle .posts .post .photo{
     border-radius: var(--card-border-radius);
     overflow: hidden;
     margin: 0.7rem 0;
+    max-height: 320px !important;
 }
 
 .middle .posts .post .action-buttons{
@@ -1409,6 +1424,9 @@ MEDIA QUERIES FOR MOBILE PHONES
     }
     .searchNav .result .search-bar{
         display: block;
+    }
+    .searchNav .result .search-bar input[type="search"]{
+        width: 95% !important;
     }
 
     nav .log img{

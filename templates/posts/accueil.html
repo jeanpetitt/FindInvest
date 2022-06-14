@@ -27,7 +27,7 @@
 
         <div class="create dropdown">
             {% if request.user.etudiant.id %}
-                <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal" >Poster</label>
+                <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">Poster</label>
             {% endif %}
                 <div class="profile-photo" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="{% static 'images/profile-1.jpg' %}">
@@ -144,7 +144,7 @@
             </div>
 
             <!-- ------------ end of sidebar --------- -->
-            <label class="btn btn-primary" for="create-post">Create post</label>
+            <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">Create post</label>
         </div>
         <!-- ============== END OF LEFT =============== -->
 
@@ -156,42 +156,22 @@
             <div class="searchNav" id="searchNavId">
                 <div class="result">
                     <div class="search-bar my-2">
-                        <i class="uil uil-search"></i>
                         <input class="search-bar-input" type="search" name="" id="search-bar-input-2" placeholder="Rechercher...">
                     </div>
-                    <div class="to-search-project">
-                        <a href="#post1">
-                            <div class="profile-photo">
-                                <img src="{% static 'images/profile-14.jpg' %}">
-                            </div>
-                            <span>
-                                <h3>Tom Michel - <span>Informatique</span></h3>
-                                <h5>Application de gestion des tontines</h5>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="to-search-project">
-                        <a href="#post2">
-                            <div class="profile-photo">
-                                <img src="{% static 'images/profile-14.jpg' %}">
-                            </div>
-                            <span>
-                                <h3>Stone Mengue - <span>Informatique</span></h3>
-                                <h5>Application de gestion des tontines</h5>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="to-search-project">
-                        <a href="#post3">
-                            <div class="profile-photo">
-                                <img src="{% static 'images/profile-14.jpg' %}">
-                            </div>
-                            <span>
-                                <h3>Tom Michel - <span>Informatique</span></h3>
-                                <h5>Application de gestion des tontines</h5>
-                            </span>
-                        </a>
-                    </div>
+                    {% for post in postList %}
+                        <div class="to-search-project">
+                            <a href="#projet{{post.id}}">
+                                <div class="profile-photo">
+                                    <img src="{{post.etudiant.photoProfil.url}}">
+                                </div>
+                                <span>
+                                    <h3>Tom Michel - <span>Informatique</span></h3>
+                                    <h3>{{post.etudiant.user.last_name}} - {{post.categorie}}</h3>
+                                    <h5>{{post.title}}</h5>
+                                </span>
+                            </a>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
 
@@ -209,651 +189,235 @@
 
             <!-- ------------ posts --------------- -->
             <div class="posts">
-                <!-- ------------ post 1 --------------- -->
-                <div class="post" id="post1">
-                    <div class="head">
-                        <div class="user">
-                            <a href="#">
-                                <div class="profile-photo">
-                                    <img src="{% static 'images/profile-14.jpg' %}">
-                                </div>
-                            </a>
-                            <div class="autor">
-                                <a href="#post1">
-                                    <h3>Tom Michel - Informatique</h3>
-                                    <small>Yaoundé, 15 MINUTES AGO</small>
+                {% for post in postList %}
+                    <!-- ------------ post 1 --------------- -->
+                    <div class="post" id="#projet{{post.id}}">
+                        <div class="head">
+                            <div class="user">
+                                <a href="{% url 'profile_student' post.etudiant.id %}">
+                                    <div class="profile-photo">
+                                        <img src="{{post.etudiant.photoProfil.url}}">
+                                    </div>
                                 </a>
-                            </div>
-                        </div>
-                        <span class="edit">
-                            <i class="uil uil-ellipsis-h"></i> 
-                        </span>
-                    </div>
-                    <div class="post-description">
-                        <div class="post-title">
-                            <h5>Application de gestion des tontines</h5>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo aspernatur itaque minus iusto tempora rerum placeat quia in quibusdam unde fuga consequuntur, at maxime modi deserunt, dicta laboriosam, tempore obcaecati!
-                        </p>
-                        <p>
-                            <b>Document</b>
-                        </p>
-                    </div>
-                    <div class="photo">
-                        <img src="{% static 'images/feed-1.jpg' %}">
-                    </div>
-
-                    <div class="action-buttons">
-                        <div class="interaction-buttons">
-                            <span>
-                                <i class="uil uil-heart"></i>
-                                <span class="text-muted text-small">15</span>
-                            </span>&emsp;
-                            <span>
-                                <i class="uil uil-comment-dots icon-toggle-comments"></i>
-                                <span class="text-muted text-small">15</span>
-                            </span>&emsp;
-                            <span><i class="uil uil-share-alt"></i></span>
-                        </div>
-                        <div class="favorite">
-                            <span><i class="uil uil-favorite"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="liked-by">
-                        <span><img src="{% static 'images/profile-15.jpg' %}"></span>
-                        <span><img src="{% static 'images/profile-16.jpg' %}"></span>
-                        <span><img src="{% static 'images/profile-18.jpg' %}"></span>
-                        <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
-                    </div>
-
-                    <div class="caption">
-                        <b>Tom Michel</b> Lorem ipsum dolor sit amet consectetur, adipisicing elit. <span class="hash-tag">#génie</span>
-                    </div>
-
-                    <!-- ------------------- partie commentaires ---------------------- -->
-
-                    <div class="comments mt-1">
-                        <span class="text-muted toggle-comments">Voir/Cacher tous les 120 commentaires</span>
-                        <div class="list-comments mt-3">
-                            <div class="chat pt-4">
-
-                                <!-- comentaire 1 -->
-                                <div class=".disc-left d-flex align-items-start text-start justify-content-start">
-                                    <div>
-                                        <div class="avatar">
-                                            <img src="{% static 'images/profile-17.jpg' %}">
-                                        </div>
-                                    </div>
-                                    <div class="left-messages">
-                                        <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                            Let me know when you're available?
-                                        </span>
-                                        <br>
-                                        <div class="ms-2 my-1">
-                                            <span class="text-muted">
-                                                <span class="btn-reply-comment">Répondre</span>&emsp;
-                                                01:13PM
-                                            </span>
-                                        </div>
-
-                                        <!-- --------- input réponse commentaire 1 ------- -->
-                                        <div class="reply-comment">
-                                            <form action="" method="post">
-                                                {% csrf_token %}
-                                                <input type="text" name="" id="" placeholder="Votre réponse">
-                                                <div class="send">
-                                                    <input type="submit" id="reply-message" value="Envoer" hidden>
-                                                    <label for="reply-message"><i class="uil uil-message"></i></label>
-                                                </div>
-                        
-                                            </form>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-
-                                <!-- votre commentaire 1 -->
-                                <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
-                                    <div class="right-messages">
-                                        <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                            Let me know when you're available?
-                                        </span>
-                                        <br>
-                                        <div class="me-2">
-                                            <span class="text-muted">01:13PM</span>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-
-                                <!-- --------------- commentaire 2 --------------- -->
-                                <div class=".disc-left d-flex align-items-start text-start justify-content-start">
-                                    <div>
-                                        <div class="avatar">
-                                            <img src="{% static 'images/profile-16.jpg' %}">
-                                        </div>
-                                    </div>
-                                    <div class="left-messages">
-                                        <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                            Let me know when you're available?
-                                        </span>
-                                        <br>
-                                        <div class="ms-2 my-1">
-                                            <span class="text-muted">
-                                                <span class="btn-reply-comment">Répondre</span>&emsp;
-                                                01:13PM
-                                            </span>
-                                        </div>
-                                        <!-- --------- input réponse commentaire 2 ------- -->
-                                        <div class="reply-comment">
-                                            <form action="" method="post">
-                                                {% csrf_token %}
-                                                <input type="text" name="" id="" placeholder="Votre réponse">
-                                                <div class="send">
-                                                    <input type="submit" id="reply-message" value="Envoer" hidden>
-                                                    <label for="reply-message"><i class="uil uil-message"></i></label>
-                                                </div>
-                        
-                                            </form>
-                                        </div>
-                                        <br>
-
-                                        <!-- ---------------- reponse commentaire 2 ---------------- -->
-                                        <div class=".disc-left d-flex align-items-start text-start justify-content-start">
-                                            <div>
-                                                <div class="avatar">
-                                                    <img src="{% static 'images/profile-17.jpg' %}">
-                                                </div>
-                                            </div>
-                                            <div class="left-messages">
-                                                <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                                    Let me know when you're available?
-                                                </span>
-                                                <br>
-                                                <div class="ms-2 my-1">
-                                                    <span class="text-muted">
-                                                        <span class="btn-reply-comment">Répondre</span>&emsp;
-                                                        01:13PM
-                                                    </span>
-                                                </div>
-                                                <!-- --------- input réponse à la réponse commentaire 2 ------- -->
-                                                <div class="reply-comment">
-                                                    <form action="" method="post">
-                                                        {% csrf_token %}
-                                                        <input type="text" name="" id="" placeholder="Votre réponse">
-                                                        <div class="send">
-                                                            <input type="submit" id="reply-message" value="Envoer" hidden>
-                                                            <label for="reply-message"><i class="uil uil-message"></i></label>
-                                                        </div>
-                                
-                                                    </form>
-                                                </div>
-                                                <br>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- votre commentaire 1 -->
-                                <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
-                                    <div class="right-messages">
-                                        <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                            Let me know when you're available?
-                                        </span>
-                                        <br>
-                                        <div class="me-2">
-                                            <span class="text-muted">01:13PM</span>
-                                        </div>
-                                        <br>
-                                    </div>
+                                <div class="autor">
+                                    <a href="#projet{{post.id}}">
+                                        <h3>{{post.etudiant.user.last_name}} - {{post.categorie}}</h3>
+                                        <small>{{post.etudiant.ville}}, {{post.date_post}}</small>
+                                    </a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="send-comment">
-                            <form action="" method="post">
-                                {% csrf_token %}
-                                <input type="text" name="" id="" placeholder="Votre commentaire">
-                                <div class="send">
-                                    <input type="submit" id="send-message" value="Envoer" hidden>
-                                    <label for="send-message"><i class="uil uil-message"></i></label>
+                            {% if request.user.id == post.etudiant.user.id %}
+                                <div class="dropstart">
+                                    <span class="edit" id="dropdownPostActions" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="uil uil-ellipsis-h"></i> 
+                                    </span>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownPostActions">
+                                        <li><a class="dropdown-item" href="{% url 'update_post' post.id %}"  data-bs-toggle="modal" data-bs-target="#createPostModal">Modifier</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'delete_post' post.id %}"  data-bs-toggle="modal" data-bs-target="#modifyPostModal">Supprimer</a></li>
+                                    </ul>
                                 </div>
-        
-                            </form>
+                            {% endif %}
                         </div>
-                    </div>
-                </div>
-                <!-- ------------ post 2 --------------- -->
-                <div class="post" id="post2">
-                    <div class="head">
-                        <div class="user">
-                            <a href="#">
-                                <div class="profile-photo">
-                                    <img src="{% static 'images/profile-15.jpg' %}">
-                                </div>
+                        <div class="post-description">
+                            <div class="post-title">
+                                <h5>{{post.title}}</h5>
+                            </div>
+                            <p>
+                                {{post.description}}
+                            </p>
+                            {% if post.media %}
+                                <p>
+                                    <a href="{{post.media.url}}" download="FindInvest_Document">Autres documents</a>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="photo">
+                            <a href="{{post.image.url}}">
+                                <img src="{{post.image.url}}">
                             </a>
-                            <div class="autor">
-                                <a href="#post2">
-                                    <h3>Tom Michel - Informatique</h3>
-                                    <small>Yaoundé, 15 MINUTES AGO</small>
-                                </a>
+                        </div>
+
+                        <div class="action-buttons">
+                            <div class="interaction-buttons">
+                                <span>
+                                    <i class="uil uil-heart"></i>
+                                    <span class="text-muted text-small">15</span>
+                                </span>&emsp;
+                                <span>
+                                    <i class="uil uil-comment-dots icon-toggle-comments"></i>
+                                    <span class="text-muted text-small">15</span>
+                                </span>&emsp;
+                                <span><i class="uil uil-share-alt"></i></span>
+                            </div>
+                            <div class="favorite">
+                                <span><i class="uil uil-favorite"></i></span>
                             </div>
                         </div>
-                        <span class="edit">
-                            <i class="uil uil-ellipsis-h"></i> 
-                        </span>
-                    </div>
-                    <div class="post-description">
-                        <div class="post-title">
-                            <h5>Application de gestion des tontines</h5>
+
+                        <div class="liked-by">
+                            <span><img src="{% static 'images/profile-15.jpg' %}"></span>
+                            <span><img src="{% static 'images/profile-16.jpg' %}"></span>
+                            <span><img src="{% static 'images/profile-18.jpg' %}"></span>
+                            <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
                         </div>
-                        <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo aspernatur itaque minus iusto tempora rerum placeat quia in quibusdam unde fuga consequuntur, at maxime modi deserunt, dicta laboriosam, tempore obcaecati!
-                        </p>
-                        <p>
-                            <b>Document</b>
-                        </p>
-                    </div>
-                    <div class="photo">
-                        <img src="{% static 'images/feed-3.jpg' %}">
-                    </div>
 
-                    <div class="action-buttons">
-                        <div class="interaction-buttons">
-                            <span>
-                                <i class="uil uil-heart"></i>
-                                <span class="text-muted text-small">15</span>
-                            </span>&emsp;
-                            <span>
-                                <i class="uil uil-comment-dots icon-toggle-comments"></i>
-                                <span class="text-muted text-small">15</span>
-                            </span>&emsp;
-                            <span><i class="uil uil-share-alt"></i></span>
+                        <div class="caption">
+                            <b>Tom Michel</b> Lorem ipsum dolor sit amet consectetur, adipisicing elit. <span class="hash-tag">#génie</span>
                         </div>
-                        <div class="favorite">
-                            <span><i class="uil uil-favorite"></i></span>
-                        </div>
-                    </div>
 
-                    <div class="liked-by">
-                        <span><img src="{% static 'images/profile-15.jpg' %}"></span>
-                        <span><img src="{% static 'images/profile-16.jpg' %}"></span>
-                        <span><img src="{% static 'images/profile-18.jpg' %}"></span>
-                        <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
-                    </div>
+                        <!-- ------------------- partie commentaires ---------------------- -->
 
-                    <div class="caption">
-                        <b>Tom Michel</b> Lorem ipsum dolor sit amet consectetur, adipisicing elit. <span class="hash-tag">#génie</span>
-                    </div>
+                        <div class="comments mt-1">
+                            <span class="text-muted toggle-comments">Voir/Cacher tous les 120 commentaires</span>
+                            <div class="list-comments mt-3">
+                                <div class="chat pt-4">
 
-                    <!-- ------------------- partie commentaires ---------------------- -->
-
-                    <div class="comments mt-1">
-                        <span class="text-muted toggle-comments">Voir/Cacher tous les 120 commentaires</span>
-                        <div class="list-comments mt-3">
-                            <div class="chat pt-4">
-
-                                <!-- comentaire 1 -->
-                                <div class=".disc-left d-flex align-items-start text-start justify-content-start">
-                                    <div>
-                                        <div class="avatar">
-                                            <img src="{% static 'images/profile-17.jpg' %}">
-                                        </div>
-                                    </div>
-                                    <div class="left-messages">
-                                        <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                            Let me know when you're available?
-                                        </span>
-                                        <br>
-                                        <div class="ms-2 my-1">
-                                            <span class="text-muted">
-                                                <span class="btn-reply-comment">Répondre</span>&emsp;
-                                                01:13PM
-                                            </span>
-                                        </div>
-
-                                        <!-- --------- input réponse commentaire 1 ------- -->
-                                        <div class="reply-comment">
-                                            <form action="" method="post">
-                                                {% csrf_token %}
-                                                <input type="text" name="" id="" placeholder="Votre réponse">
-                                                <div class="send">
-                                                    <input type="submit" id="reply-message" value="Envoer" hidden>
-                                                    <label for="reply-message"><i class="uil uil-message"></i></label>
-                                                </div>
-                        
-                                            </form>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-
-                                <!-- votre commentaire 1 -->
-                                <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
-                                    <div class="right-messages">
-                                        <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                            Let me know when you're available?
-                                        </span>
-                                        <br>
-                                        <div class="me-2">
-                                            <span class="text-muted">01:13PM</span>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-
-                                <!-- --------------- commentaire 2 --------------- -->
-                                <div class=".disc-left d-flex align-items-start text-start justify-content-start">
-                                    <div>
-                                        <div class="avatar">
-                                            <img src="{% static 'images/profile-16.jpg' %}">
-                                        </div>
-                                    </div>
-                                    <div class="left-messages">
-                                        <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                            Let me know when you're available?
-                                        </span>
-                                        <br>
-                                        <div class="ms-2 my-1">
-                                            <span class="text-muted">
-                                                <span class="btn-reply-comment">Répondre</span>&emsp;
-                                                01:13PM
-                                            </span>
-                                        </div>
-                                        <!-- --------- input réponse commentaire 2 ------- -->
-                                        <div class="reply-comment">
-                                            <form action="" method="post">
-                                                {% csrf_token %}
-                                                <input type="text" name="" id="" placeholder="Votre réponse">
-                                                <div class="send">
-                                                    <input type="submit" id="reply-message" value="Envoer" hidden>
-                                                    <label for="reply-message"><i class="uil uil-message"></i></label>
-                                                </div>
-                        
-                                            </form>
-                                        </div>
-                                        <br>
-
-                                        <!-- ---------------- reponse commentaire 2 ---------------- -->
-                                        <div class=".disc-left d-flex align-items-start text-start justify-content-start">
-                                            <div>
-                                                <div class="avatar">
-                                                    <img src="{% static 'images/profile-17.jpg' %}">
-                                                </div>
+                                    <!-- comentaire 1 -->
+                                    <div class=".disc-left d-flex align-items-start text-start justify-content-start">
+                                        <div>
+                                            <div class="avatar">
+                                                <img src="{% static 'images/profile-17.jpg' %}">
                                             </div>
-                                            <div class="left-messages">
-                                                <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                                    Let me know when you're available?
+                                        </div>
+                                        <div class="left-messages">
+                                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                                Let me know when you're available?
+                                            </span>
+                                            <br>
+                                            <div class="ms-2 my-1">
+                                                <span class="text-muted">
+                                                    <span class="btn-reply-comment">Répondre</span>&emsp;
+                                                    01:13PM
                                                 </span>
-                                                <br>
-                                                <div class="ms-2 my-1">
-                                                    <span class="text-muted">
-                                                        <span class="btn-reply-comment">Répondre</span>&emsp;
-                                                        01:13PM
-                                                    </span>
-                                                </div>
-                                                <!-- --------- input réponse à la réponse commentaire 2 ------- -->
-                                                <div class="reply-comment">
-                                                    <form action="" method="post">
-                                                        {% csrf_token %}
-                                                        <input type="text" name="" id="" placeholder="Votre réponse">
-                                                        <div class="send">
-                                                            <input type="submit" id="reply-message" value="Envoer" hidden>
-                                                            <label for="reply-message"><i class="uil uil-message"></i></label>
-                                                        </div>
-                                
-                                                    </form>
-                                                </div>
-                                                <br>
+                                            </div>
+
+                                            <!-- --------- input réponse commentaire 1 ------- -->
+                                            <div class="reply-comment">
+                                                <form action="" method="post">
+                                                    {% csrf_token %}
+                                                    <input type="text" name="" id="" placeholder="Votre réponse">
+                                                    <div class="send">
+                                                        <input type="submit" id="reply-message" value="Envoer" hidden>
+                                                        <label for="reply-message"><i class="uil uil-message"></i></label>
+                                                    </div>
+                            
+                                                </form>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+
+                                    <!-- votre commentaire 1 -->
+                                    <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
+                                        <div class="right-messages">
+                                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
+                                                Let me know when you're available?
+                                            </span>
+                                            <br>
+                                            <div class="me-2">
+                                                <span class="text-muted">01:13PM</span>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+
+                                    <!-- --------------- commentaire 2 --------------- -->
+                                    <div class=".disc-left d-flex align-items-start text-start justify-content-start">
+                                        <div>
+                                            <div class="avatar">
+                                                <img src="{% static 'images/profile-16.jpg' %}">
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <!-- votre commentaire 1 -->
-                                <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
-                                    <div class="right-messages">
-                                        <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                            Let me know when you're available?
-                                        </span>
-                                        <br>
-                                        <div class="me-2">
-                                            <span class="text-muted">01:13PM</span>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="send-comment">
-                            <form action="" method="post">
-                                {% csrf_token %}
-                                <input type="text" name="" id="" placeholder="Votre commentaire">
-                                <div class="send">
-                                    <input type="submit" id="send-message" value="Envoer" hidden>
-                                    <label for="send-message"><i class="uil uil-message"></i></label>
-                                </div>
-        
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- ------------ post 3 --------------- -->
-                <div class="post" id="post3">
-                    <div class="head">
-                        <div class="user">
-                            <a href="#">
-                                <div class="profile-photo">
-                                    <img src="{% static 'images/profile-13.jpg' %}">
-                                </div>
-                            </a>
-                            <div class="autor">
-                                <a href="#post3">
-                                    <h3>Tom Michel - Informatique</h3>
-                                    <small>Yaoundé, 15 MINUTES AGO</small>
-                                </a>
-                            </div>
-                        </div>
-                        <span class="edit">
-                            <i class="uil uil-ellipsis-h"></i> 
-                        </span>
-                    </div>
-                    <div class="post-description">
-                        <div class="post-title">
-                            <h5>Application de gestion des tontines</h5>
-                        </div>
-                        <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo aspernatur itaque minus iusto tempora rerum placeat quia in quibusdam unde fuga consequuntur, at maxime modi deserunt, dicta laboriosam, tempore obcaecati!
-                        </p>
-                        <p>
-                            <b>Document</b>
-                        </p>
-                    </div>
-                    <div class="photo">
-                        <img src="{% static 'images/feed-2.jpg' %}">
-                    </div>
-
-                    <div class="action-buttons">
-                        <div class="interaction-buttons">
-                            <span>
-                                <i class="uil uil-heart"></i>
-                                <span class="text-muted text-small">15</span>
-                            </span>&emsp;
-                            <span>
-                                <i class="uil uil-comment-dots icon-toggle-comments"></i>
-                                <span class="text-muted text-small">15</span>
-                            </span>&emsp;
-                            <span><i class="uil uil-share-alt"></i></span>
-                        </div>
-                        <div class="favorite">
-                            <span><i class="uil uil-favorite"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="liked-by">
-                        <span><img src="{% static 'images/profile-15.jpg' %}"></span>
-                        <span><img src="{% static 'images/profile-16.jpg' %}"></span>
-                        <span><img src="{% static 'images/profile-18.jpg' %}"></span>
-                        <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
-                    </div>
-
-                    <div class="caption">
-                        <b>Tom Michel</b> Lorem ipsum dolor sit amet consectetur, adipisicing elit. <span class="hash-tag">#génie</span>
-                    </div>
-
-                    <!-- ------------------- partie commentaires ---------------------- -->
-
-                    <div class="comments mt-1">
-                        <span class="text-muted toggle-comments">Voir/Cacher tous les 120 commentaires</span>
-                        <div class="list-comments mt-3">
-                            <div class="chat pt-4">
-
-                                <!-- comentaire 1 -->
-                                <div class=".disc-left d-flex align-items-start text-start justify-content-start">
-                                    <div>
-                                        <div class="avatar">
-                                            <img src="{% static 'images/profile-17.jpg' %}">
-                                        </div>
-                                    </div>
-                                    <div class="left-messages">
-                                        <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                            Let me know when you're available?
-                                        </span>
-                                        <br>
-                                        <div class="ms-2 my-1">
-                                            <span class="text-muted">
-                                                <span class="btn-reply-comment">Répondre</span>&emsp;
-                                                01:13PM
+                                        <div class="left-messages">
+                                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                                Let me know when you're available?
                                             </span>
-                                        </div>
-
-                                        <!-- --------- input réponse commentaire 1 ------- -->
-                                        <div class="reply-comment">
-                                            <form action="" method="post">
-                                                {% csrf_token %}
-                                                <input type="text" name="" id="" placeholder="Votre réponse">
-                                                <div class="send">
-                                                    <input type="submit" id="reply-message" value="Envoer" hidden>
-                                                    <label for="reply-message"><i class="uil uil-message"></i></label>
-                                                </div>
-                        
-                                            </form>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-
-                                <!-- votre commentaire 1 -->
-                                <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
-                                    <div class="right-messages">
-                                        <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                            Let me know when you're available?
-                                        </span>
-                                        <br>
-                                        <div class="me-2">
-                                            <span class="text-muted">01:13PM</span>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-
-                                <!-- --------------- commentaire 2 --------------- -->
-                                <div class=".disc-left d-flex align-items-start text-start justify-content-start">
-                                    <div>
-                                        <div class="avatar">
-                                            <img src="{% static 'images/profile-16.jpg' %}">
-                                        </div>
-                                    </div>
-                                    <div class="left-messages">
-                                        <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                            Let me know when you're available?
-                                        </span>
-                                        <br>
-                                        <div class="ms-2 my-1">
-                                            <span class="text-muted">
-                                                <span class="btn-reply-comment">Répondre</span>&emsp;
-                                                01:13PM
-                                            </span>
-                                        </div>
-                                        <!-- --------- input réponse commentaire 2 ------- -->
-                                        <div class="reply-comment">
-                                            <form action="" method="post">
-                                                {% csrf_token %}
-                                                <input type="text" name="" id="" placeholder="Votre réponse">
-                                                <div class="send">
-                                                    <input type="submit" id="reply-message" value="Envoer" hidden>
-                                                    <label for="reply-message"><i class="uil uil-message"></i></label>
-                                                </div>
-                        
-                                            </form>
-                                        </div>
-                                        <br>
-
-                                        <!-- ---------------- reponse commentaire 2 ---------------- -->
-                                        <div class=".disc-left d-flex align-items-start text-start justify-content-start">
-                                            <div>
-                                                <div class="avatar">
-                                                    <img src="{% static 'images/profile-17.jpg' %}">
-                                                </div>
-                                            </div>
-                                            <div class="left-messages">
-                                                <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                                    Let me know when you're available?
+                                            <br>
+                                            <div class="ms-2 my-1">
+                                                <span class="text-muted">
+                                                    <span class="btn-reply-comment">Répondre</span>&emsp;
+                                                    01:13PM
                                                 </span>
-                                                <br>
-                                                <div class="ms-2 my-1">
-                                                    <span class="text-muted">
-                                                        <span class="btn-reply-comment">Répondre</span>&emsp;
-                                                        01:13PM
+                                            </div>
+                                            <!-- --------- input réponse commentaire 2 ------- -->
+                                            <div class="reply-comment">
+                                                <form action="" method="post">
+                                                    {% csrf_token %}
+                                                    <input type="text" name="" id="" placeholder="Votre réponse">
+                                                    <div class="send">
+                                                        <input type="submit" id="reply-message" value="Envoer" hidden>
+                                                        <label for="reply-message"><i class="uil uil-message"></i></label>
+                                                    </div>
+                            
+                                                </form>
+                                            </div>
+                                            <br>
+
+                                            <!-- ---------------- reponse commentaire 2 ---------------- -->
+                                            <div class=".disc-left d-flex align-items-start text-start justify-content-start">
+                                                <div>
+                                                    <div class="avatar">
+                                                        <img src="{% static 'images/profile-17.jpg' %}">
+                                                    </div>
+                                                </div>
+                                                <div class="left-messages">
+                                                    <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                                        Let me know when you're available?
                                                     </span>
+                                                    <br>
+                                                    <div class="ms-2 my-1">
+                                                        <span class="text-muted">
+                                                            <span class="btn-reply-comment">Répondre</span>&emsp;
+                                                            01:13PM
+                                                        </span>
+                                                    </div>
+                                                    <!-- --------- input réponse à la réponse commentaire 2 ------- -->
+                                                    <div class="reply-comment">
+                                                        <form action="" method="post">
+                                                            {% csrf_token %}
+                                                            <input type="text" name="" id="" placeholder="Votre réponse">
+                                                            <div class="send">
+                                                                <input type="submit" id="reply-message" value="Envoer" hidden>
+                                                                <label for="reply-message"><i class="uil uil-message"></i></label>
+                                                            </div>
+                                    
+                                                        </form>
+                                                    </div>
+                                                    <br>
                                                 </div>
-                                                <!-- --------- input réponse à la réponse commentaire 2 ------- -->
-                                                <div class="reply-comment">
-                                                    <form action="" method="post">
-                                                        {% csrf_token %}
-                                                        <input type="text" name="" id="" placeholder="Votre réponse">
-                                                        <div class="send">
-                                                            <input type="submit" id="reply-message" value="Envoer" hidden>
-                                                            <label for="reply-message"><i class="uil uil-message"></i></label>
-                                                        </div>
-                                
-                                                    </form>
-                                                </div>
-                                                <br>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- votre commentaire 1 -->
-                                <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
-                                    <div class="right-messages">
-                                        <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                            Let me know when you're available?
-                                        </span>
-                                        <br>
-                                        <div class="me-2">
-                                            <span class="text-muted">01:13PM</span>
+                                    <!-- votre commentaire 1 -->
+                                    <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
+                                        <div class="right-messages">
+                                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
+                                                Let me know when you're available?
+                                            </span>
+                                            <br>
+                                            <div class="me-2">
+                                                <span class="text-muted">01:13PM</span>
+                                            </div>
+                                            <br>
                                         </div>
-                                        <br>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="send-comment">
-                            <form action="" method="post">
-                                {% csrf_token %}
-                                <input type="text" name="" id="" placeholder="Votre commentaire">
-                                <div class="send">
-                                    <input type="submit" id="send-message" value="Envoer" hidden>
-                                    <label for="send-message"><i class="uil uil-message"></i></label>
-                                </div>
-        
-                            </form>
+                            <div class="send-comment">
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <input type="text" name="" id="" placeholder="Votre commentaire">
+                                    <div class="send">
+                                        <input type="submit" id="send-message" value="Envoer" hidden>
+                                        <label for="send-message"><i class="uil uil-message"></i></label>
+                                    </div>
+            
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
             </div>
             <!-- ------------ end posts --------------- -->
         </div>
@@ -954,11 +518,41 @@
 <!-- ================ DISCUSSIONS MODAL ====================== -->
   
   <!-- CREATE POST Modal -->
-  <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostLabel" aria-hidden="true">
+<div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="createPostLabel">Publier un projet</h5>
+          <h5 class="modal-title" id="createPostLabel">Publier/Modifier un projet</h5>
+          <i class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
+        </div>
+        <div class="modal-body">
+            <style>
+                textarea{
+                    width: 100%;
+                }
+            </style>
+            <form id="create_form" action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+    
+                <!-- {{create_post_form.as_p}} -->
+                <!-- <input type="hidden" name="form_type" value="create_form"> -->
+                <input type="text" name="test">
+                <input class="btn btn-primary" type="submit" value="Publier">
+    
+                {{err_create_post}}
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+  <!-- MODIFY POST Modal -->
+<div class="modal fade" id="modifyPostModal" tabindex="-1" aria-labelledby="createPostLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createPostLabel">Supprimer un projet</h5>
           <i class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
         </div>
         <div class="modal-body">
@@ -1236,5 +830,41 @@
     </div>
 </div>
 
+
+<script>
+    let create_form = document.getElementById('create_form');
+    
+    create_form.addEventListener("submit", StopReload)
+
+    function StopReload(e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'accueil' %}",
+            data: $('#create_form').serialize(),
+            dataType: "json",
+
+            success:function(data){
+                create_form.reset()
+            }
+        })
+    }
+
+    // $(document).on('submit', '#create_form', function(e){
+    //     e.preventDefault();
+
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "{% url 'accueil' %}",
+    //         data: $('#create_form').serialize(),
+    //         // csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+    //         dataType: "json",
+
+    //         success:function(data){
+    //             create_form.reset()
+    //         }
+    //     })
+    // })
+</script>
 
 {% endblock %}
