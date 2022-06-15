@@ -150,21 +150,21 @@ discNotification.addEventListener('click', () =>{
 // ================ discussion modal ====================
 
 // hidden active class from all menu items
-const hiddenDisc = () =>{
-    discussionMod.forEach(item => {
-        item.classList.toggle('hidenn');
-    })
-}
+// const hiddenDisc = () =>{
+//     discussionMod.forEach(item => {
+//         item.classList.toggle('hidenn');
+//     })
+// }
 
-for (let i = 0; i < discussionInfoMod.length; i++) {
-    discussionInfoMod[i].addEventListener("click", () => {
-        hiddenDisc();
-        discussionMod[i].classList.toggle('hidenn');
-        discussionMod[i].classList.toggle('active');
-        discSend[i].classList.toggle('active');
-    });
+// for (let i = 0; i < discussionInfoMod.length; i++) {
+//     discussionInfoMod[i].addEventListener("click", () => {
+//         hiddenDisc();
+//         discussionMod[i].classList.toggle('hidenn');
+//         discussionMod[i].classList.toggle('active');
+//         discSend[i].classList.toggle('active');
+//     });
     
-}
+// }
 
 
 

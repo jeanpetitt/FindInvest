@@ -570,24 +570,69 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="createPostLabel">Publier/Modifier un projet</h5>
-          <i class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
+          <i id="fermerMod" class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
         </div>
         <div class="modal-body">
             <style>
                 textarea{
                     width: 100%;
+                    height: 100px;
                 }
             </style>
-            <form id="create_form" action="" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
+                
     
-                {{create_post_form.as_p}}
-                <input type="hidden" name="form_type" value="create_form">
-                <!-- <input type="text" name="test"> -->
-                <input class="btn btn-primary" type="submit" value="Publier">
-    
-                {{err_create_post}}
-            </form>
+
+                <form id="create_form" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="csrfmiddlewaretoken" value="9DsWSkvsBE4LWWnPrRjmWo8GlyJTMSbhqWK6aJqUyHadqDR0v4WLxZWR0KnDwV9U">
+        
+                    <p>
+                        <label for="id_title">Titre du Projet&nbsp;:</label>
+                        <input type="text" name="title" maxlength="200" required="" id="id_title">
+                    </p>
+                    <p>
+                        <label for="id_categorie">Categorie projet&nbsp;:</label>
+                        <input type="text" name="categorie" maxlength="200" required="" id="id_categorie">
+                    </p>
+                
+                    <p>
+                        <label for="id_media">Media&nbsp;:</label>
+                        <input type="file" name="media" id="id_media">
+                    </p>
+                    <p>
+                        <label for="id_image">Image&nbsp;:</label>
+                        <input type="file" name="image" accept="image/*" id="id_image">
+                    </p>
+                    <p style="display: none;">
+                        <label for="id_investi">Investi&nbsp;:</label>
+                        <select name="investi" id="id_investi">
+                        <option value="">---------</option>
+                    
+                        <option value="Oui">Oui</option>
+                    
+                        <option value="Non" selected="">Non</option>
+        
+                        </select>  
+                    </p>
+                    <p>
+                        <label for="id_description">Description&nbsp;:</label>
+                        <textarea name="description" cols="40" rows="10" maxlength="500" required="" id="id_description"></textarea>
+                    </p>
+                    <p style="display: none;">
+                        <label for="id_etudiant">Etudiant&nbsp;:</label>
+                        <select name="etudiant" required="" id="id_etudiant">
+                            <option value="{{request.user.etudiant.id}}" selected="">{{request.user.etudiant}}</option>
+                        
+                        </select>
+                    </p>
+                    <input type="hidden" name="form_type" value="create_form">
+                    <input class="btn btn-primary" type="submit" value="Publier">
+        
+                    {{err_create_post}}
+                </form>
+
+
+                
         </div>
       </div>
     </div>

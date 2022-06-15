@@ -1064,6 +1064,19 @@ main .container .right{
     transition: 0.3s;
 }
 
+.accordion{
+    background: var(--color-white) !important;
+}
+
+input[type="text"],
+textarea,
+select{
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    border: none;
+    padding: var(--card-padding);
+}
+
 
 @media (min-width: 576px){
     .modal-dialog {
