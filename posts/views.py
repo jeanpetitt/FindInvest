@@ -153,10 +153,14 @@ def delete_post(request, pk):
 def room(request, room):
     username = request.GET.get('username')
     room_details = Room.objects.get(name=room)
+    roomList = Room.objects.all()
+    userList = User.objects.all()
     context = {
         'username': username,
         'room': room,
-        'room_details': room_details
+        'room_details': room_details,
+        'roomList':roomList,
+        'userList':userList,
     }
     return render(request, 'posts/room.html', context)
 
