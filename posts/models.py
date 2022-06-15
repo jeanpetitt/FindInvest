@@ -35,3 +35,18 @@ class Projet(models.Model):
 
     def __str__(self):
         return  f'{self.etudiant.user.last_name} Post- {self.title}'
+
+
+# model pour le Chat
+
+class Room(models.Model):
+    name = models.CharField(max_length=100)
+    user1 = models.CharField(max_length=100)
+    user2 = models.CharField(max_length=1000)
+
+
+class Message(models.Model):
+    value = models.CharField(max_length=1000000)
+    date = models.DateTimeField(default=timezone.now, blank=True)
+    user = models.CharField(max_length=100)
+    room = models.CharField(max_length=100)

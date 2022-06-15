@@ -1,0 +1,156 @@
+{% extends 'base-accueil.html' %}
+{% load static %}
+
+{% block title %} ChatApp | Chat {% endblock %}
+
+{% block content %}
+
+<!-- <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script> -->
+
+<h2>{{room}} - DjChat</h2>
+
+
+
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Discussions</h5>
+        <i class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
+        </div>
+        <div class="modal-body">
+            <div class="discussionMod active">
+                <div class="info">
+                    <div class="profile-photo">
+                        <img src="{{u.investisseur.photoProfil.url}}" alt="">
+                    </div>
+                    <div>
+                        <span>
+                        <h5>room other user name</h5>
+                        </span>
+                        <p class="text-muted mb-0">
+                            room name
+                        </p>
+                    </div>
+                </div>
+                
+                <div id="chat" class="chat pt-4">
+                    <div class=".disc-left d-flex align-items-start text-start justify-content-start">
+                        <div>
+                            <div class="avatar">
+                                <img src="{% static 'images/profile-17.jpg' %}">
+                            </div>
+                        </div>
+                        <div>
+                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                Sure
+                            </span>
+                            <br>
+                            <div class="ms-2">
+                                <span class="text-muted">01:13PM</span>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="disc-right d-flex align-items-baseline text-end justify-content-end">
+                        <div class="right-messages">
+                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
+                                Let me know when you're available?
+                            </span>
+                            <br>
+                            <div class="me-2">
+                                <span class="text-muted">01:13PM</span>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="disc-send active">
+                <form id="post-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="username" id="username" value="{{username}}"/>
+                    <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
+                    
+                    <input type="text" name="message" id="message" placeholder="Votre message">
+                    <div class="send">
+                        <input type="submit" id="send-message" value="Envoer" hidden>
+                        <label for="send-message"><i class="uil uil-message"></i></label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- actualiser la liste des messages -->
+
+<script>
+    $(document).ready(function(){
+
+        setInterval(function(){
+            $.ajax({
+                type: 'GET',
+                url : "/getMessages/{{room}}/",
+                success: function(response){
+                    // console.log(response);
+                    $("#chat").empty();
+                    for (var key in response.messages)
+                    {
+                        if(response.messages[key].user == "{{request.user.last_name}}"){
+                            var temp="<div class='disc-right d-flex align-items-baseline text-end justify-content-end'>"
+                                +"<div class='right-messages'>"
+                                +"<span class='card card-text-right d-inline-block text-start py-1 px-3 me-1'>"
+                                +response.messages[key].value
+                                +"</span><br>"
+                                +"<div class='me-2'>"
+                                +"<span class='text-muted'>"
+                                +response.messages[key].date+"</span></div><br></div></div>"
+                            ;
+                        }else{
+                            
+                            var temp="<div class='.disc-left d-flex align-items-start text-start justify-content-start'>"
+                                +"<div><div class='avatar'><img src="+response.photo+"></div></div>"
+                                +"<div><span class='card card-text-left d-inline-block py-1 px-3 ms-1'>"
+                                +response.messages[key].value
+                                +"</span><br><div class='ms-2'><span class='text-muted'>"
+                                +response.messages[key].date
+                                +"</span></div><br></div></div>"
+                            ;
+                        }
+                        $("#chat").append(temp);
+                    }
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        },1000);
+    })
+</script>
+
+
+<!-- envoie d'un message -->
+
+<script type="text/javascript">
+    $(document).on('submit','#post-form',function(e){
+        e.preventDefault();
+  
+        $.ajax({
+            type:'POST',
+            url:'/send',
+            data:{
+                username:$('#username').val(),
+                room_id:$('#room_id').val(),
+                message:$('#message').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function(data){
+                // alert(data)
+            }
+        });
+        document.getElementById('message').value = ''
+    });
+</script>
+
+{% endblock %}

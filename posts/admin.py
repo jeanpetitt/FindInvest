@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Projet, Comment
+from .models import Projet, Comment, Room, Message
 
 
 # Register your models here.
@@ -13,3 +13,6 @@ class AdminProjet(admin.ModelAdmin):
 admin.site.register(Comment)
 
 admin.site.register(Projet, AdminProjet)
+
+admin.site.register(Room)
+admin.site.register(Message)
