@@ -8,3 +8,47 @@
   <h1>Accueil</h1>
 
 {% endblock %}
+
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+  	<div class="close" id='close'>x</div>
+  	<h3 class="titre_modal"> Poster un Projet</h3>
+  		<div class="form">
+      <form method="post" enctype="multipart/form-data">
+      	
+      			<div class="champs">
+		       	{{ projet_form.title }}
+		       	<p><span id='error_title'></span></p>
+
+		       	{{ projet_form.categorie }}
+		       	<p><span id="error_categorie"></span></p>
+		       	   
+		      	<textarea name="description" cols="40" rows="10" maxlength="500" placeholder="Decrivez votre  projet en quelques lignes" required="" id="id_description"></textarea>
+		       	<p><span id="error_description"></span></p>
+		       	
+		       	<!-- div ou s'affichera la previsualisation de l'image ou du ficier -->
+
+		        <div id="img-show" style="display: none;margin-bottom: 5px;height: 100px; width: 350px; border: #ced4da solid 1px;">
+		        	<div style="margin: 20px 0 0 165px; height: 30px; width: 30px; background: bisque; border-radius: 20px; font-size: 2em;">+</div>
+		        </div>
+		        <div id="file-show" style="display: none;margin-bottom: 5px;height: 100px; width: 350px; border: #ced4da solid 1px;">
+		        	
+		        </div>
+		        <!-- div permettant de choisir d'oujouter une image ou un fichier -->
+		        <div class="image">
+		        	
+		        	<span>joindre a votre publication<i id="imgs" class="uil uil-image-plus"></i><img id='file' src="{% static 'img/file.png' %}"></span> 
+		        </div>
+		        <div>
+		        <!-- fin div -->
+		        	<input class="btn1" type="submit" onclick="validatePost()" name="" value="Publier">
+		        </div>
+		       
+		        
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

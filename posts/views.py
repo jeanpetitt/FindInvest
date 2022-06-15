@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from users.models import *
-from .forms import ProjetForm, CommentForm
-from .models import Projet, Comment
+from .forms import ProjetForm, CommentForm, ReponseForm
+from .models import Projet, Comment, Reponse
 
 # Create your views here.
 
@@ -26,9 +26,39 @@ def accueil(request):
 @login_required(login_url='connexion')
 def accueil(request):
     publied = False
-    err = ""
+    err_post = ""
+    erro_comm = ''
+    err_reponse = ""
+    
+    nb_commentaire = 0
+    nb_reps = 0
+    total_com = 0
+    coms = Comment.objects.all()
+    reps = Reponse.objects.all()
+    
+    
     projet_form = ProjetForm()
+    comment_form = CommentForm()
+    reponse_form = ReponseForm()
+    
     list_projet = []
+    list_comment = []
+    list_rep_com = []
+    list_projet_com = []
+    
+    #obtenir la liste de les commentaire
+    for com in coms:
+        list_comment.append(com)
+        list_projet_com.append(com)
+    nb_commentaire = len(list_comment)
+    for rep in reps:
+        list_rep_com.append(rep)
+        list_projet_com.append(rep.title.projet)
+    nb_reps = len(list_rep_com)
+    
+    
+    total_com = nb_reps + nb_commentaire    
+    
 
     # obtenir la liste de tous les projets publiers
     projets = Projet.objects.all()
@@ -36,25 +66,62 @@ def accueil(request):
         list_projet.append(projet)
 
     if request.method == "POST":
-        projet_form = ProjetForm(request.POST, request.FILES)
-        if projet_form.is_valid():
-
-            # enregistrer dans la BD
-            projet = projet_form.save()
-            projet.save()
+        
+        #poster une publication
+        if 'etudiant' in request.POST:
             
-            publied = True
-            return HttpResponseRedirect('../accueil')
-        else:
-            err = projet_form.errors
+            projet_form = ProjetForm(request.POST, request.FILES)
+            if projet_form.is_valid():
+
+                # enregistrer dans la BD
+                projet = projet_form.save()
+                projet.save()
+                
+                publied = True
+                context = {'title':projet.title, 'categorie':projet.categorie, 'description':projet.description, 'image':projet.image,'etudiant_img': projet.etudiant.photoProfil.url}
+                return HttpResponseRedirect('../accueil')
+            else:
+                err_post = projet_form.errors
+        #poster un commentaire
+        elif 'user_comment' in request.POST:
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save()
+                comment.save()
+                context = {}
+                return JsonResponse(context)
+            else:
+                erro_comm = comment_form.errors()
+        #repondre a un commentaire
+        elif 'user_reponse' in request.POST:
+            reponse_form = ReponseForm(request.POST)
+            
+            if reponse_form.is_valid():
+                
+                reponse = reponse_form.save()
+                reponse.save()
+                context = {}
+                return JsonResponse(context)
+            else:
+                err_reponse = reponse_form.errors()
 
     
 
     context = {
-        'err': err,
+        'err': err_post,
+        'err_com': erro_comm,
+        'err_post': err_post,
+        'err_reponse':err_reponse,
+        'nb_com': total_com,
+        
+        'list_com': list_comment,
+        'list_rep': list_rep_com,
+        'comment_form': comment_form,
+        'reponse_form': reponse_form,
         'projet_form': projet_form,
         'publied': publied,
         'list_projet': list_projet,
+        'projet_com': list_projet_com,
 
     }
     return render(request, "posts/accueil.html", context)
