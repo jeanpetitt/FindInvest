@@ -87,7 +87,11 @@ textarea{
     font-size: 16px !important;
     color: #333 !important;
     /* border: #333 solid 1px; */
-    border: 1px solid #ced4da !important;
+
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #ced4da !important;
 }
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -96,8 +100,11 @@ input[type="tel"]:focus,
 input[type="date"]:focus,
 select:focus,
 textarea:focus{
-    border: 1px solid #0b5ed7 !important;
-    box-shadow: 0 0 5px #0b5ed7 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 2px solid #0b5ed7 !important;
+    box-shadow: none !important;
 }
 
 input[type="text"].err:focus,
@@ -107,9 +114,12 @@ input[type="tel"].err:focus,
 input[type="date"].err:focus,
 select.err:focus,
 textarea.err:focus{
-    border: red solid 1px !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: red solid 2px !important;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
-    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.301) !important;
+    box-shadow: none !important;
 }
 
 input[type="text"].err,
@@ -119,9 +129,12 @@ input[type="tel"].err,
 input[type="date"].err,
 select.err,
 textarea.err{
-    border: red solid 1px !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: red solid 1px !important;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
-    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.301) !important;
+    box-shadow: none !important;
 }
 
 /* les boutons */
@@ -172,20 +185,3 @@ textarea.err{
     }
 }
 
-/* les champs du formulaire */
-
-input,
-select{
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    outline: none;
-    font-size: 16px;
-    color: #333;
-    border: 1px solid #ced4da;
-}
-input:focus,
-select:focus{
-    border: 1px solid #0b5ed7;
-    box-shadow: 0 0 5px #0b5ed7;
-}

@@ -11,9 +11,6 @@
 		background-color:#f2f6fc;
 		color:#69707a;
 	}
-	.img-account-profile {
-	    height: 10rem;
-	}
 	.rounded-circle {
 	    border-radius: 50% !important;
 	}
@@ -68,8 +65,10 @@
 	}
 
 	.card{
+		position: relative;
 		border-top: #0b5ed7 solid 2px;
       	/* border-radius: 20px; */
+		/* overflow: hidden; */
 	}
 
 	textarea{
@@ -77,6 +76,50 @@
 	}
 	select{
 		height: 41px !important;
+	}
+
+	/*--------- button uploard profile picture -------------*/
+
+	.pp{
+		position: relative;
+		width: 100%;
+		margin-bottom: 15px;
+	}
+
+	.pp .profile_pp{
+		position: relative;
+		width: 10rem;
+		height: 10rem;
+		border-radius: 50%;
+		overflow: hidden;
+		margin: auto;
+		/* border: #0b5ed7 dashed 0.5px; */
+		box-shadow: 0 0 0.3rem #0b5ed7;
+	}
+	.profile_pp img{
+		width: 100%;
+	}
+
+	#up_pp{
+		position: absolute;
+		top: 0rem;
+		right: 0rem;
+		z-index: 12;
+	}
+	.uil-pen{
+		
+		color: #0b5ed7;
+		cursor: pointer;
+		font-size: 25px;
+		transition: 0.3s;
+	}
+	#up_pp:hover .uil-pen{
+		color: #fff;
+		background: #0b5ed7;
+		border-radius: 50%;
+		font-size: 20px;
+		padding: 6px;
+		transition: 0.3s;
 	}
 
 </style>
@@ -94,17 +137,19 @@
             <!-- Profile picture card-->
             <div class="card mb-4 mb-xl-0">
                 <div class="card-header">Photo de profil</div>
+					
                 <div class="card-body text-center">
-                    <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="{{request.user.investisseur.photoProfil.url}}" alt="">
-                    
-                    <div>
-                    	<input type="file" name="photoProfil" accept="image/*" id="id_photoProfil" class="form-control">
+					<div class="pp">
+						<label id="up_pp" for="id_photoProfil"><i class="uil uil-pen"></i></label>
+						<div class="profile_pp">
+							<img id="choosen-image" class="" src="{{request.user.investisseur.photoProfil.url}}" alt="">
+						</div>
                     </div>
-                    <!-- Profile picture help block-->
+                    <div>
+                    	<input type="file" name="photoProfil" accept="image/*" id="id_photoProfil" class="form-control" hidden>
+                    </div>
                     <div class="small font-italic text-muted mb-4">{{request.user.username}}</div>
                     <!-- Profile picture upload button-->
-                    <button class="btn-bleu" type="button">Changer la photo</button>
                 </div>
             </div>
         </div>
@@ -217,7 +262,7 @@
                     <div class="row my-3">
                         <!-- Save changes button-->
                         <div class="col-sm-6 mt-3 offset-sm-3 text-center">
-                            <input class="btn-bleu" type="submit" value="Enregistrer">
+                            <input class="btn-bleu px-5" type="submit" value="Enregistrer">
                     	</div>
                     </div>
                 </div>
@@ -253,9 +298,39 @@
 	// valider le formulaire
 
 	function validateFormUpdateInv(){
-		alert("recu");
-		return false;
+		// alert("recu");
+		// return false;
+		return true;
 	}
+
+	// charger l'image
+
+	let choosenImage = document.getElementById('choosen-image');
+	let uploardButton = document.getElementById('id_photoProfil');
+
+	let ListExt = ["jpeg", "jpg", "png", "tif", "gif",
+				   "JPEG", "JPG", "PNG", "TIF", "GIF"];
+
+	uploardButton.onchange = () =>{
+		let fileName = uploardButton.files[0].name.split(".");
+		let ext = fileName[fileName.length-1];
+		// alert(ext);
+		if(ListExt.indexOf(ext) === -1){
+			alert("Veuillez sélectionner une image png, jpeg, jpg, tif ou gif");
+		}else{
+			let reader = new FileReader();
+			reader.readAsDataURL(uploardButton.files[0]);
+			let file = uploardButton.files[0];
+			reader.onload = () => {
+				choosenImage.setAttribute("src", reader.result);
+
+			}
+		}
+	}
+
+
+
+
 
     
 </script>

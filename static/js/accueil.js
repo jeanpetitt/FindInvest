@@ -1,3 +1,12 @@
+// recherche nav
+
+const searchBar = document.getElementById('search-bar-id');
+const searchBarInput = document.querySelectorAll('.search-bar-input');
+// const searchBarInput = document.getElementById('search-bar-input');
+// const searchBarInput2 = document.getElementById('search-bar-input-2');
+const searchNavId = document.getElementById('searchNavId');
+const toSearchProject = document.querySelectorAll('.to-search-project');
+
 // sidebar
 const menuItems = document.querySelectorAll('.menu-item');
 
@@ -6,6 +15,17 @@ const discNotification = document.getElementById('messages-notifications');
 // const notifPopup = document.querySelector('.notifications-popup');
 const discussion = document.querySelectorAll('.discussion');
 
+// modal discussion
+const discussionMod = document.querySelectorAll('.discussionMod');
+const discussionInfoMod = document.querySelectorAll('.discussionMod .info');
+const discSend = document.querySelectorAll('.disc-send');
+
+// commentaires
+const iconToggleComments = document.querySelectorAll('.icon-toggle-comments');
+const toggleComments = document.querySelectorAll('.toggle-comments');
+const listComments = document.querySelectorAll('.list-comments');
+const btnReplyComment = document.querySelectorAll('.btn-reply-comment');
+const replyComment = document.querySelectorAll('.reply-comment');
 
 // catégories
 const category = document.querySelectorAll('.project-line');
@@ -23,6 +43,71 @@ const Bg2 = document.querySelector('.bg-2');
 const Bg3 = document.querySelector('.bg-3');
 
 
+// ================ RECHERCHE NAV ============
+
+// searchBar.addEventListener("click", () =>{
+    // searchNavId.classList.toggle('active');
+//     searchNavId.style.display = "block";
+// })
+window.addEventListener('click', function(e){
+    if(searchNavId.contains(e.target) || searchBar.contains(e.target)){
+        // alert("ok");
+        searchNavId.style.display = "block";
+        toSearchProject.forEach(pro =>{
+            pro.style.display = "none";
+        })
+    }else{
+        // alert("cache");
+        searchNavId.style.display = "none";
+    }
+})
+
+// searches project
+// function searchProject(i){
+    // const val = searchBarInput[i].value.toLowerCase();
+    // console.log(val);
+    // if(val === ""){
+        
+    // }else{
+    //     toSearchProject.forEach(pro =>{
+    //         pro.style.display = "none";
+    //         let name = pro.querySelector('a span h3 span').textContent.toLowerCase();
+    //         let title = pro.querySelector('a span h5').textContent.toLowerCase();
+    //         if(name.indexOf(val) != -1 || title.indexOf(val) != -1){
+    //             pro.style.display = "block";
+    //         }else{
+    //             pro.style.display = "none";
+    //         }
+    //     })
+    // }
+// }
+
+// search projects
+for (let i = 0; i < searchBarInput.length; i++) {
+    searchBarInput[i].addEventListener('keyup', () => {
+        // alert(i)
+        const val = searchBarInput[i].value.toLowerCase();
+        console.log(val);
+        if(val === ""){
+            
+        }else{
+            toSearchProject.forEach(pro =>{
+                pro.style.display = "none";
+                let name = pro.querySelector('a span h3 span').textContent.toLowerCase();
+                let title = pro.querySelector('a span h5').textContent.toLowerCase();
+                if(name.indexOf(val) != -1 || title.indexOf(val) != -1){
+                    pro.style.display = "block";
+                }else{
+                    pro.style.display = "none";
+                }
+            })
+        }
+    });
+    
+}
+// searchBarInput.addEventListener('keyup', searchProject);
+
+
 
 // ============ SIDEBAR ===============
 
@@ -37,23 +122,15 @@ menuItems.forEach(item => {
     item.addEventListener('click', ()=>{
         changeActiveItem();
         item.classList.add('active');
-        // if(item.id != 'notifications'){
-        //     document.querySelector('.notifications-popup').style.display  = "none";
-        // } else{
-        //     document.querySelector('#notifications .notifications-count').style.display = "none";
-        //     document.querySelector('.notifications-popup').style.display  = "block";
-        // }
     })
 })
 
 // notifPopup.style.display  = "none";
 window.addEventListener('click', function(e){
     if(document.getElementById('notifications').contains(e.target)){
-        // alert("aff");
         document.querySelector('#notifications .notifications-count').style.display = "none";
         document.querySelector('.notifications-popup').style.display  = "block";
     } else{
-        // alert("cache");
         document.querySelector('.notifications-popup').style.display  = "none";
     }
 })
@@ -65,17 +142,63 @@ window.addEventListener('click', function(e){
 // =============== discussions =============
 
 discNotification.addEventListener('click', () =>{
-    discussion.forEach(item => {
-        discNotification.querySelector('.notifications-count').style.display = "none";
-        item.style.boxShadow = '0 0 1rem var(--color-primary)';
-        setTimeout(() =>{
-            item.style.boxShadow = 'none';
-        }, 2000);
-    })
+    discNotification.querySelector('.notifications-count').style.display = "none";
+
 })
 
 
+// ================ discussion modal ====================
+
+// hidden active class from all menu items
+// const hiddenDisc = () =>{
+//     discussionMod.forEach(item => {
+//         item.classList.toggle('hidenn');
+//     })
+// }
+
+// for (let i = 0; i < discussionInfoMod.length; i++) {
+//     discussionInfoMod[i].addEventListener("click", () => {
+//         hiddenDisc();
+//         discussionMod[i].classList.toggle('hidenn');
+//         discussionMod[i].classList.toggle('active');
+//         discSend[i].classList.toggle('active');
+//     });
+    
+// }
+
+
+
 // =============== end discussions ================
+
+
+// ================== COMMENTAIRES ======================
+
+const affCachComments = () =>{
+
+}
+
+// toggle list comments
+
+for (let i = 0; i < toggleComments.length; i++) {
+    toggleComments[i].addEventListener("click", () => {
+        listComments[i].classList.toggle('active');
+    });
+}
+for (let i = 0; i < iconToggleComments.length; i++) {
+    iconToggleComments[i].addEventListener("click", () => {
+        listComments[i].classList.toggle('active');
+    });
+}
+
+// toggle reply input for a comment
+
+for (let i = 0; i < btnReplyComment.length; i++) {
+    btnReplyComment[i].addEventListener("click", () => {
+        replyComment[i].classList.toggle('active');
+    });
+}
+
+
 
 
 // ============== SEARCH CATEGORIE ===============
@@ -87,7 +210,7 @@ const searchCategory = () =>{
     // console.log(val);
     category.forEach(cat =>{
         let name = cat.querySelector('h5').textContent.toLowerCase();
-        console.log(name);
+        // console.log(name);
         if(name.indexOf(val) != -1){
             cat.style.display = "flex";
         }else{

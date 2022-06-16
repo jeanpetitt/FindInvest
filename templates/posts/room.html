@@ -1,10 +1,268 @@
 {% extends 'base-accueil.html' %}
 {% load static %}
 
-{% block title %} FindIvest | Accueil {% endblock %}
+{% block title %} ChatApp | Chat {% endblock %}
 
 {% block content %}
+
+<!-- <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script> -->
+
+
+<style>
+    #discussionModal{
+        background: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .info{
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        align-items: center;
+        cursor: pointer;
+    }
+    .info p{
+        font-size: 0.8rem;
+    }
+
+    .chat {
+        border-top: none !important;
+    }
+</style>
+
+<div class="modal fade show" id="discussionModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: block;" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header pb-0">
+                <!-- <h5 class="modal-title" id="exampleModalLabel">Discussions</h5>
+                <i class="uil uil-multiply" data-bs-dismiss="modal" aria-label="Close"></i> -->
+                {% for r in roomList %}
+                {% if r.name == room %}
+                    {% if r.user1 == request.user.last_name %}
+                        <div class="info">
+                            <div class="profile-photo">
+                                {% for u in userList %}
+                                    {% if u.last_name == r.user2 %}
+                                    <img src="{{u.etudiant.photoProfil.url}}" alt="">
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div>
+                                <span>
+                                    <h5>{{r.user2}}</h5>
+                                </span>
+                                <p class="text-muted mb-0">
+                                    <a href="/{{r.name}}/?username={{request.user.last_name}}">{{r.name|truncatechars:30}}</a>
+                                </p>
+                            </div>
+                        </div>
+                    {% else %}
+                        {% if r.user2 == request.user.last_name %}
+                        <div class="info">
+                            <div class="profile-photo">
+                                {% for u in userList %}
+                                    {% if u.last_name == r.user1 %}
+                                        <img src="{{u.investisseur.photoProfil.url}}" alt="">
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div>
+                                <span>
+                                <h5>{{r.user1}}</h5>
+                                </span>
+                                <p class="text-muted mb-0">
+                                    <a href="/{{r.name}}/?username={{request.user.last_name}}">{{r.name|truncatechars:30}}</a>
+                                </p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="modal-body">
+                <div class="discussionMod active">
+                    <!-- <div class="info">
+                        <div class="profile-photo">
+                            <img src="{{u.investisseur.photoProfil.url}}" alt="">
+                        </div>
+                        <div>
+                            <span>
+                            <h5>room other user name</h5>
+                            </span>
+                            <p class="text-muted mb-0">
+                                room name
+                            </p>
+                        </div>
+                    </div> -->
+                <!-- {% for r in roomList %}
+                {% if r.name == room %}
+                    {% if r.user1 == request.user.last_name %}
+                        <div class="info">
+                            <div class="profile-photo">
+                                {% for u in userList %}
+                                    {% if u.last_name == r.user2 %}
+                                    <img src="{{u.etudiant.photoProfil.url}}" alt="">
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div>
+                                <span>
+                                    <h5>{{r.user2}}</h5>
+                                </span>
+                                <p class="text-muted mb-0">
+                                    <a href="/{{r.name}}/?username={{request.user.last_name}}">{{r.name|truncatechars:30}}</a>
+                                </p>
+                            </div>
+                        </div>
+                    {% else %}
+                        {% if r.user2 == request.user.last_name %}
+                        <div class="info">
+                            <div class="profile-photo">
+                                {% for u in userList %}
+                                    {% if u.last_name == r.user1 %}
+                                        <img src="{{u.investisseur.photoProfil.url}}" alt="">
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div>
+                                <span>
+                                <h5>{{r.user1}}</h5>
+                                </span>
+                                <p class="text-muted mb-0">
+                                    <a href="/{{r.name}}/?username={{request.user.last_name}}">{{r.name|truncatechars:30}}</a>
+                                </p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                {% endfor %} -->
+                    <div id="chat" class="chat pt-4">
+                        <div class=".disc-left d-flex align-items-start text-start justify-content-start">
+                            <div>
+                                <div class="avatar">
+                                    <img src="{% static 'images/profile-17.jpg' %}">
+                                </div>
+                            </div>
+                            <div>
+                                <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                    Sure
+                                </span>
+                                <br>
+                                <div class="ms-2">
+                                    <span class="text-muted">01:13PM</span>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="disc-right d-flex align-items-baseline text-end justify-content-end">
+                            <div class="right-messages">
+                                <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
+                                    Let me know when you're available?
+                                </span>
+                                <br>
+                                <div class="me-2">
+                                    <span class="text-muted">01:13PM</span>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="disc-send active">
+                    <form id="post-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="username" id="username" value="{{username}}"/>
+                        <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
+                        
+                        <input type="text" name="message" id="message" placeholder="Votre message">
+                        <div class="send">
+                            <input type="submit" id="send-message" value="Envoer" hidden>
+                            <label for="send-message"><i class="uil uil-message"></i></label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- actualiser la liste des messages -->
+
+<script>
+    $(document).ready(function(){
+
+        setInterval(function(){
+            $.ajax({
+                type: 'GET',
+                url : "/getMessages/{{room}}/",
+                success: function(response){
+                    // console.log(response);
+                    $("#chat").empty();
+                    for (var key in response.messages)
+                    {
+                        if(response.messages[key].user == "{{request.user.last_name}}"){
+                            var temp="<div class='disc-right d-flex align-items-baseline text-end justify-content-end'>"
+                                +"<div class='right-messages'>"
+                                +"<span class='card card-text-right d-inline-block text-start py-1 px-3 me-1'>"
+                                +response.messages[key].value
+                                +"</span><br>"
+                                +"<div class='me-2'>"
+                                +"<span class='text-muted'>"
+                                +response.messages[key].date+"</span></div><br></div></div>"
+                            ;
+                        }else{
+                            
+                            var temp="<div class='.disc-left d-flex align-items-start text-start justify-content-start'>"
+                                +"<div><div class='avatar'><img src="+response.photo+"></div></div>"
+                                +"<div><span class='card card-text-left d-inline-block py-1 px-3 ms-1'>"
+                                +response.messages[key].value
+                                +"</span><br><div class='ms-2'><span class='text-muted'>"
+                                +response.messages[key].date
+                                +"</span></div><br></div></div>"
+                            ;
+                        }
+                        $("#chat").append(temp);
+                    }
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        },1000);
+    })
+</script>
+
+
+<!-- envoie d'un message -->
+
+<script type="text/javascript">
+    $(document).on('submit','#post-form',function(e){
+        e.preventDefault();
   
+        $.ajax({
+            type:'POST',
+            url:'/send',
+            data:{
+                username:$('#username').val(),
+                room_id:$('#room_id').val(),
+                message:$('#message').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function(data){
+                // alert(data)
+            }
+        });
+        document.getElementById('message').value = ''
+    });
+</script>
+
+
+
+<!-- ---------- copie de la page d'accueil --------------- -->
+
 
 <!-- ============== NAV ================= -->
 <nav>
@@ -561,289 +819,5 @@
         <!-- ============== END OF RIGTH =============== -->
     </div>
 </main>
-
-<!-- ================ DISCUSSIONS MODAL ====================== -->
-  
-  <!-- CREATE POST Modal -->
-<div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="createPostLabel">Publier/Modifier un projet</h5>
-          <i id="fermerMod" class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
-        </div>
-        <div class="modal-body">
-            <style>
-                textarea{
-                    width: 100%;
-                    height: 100px;
-                }
-            </style>
-                
-    
-
-                <form id="create_form" action="" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input type="hidden" name="csrfmiddlewaretoken" value="9DsWSkvsBE4LWWnPrRjmWo8GlyJTMSbhqWK6aJqUyHadqDR0v4WLxZWR0KnDwV9U">
-        
-                    <p>
-                        <label for="id_title">Titre du Projet&nbsp;:</label>
-                        <input type="text" name="title" maxlength="200" required="" id="id_title">
-                    </p>
-                    <p>
-                        <label for="id_categorie">Categorie projet&nbsp;:</label>
-                        <input type="text" name="categorie" maxlength="200" required="" id="id_categorie">
-                    </p>
-                
-                    <p>
-                        <label for="id_media">Media&nbsp;:</label>
-                        <input type="file" name="media" id="id_media">
-                    </p>
-                    <p>
-                        <label for="id_image">Image&nbsp;:</label>
-                        <input type="file" name="image" accept="image/*" id="id_image">
-                    </p>
-                    <p style="display: none;">
-                        <label for="id_investi">Investi&nbsp;:</label>
-                        <select name="investi" id="id_investi">
-                        <option value="">---------</option>
-                    
-                        <option value="Oui">Oui</option>
-                    
-                        <option value="Non" selected="">Non</option>
-        
-                        </select>  
-                    </p>
-                    <p>
-                        <label for="id_description">Description&nbsp;:</label>
-                        <textarea name="description" cols="40" rows="10" maxlength="500" required="" id="id_description"></textarea>
-                    </p>
-                    <p style="display: none;">
-                        <label for="id_etudiant">Etudiant&nbsp;:</label>
-                        <select name="etudiant" required="" id="id_etudiant">
-                            <option value="{{request.user.etudiant.id}}" selected="">{{request.user.etudiant}}</option>
-                        
-                        </select>
-                    </p>
-                    <input type="hidden" name="form_type" value="create_form">
-                    <input class="btn btn-primary" type="submit" value="Publier">
-        
-                    {{err_create_post}}
-                </form>
-
-
-                
-        </div>
-      </div>
-    </div>
-</div>
-
-
-  <!-- MODIFY POST Modal -->
-<div class="modal fade" id="modifyPostModal" tabindex="-1" aria-labelledby="createPostLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="createPostLabel">Supprimer un projet</h5>
-          <i class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
-        </div>
-        <div class="modal-body">
-            ----
-        </div>
-      </div>
-    </div>
-</div>
-
-  <!-- Modal discussions -->
-<div class="modal fade" id="discussionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Discussions</h5>
-                <i class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
-            </div>
-            <div class="modal-body">
-                {% for room in roomList %}
-                {% if room.user1 == request.user.last_name or room.user2 == request.user.last_name %}
-                    <div class="discussionMod">
-                        {% if room.user1 == request.user.last_name %}
-                            <div class="info">
-                                <div class="profile-photo">
-                                    {% for u in userList %}
-                                        {% if u.last_name == room.user2 %}
-                                        <img src="{{u.etudiant.photoProfil.url}}" alt="">
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                                <div>
-                                    <span>
-                                        <h5>{{room.user2}}</h5>
-                                    </span>
-                                    <p class="text-muted mb-0">
-                                        <a href="/{{room.name}}/?username={{request.user.last_name}}">{{room.name|truncatechars:30}}</a>
-                                    </p>
-                                </div>
-                            </div>
-                        {% else %}
-                            {% if room.user2 == request.user.last_name %}
-                            <div class="info">
-                                <div class="profile-photo">
-                                    {% for u in userList %}
-                                        {% if u.last_name == room.user1 %}
-                                            <img src="{{u.investisseur.photoProfil.url}}" alt="">
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                                <div>
-                                    <span>
-                                    <h5>{{room.user1}}</h5>
-                                    </span>
-                                    <p class="text-muted mb-0">
-                                        <a href="/{{room.name}}/?username={{request.user.last_name}}">{{room.name|truncatechars:30}}</a>
-                                    </p>
-                                </div>
-                            </div>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ================ END DISCUSSIONS MODAL ====================== -->
-
-<!-- ==================== THEME CUSTOMIZATION ======================= -->
-<div class="customize-theme">
-    <div class="carte">
-        <span class="bt-close"><i class="uil uil-multiply" id="close_modal"></i></span>
-        <h2>Changez votre affichage</h2>
-        <p class="text-muted">Gérez vos texte, couleurs, et arrière-plan</p>
-
-        <!-- -------------- font sizes ------------- -->
-        <div class="font-size">                
-            <h4>Taille de police</h4>
-            <div>
-                <h6>Aa</h6>
-                <div class="choose-size">
-                    <span class="font-size-1"></span>
-                    <span class="font-size-2"></span>
-                    <span class="font-size-3 active"></span>
-                    <span class="font-size-4"></span>
-                </div>
-                <h3>Aa</h3>
-            </div>
-        </div>
-
-        <!-- primary colors -->
-        <div class="color">
-            <h4>Couleurs</h4>
-            <div class="choose-color">
-                <span class="color-1 active"></span>
-                <span class="color-2"></span>
-                <span class="color-3"></span>
-                <span class="color-4"></span>
-            </div>
-        </div>
-
-        <!-- ----------- backgroung colors -->
-        <div class="background">
-            <h4>Arrière-plan</h4>
-            <div class="choose-bg">
-                <div class="bg bg-1 active">
-                    <span></span>
-                    <h5 for="bg-1">Clair</h5>
-                </div>
-                <div class="bg bg-2">
-                    <span></span>
-                    <h5 for="bg-2">Sombre</h5>
-                </div>
-                <div class="bg bg-3">
-                    <span></span>
-                    <h5 for="bg-3">Noir</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- actualiser la liste des messages -->
-
-<!-- <script>
-    $(document).ready(function(){
-
-        setInterval(function(){
-            $.ajax({
-                type: 'GET',
-                url : "/getMessages/{{room}}/",
-                success: function(response){
-                    $("#chat").empty();
-                    for (var key in response.messages)
-                    {
-                        if(response.messages[key].user == "{{request.user.last_name}}"){
-                            var temp="<div class='disc-right d-flex align-items-baseline text-end justify-content-end'>"
-                                +"<div class='right-messages'>"
-                                +"<span class='card card-text-right d-inline-block text-start py-1 px-3 me-1'>"
-                                +response.messages[key].value
-                                +"</span><br>"
-                                +"<div class='me-2'>"
-                                +"<span class='text-muted'>"
-                                +response.messages[key].date+"</span></div><br></div></div>"
-                            ;
-                        }else{
-                            
-                            var temp="<div class='.disc-left d-flex align-items-start text-start justify-content-start'>"
-                                +"<div><div class='avatar'><img src="+response.photo+"></div></div>"
-                                +"<div><span class='card card-text-left d-inline-block py-1 px-3 ms-1'>"
-                                +response.messages[key].value
-                                +"</span><br><div class='ms-2'><span class='text-muted'>"
-                                +response.messages[key].date
-                                +"</span></div><br></div></div>"
-                            ;
-                        }
-                        $("#chat").append(temp);
-                    }
-                },
-                error: function(response){
-                    alert('An error occured')
-                }
-            });
-        },1000);
-    })
-</script> -->
-
-
-<script>
-    let create_form = document.getElementById('create_form');
-    
-    create_form.addEventListener("submit", StopReload)
-
-    function StopReload(e){
-        e.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: "{% url 'accueil' %}",
-            data: $('#create_form').serialize(),
-            dataType: "json",
-
-            success:function(data){
-                create_form.reset()
-            }
-        })
-    }
-
-    function delete_post() {
-        res = confirm("Voulez-vous supprimmer cette publications ? ");
-        if(res){
-            return true;
-        }else{
-            return false;
-        }
-    }
-</script>
 
 {% endblock %}
