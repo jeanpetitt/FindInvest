@@ -8,18 +8,18 @@ from django.utils.timezone import utc
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('posts', '0001_initial'),
+        ('posts', '0002_alter_comment_time_com_alter_reponse_time_rep'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='comment',
             name='time_com',
-            field=models.TimeField(auto_now_add=datetime.datetime(2022, 6, 16, 1, 13, 1, 77474, tzinfo=utc)),
+            field=models.TimeField(auto_now_add=datetime.datetime(2022, 6, 16, 1, 13, 37, 297438, tzinfo=utc)),
         ),
         migrations.AlterField(
             model_name='reponse',
             name='time_rep',
-            field=models.TimeField(auto_now_add=datetime.datetime(2022, 6, 16, 1, 13, 1, 78124, tzinfo=utc)),
+            field=models.TimeField(auto_now_add=datetime.datetime(2022, 6, 16, 1, 13, 37, 298102, tzinfo=utc)),
         ),
     ]

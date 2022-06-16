@@ -5,6 +5,7 @@
     src: url(./fonts/Poppins-Regular.ttf);
 }
 
+
 /* The Modal (background) */
 .modal {
 		  display: none; 
@@ -287,7 +288,6 @@ h4, h5, h6, a{
     width: 80% !important;
     margin: 0 auto;
 } */
-
 
 .profile-photo{
     width: 2.7rem;
@@ -784,6 +784,16 @@ main .container .left .profile .handle p{
     gap: 1rem;
 }
 
+.middle .posts .post .head .edit{
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+.middle .posts .post .head .edit:hover{
+    background-color: var(--color-primary);
+    color: #fff;
+    border-radius: 50%;
+}
+
 .middle .posts .post .post-description{
     padding: 0 0.8rem 0 0.5rem;
     margin-top: 1rem;
@@ -793,11 +803,16 @@ main .container .left .profile .handle p{
     margin-bottom: 1rem;
     font-weight: 600;
 }
+.post-description a {
+    color: var(--color-primary);
+    font-weight: 600;
+}
 
 .middle .posts .post .photo{
     border-radius: var(--card-border-radius);
     overflow: hidden;
     margin: 0.7rem 0;
+    max-height: 320px !important;
 }
 
 .middle .posts .post .action-buttons{
@@ -1105,7 +1120,7 @@ main .container .right{
 /* ====================== MODAL DISCUSSIONS ====================== */
 
 .modal {
-    background: rgba(255, 255, 255, 0.055);
+    background: rgba(255, 255, 255, 0.055) !important;
 }
 
 .modal-dialog .modal-content{
@@ -1160,13 +1175,11 @@ main .container .right{
 }
 
 .discussionMod.active{
-    height: 500px;
+    height: 400px;
     transition: 0.3s;
     overflow-y: scroll;
 }
-.modal-content #createPostLabel{
-    text-align: center !important;
-}
+
 
 /* ------------- chat ----------- */
 
@@ -1219,14 +1232,14 @@ main .container .right{
 .discussionMod{
     position: relative !important;
 }
-.discussionMod .disc-send{
-    position: absolute;
+.modal-body .disc-send{
+    position: relative;
     bottom: 0;
     left: 0;
     right: 0;
     background: var(--color-white);
     border-radius: var(--card-border-radius);
-    padding: 0.2rem 0.5rem;
+    padding: 0.2rem;
     height: 3rem;
     display: none;
 }
@@ -1240,7 +1253,7 @@ main .container .right{
     width: 100%;
 }
 .disc-send form input{
-    width: 85%;
+    width: 87%;
     height: 2.2rem;
     /* border: #dee2e6 solid 1px; */
     border: none;
@@ -1263,6 +1276,19 @@ main .container .right{
     color: #fff;
     background: var(--color-primary);
     transition: 0.3s;
+}
+
+.accordion{
+    background: var(--color-white) !important;
+}
+
+input[type="text"],
+textarea,
+select{
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    border: none;
+    padding: var(--card-padding);
 }
 
 
@@ -1460,7 +1486,7 @@ main .container .right{
     height: 3rem;
 }
 
-.customize-theme .choose-bg > div .active{
+.customize-theme .choose-bg > div.active{
     border: 2px solid var(--color-primary);
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.452);
 }
@@ -1477,7 +1503,7 @@ main .container .right{
 }
 
 .customize-theme .choose-bg .bg-3{
-    background: hsl(22, 30%, 10%);
+    background: hsl(252, 30%, 10%);
 }
 
 .customize-theme .choose-bg .bg-1 h5{
@@ -1506,6 +1532,7 @@ MEDIA QUERIES FOR SMAL LAPTOP AND BIG TABLETS
     .container{
         width: 96% !important;
     }
+
 
     main .container{
         grid-template-columns: 5rem auto 30vw;
@@ -1624,6 +1651,9 @@ MEDIA QUERIES FOR MOBILE PHONES
     }
     .searchNav .result .search-bar{
         display: block;
+    }
+    .searchNav .result .search-bar input[type="search"]{
+        width: 95% !important;
     }
 
     nav .log img{

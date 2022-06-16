@@ -1,8 +1,9 @@
 // recherche nav
 
 const searchBar = document.getElementById('search-bar-id');
-const searchBarInput = document.getElementById('search-bar-input');
-const searchBarInput2 = document.getElementById('search-bar-input-2');
+const searchBarInput = document.querySelectorAll('.search-bar-input');
+// const searchBarInput = document.getElementById('search-bar-input');
+// const searchBarInput2 = document.getElementById('search-bar-input-2');
 const searchNavId = document.getElementById('searchNavId');
 const toSearchProject = document.querySelectorAll('.to-search-project');
 
@@ -62,28 +63,49 @@ window.addEventListener('click', function(e){
 })
 
 // searches project
-const searchProject = () =>{
-    const val = searchBarInput.value.toLowerCase();
-    console.log(val);
-    if(val === ""){
+// function searchProject(i){
+    // const val = searchBarInput[i].value.toLowerCase();
+    // console.log(val);
+    // if(val === ""){
         
-    }else{
-        toSearchProject.forEach(pro =>{
-            pro.style.display = "none";
-            let name = pro.querySelector('a span h3 span').textContent.toLowerCase();
-            let title = pro.querySelector('a span h5').textContent.toLowerCase();
-            // console.log(name);
-            if(name.indexOf(val) != -1 || title.indexOf(val) != -1){
-                pro.style.display = "block";
-            }else{
-                pro.style.display = "none";
-            }
-        })
-    }
-}
+    // }else{
+    //     toSearchProject.forEach(pro =>{
+    //         pro.style.display = "none";
+    //         let name = pro.querySelector('a span h3 span').textContent.toLowerCase();
+    //         let title = pro.querySelector('a span h5').textContent.toLowerCase();
+    //         if(name.indexOf(val) != -1 || title.indexOf(val) != -1){
+    //             pro.style.display = "block";
+    //         }else{
+    //             pro.style.display = "none";
+    //         }
+    //     })
+    // }
+// }
 
 // search projects
-searchBarInput.addEventListener('keyup', searchProject);
+for (let i = 0; i < searchBarInput.length; i++) {
+    searchBarInput[i].addEventListener('keyup', () => {
+        // alert(i)
+        const val = searchBarInput[i].value.toLowerCase();
+        console.log(val);
+        if(val === ""){
+            
+        }else{
+            toSearchProject.forEach(pro =>{
+                pro.style.display = "none";
+                let name = pro.querySelector('a span h3 span').textContent.toLowerCase();
+                let title = pro.querySelector('a span h5').textContent.toLowerCase();
+                if(name.indexOf(val) != -1 || title.indexOf(val) != -1){
+                    pro.style.display = "block";
+                }else{
+                    pro.style.display = "none";
+                }
+            })
+        }
+    });
+    
+}
+// searchBarInput.addEventListener('keyup', searchProject);
 
 
 
@@ -128,21 +150,21 @@ discNotification.addEventListener('click', () =>{
 // ================ discussion modal ====================
 
 // hidden active class from all menu items
-const hiddenDisc = () =>{
-    discussionMod.forEach(item => {
-        item.classList.toggle('hidenn');
-    })
-}
+// const hiddenDisc = () =>{
+//     discussionMod.forEach(item => {
+//         item.classList.toggle('hidenn');
+//     })
+// }
 
-for (let i = 0; i < discussionInfoMod.length; i++) {
-    discussionInfoMod[i].addEventListener("click", () => {
-        hiddenDisc();
-        discussionMod[i].classList.toggle('hidenn');
-        discussionMod[i].classList.toggle('active');
-        discSend[i].classList.toggle('active');
-    });
+// for (let i = 0; i < discussionInfoMod.length; i++) {
+//     discussionInfoMod[i].addEventListener("click", () => {
+//         hiddenDisc();
+//         discussionMod[i].classList.toggle('hidenn');
+//         discussionMod[i].classList.toggle('active');
+//         discSend[i].classList.toggle('active');
+//     });
     
-}
+// }
 
 
 

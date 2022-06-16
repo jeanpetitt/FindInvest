@@ -28,7 +28,7 @@ class AdminComment(admin.ModelAdmin):
     list_filter = ['date_comment', 'user_comment']
 
 class AdminReponse(admin.ModelAdmin):
-    list_display = ['user_reponse', 'texte', 'title','time_rep']
+    list_display = ['user_reponse', 'texte', 'title_com','time_rep']
     list_filter = ['date_reponse']
     
 admin.site.register(Comment, AdminComment)

@@ -85,7 +85,7 @@ class Comment(models.Model):
     
         
 class Reponse(models.Model):
-    title = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    title_com = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="reponses")
     texte = models.CharField(max_length=600)
     date_reponse = models.DateTimeField(auto_now_add=timezone.now())
     user_reponse = models.ForeignKey(User, on_delete=models.CASCADE)

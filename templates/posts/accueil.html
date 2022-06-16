@@ -308,7 +308,7 @@
                     </div>
 
                     <div class="caption">
-                        <b>Tom Michel</b> Lorem ipsum dolor sit amet consectetur, adipisicing elit. <span class="hash-tag">#génie</span>
+                        <b>{{ request.user.last_name }}</b> a commenter recemment. <span class="hash-tag">#génie</span>
                     </div>
 
                     <!-- ------------------- partie commentaires ---------------------- -->
@@ -318,17 +318,23 @@
                             {{nb_com}} 
                             {% endif %}                             
                         </span>
-                        <div class="list-comments mt-3">
+                        
+                        <div class="list-comments mt-3" id="list_comment">
                             <div class="chat pt-4">
 
                                 <!-- comentaire 1 -->
-                                {% for comment in list_com %}
-                                {% for reponse in list_rep %}
+                                {% for comment in projet.comments.all %}
+                                {% for reponse in comment.reponses.all %}
+                                
+                                {% if reponse.title.id == comment.id %}
                                 <div class=".disc-left d-flex align-items-start text-start justify-content-start">
                                     <div>
                                         <div class="avatar">
                                             {% if request.user.etudiant %}
                                             <img src="{{ request.user.etudiant.photoProfil.url}}">
+                                            {% endif %}
+                                            {% if request.user.investisseur %}
+                                            <img src="{{ request.user.investisseur.photoProfil.url}}">
                                             {% endif %}
                                         </div>
                                     </div>
@@ -347,16 +353,22 @@
                                     
                                         <!-- --------- input réponse commentaire 1 ------- -->
                                         <div class="reply-comment">
-                                            <form action="" method="post">
+                                            <form action="" method="post" id="reponse">
                                                 {% csrf_token %}
                                                 <input type="text" name="texte" maxlength="600" required="" id="id_texte" class="form-control" placeholder="Votre réponse">
-                                                <select name="title" required="" id="id_title" hidden>
-                                                    <option value="{{comment.id}}">{{comment}}</option>
+                                                <select name="title_com" required="" id="id_title_com" hidden>
+                                                    <option value="{{reponse.title_com.id}}">{{reponse.title_com}}</option>
                                                 </select>
+                                                {% if request.user == request.user.etudiant.user %}
                                                 <select name="user_reponse" required="" id="id_user_reponse" hidden>
-                                                    <option value="{{request.user.id}}">{{request.user}}</option>
-
+                                                    <option value="{{request.user.etudiant.id}}">{{request.user.etudiant.user.last_name}}</option>
                                                 </select>
+                                                {% endif %}
+                                                {% if request.user == request.user.investisseur.user %}
+                                                <select name="user_reponse" required="" id="id_user_reponse" hidden>
+                                                    <option value="{{request.user.investisseur.id}}">{{request.user.investisseur}}</option>
+                                                </select>
+                                                {% endif %}
                                                 <div class="send">
                                                     <input type="submit" id="reply-message" value="Envoer" hidden>
                                                     <label for="reply-message"><i class="uil uil-message"></i></label>
@@ -367,6 +379,7 @@
                                         <br>
                                     </div>
                                 </div>
+                                {% endif %}
                                 {% endfor %}
                                 <!-- votre commentaire 1 -->
                                 <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
@@ -385,7 +398,7 @@
                             </div>
                         </div>
                         <div class="send-comment">
-                            <form action="" method="post">
+                            <form action="" method="post" id="comment">
                                 {% csrf_token %}
                                 <input type="text" name="texte" maxlength="600" required="" id="id_texte" class="form-control" placeholder="Votre commentaire">
                                 <select name="projet" required="" id="id_projet" hidden>
@@ -405,7 +418,8 @@
                 </div>
              
         </div>
-        {% endfor%}
+        {% endfor %}
+        
             <!-- ------------ end posts --------------- -->
         </div>
 
@@ -851,6 +865,74 @@
 
 <script src="{% static 'js/jquery-2.1.0.min.js' %}"></script>
 <script>
+
+
+
+var id_title = document.getElementById('id_title')
+    id_title.placeholder = "Titre"
+var error_title = document.getElementById('error_title')
+
+var id_categorie = document.getElementById('id_categorie')
+    id_categorie.placeholder = 'Categorie'
+var error_categorie = document.getElementById('error_categorie')
+
+var id_description = document.getElementById('id_description')
+id_description.placeholder = 'Votre description en quelques lignes'
+var error_description = document.getElementById('error_description')
+
+
+function valChapmsText(champs, errClass) {
+    if (champs.value == "") {
+    errClass.innerHTML="*veuillez remplir ce champs";
+    champs.focus();
+    champs.classList.add('err');
+    return false;
+    } else {
+    errClass.innerHTML="";
+    champs.classList.remove('err');
+    return true;
+    }
+}
+
+
+function validatePost() {
+
+  // body...
+  if (valChapmsText(id_title, error_title)
+    && valChapmsText(id_categorie, error_categorie)
+    && valChapmsText(id_description, error_description)
+    ){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+// charger l'image
+
+	let choosenImage = document.getElementById('choosen-image');
+	let uploardButton = document.getElementById('id_image');
+
+	let ListExt = ["jpeg", "jpg", "png", "tif", "gif",
+				   "JPEG", "JPG", "PNG", "TIF", "GIF"];
+
+	uploardButton.onchange = () =>{
+		let fileName = uploardButton.files[0].name.split(".");
+		let ext = fileName[fileName.length-1];
+		// alert(ext);
+		if(ListExt.indexOf(ext) === -1){
+			alert("Veuillez sélectionner une image png, jpeg, jpg, tif ou gif");
+		}else{
+			let reader = new FileReader();
+			reader.readAsDataURL(uploardButton.files[0]);
+			let file = uploardButton.files[0];
+			reader.onload = () => {
+				choosenImage.setAttribute("src", reader.result);
+
+			}
+		}
+	}
+
 // obtenir le modal 
 $(document).ready(function(){
         // click sur le bouton  qui ouvre le modal
@@ -887,94 +969,6 @@ $(document).ready(function(){
             $('#img-show').hide();
         });
 });
-
-champsForm = document.getElementsByTagName('input');
-for (let i = 0; i < (champsForm.length-1); i++) {
-		champsForm[i].classList.add('form-control');
-    }
-
-var id_title = document.getElementById('id_title')
-    id_title.placeholder = "Titre"
-var error_title = document.getElementById('error_title')
-
-var id_categorie = document.getElementById('id_categorie')
-    id_categorie.placeholder = 'Categorie'
-var error_categorie = document.getElementById('error_categorie')
-
-var id_description = document.getElementById('id_description')
-var error_description = document.getElementById('error_description')
-
-
-function valChapmsText(champs, errClass) {
-    if (champs.value == "") {
-    errClass.innerHTML="*veuillez remplir ce champs";
-    champs.focus();
-    champs.classList.add('err');
-    return false;
-    } else {
-    errClass.innerHTML="";
-    champs.classList.remove('err');
-    return true;
-    }
-}
-
-
-function validatePost() {
-
-  // body...
-  if (valChapmsText(id_title, error_title)
-    && valChapmsText(id_categorie, error_categorie)
-    && valChapmsText(id_description, error_description)
-    ){
-    return true;
-  }
-  else{
-    return false;
-  }
-}
-
-
-// charger l'image
-
-	let choosenImage = document.getElementById('choosen-image');
-	let uploardButton = document.getElementById('id_image');
-
-	let ListExt = ["jpeg", "jpg", "png", "tif", "gif",
-				   "JPEG", "JPG", "PNG", "TIF", "GIF"];
-
-	uploardButton.onchange = () =>{
-		let fileName = uploardButton.files[0].name.split(".");
-		let ext = fileName[fileName.length-1];
-		// alert(ext);
-		if(ListExt.indexOf(ext) === -1){
-			alert("Veuillez sélectionner une image png, jpeg, jpg, tif ou gif");
-		}else{
-			let reader = new FileReader();
-			reader.readAsDataURL(uploardButton.files[0]);
-			let file = uploardButton.files[0];
-			reader.onload = () => {
-				choosenImage.setAttribute("src", reader.result);
-
-			}
-		}
-	}
-
-
-// fonction qui permet d'eviter le rechargement de la page
-
-// les elements d'en-tete d'unepublication
-var form = document.getElementById('form-post');
-
-var posts = document.getElementById('posts')
-var post = document.getElementById('post1')
-var head = document.getElementById('head')
-var lien = document.getElementById('lien')
-var user = document.getElementById('user')
-var autor = document.getElementById('author')
-var las
-
-// photo de profil du user
-var profileContainer = document.getElementById('profile-photo')
 
 
 

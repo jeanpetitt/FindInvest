@@ -53,7 +53,7 @@ def accueil(request):
     nb_commentaire = len(list_comment)
     for rep in reps:
         list_rep_com.append(rep)
-        list_projet_com.append(rep.title.projet)
+        list_projet_com.append(rep.title_com.projet)
     nb_reps = len(list_rep_com)
     
     
@@ -88,20 +88,29 @@ def accueil(request):
             if comment_form.is_valid():
                 comment = comment_form.save()
                 comment.save()
-                context = {}
-                return JsonResponse(context)
+                context = {'comment_texte': comment.texte,'comment_user': comment.user_comment,'date_comment': comment.date_comment,'comment_time': comment.time_com,'comment_projet': comment.projet,'nb_com': total_com,}
+                #return JsonResponse({'comment_texte': comment.texte,'comment_user': comment.user_comment,'date_comment': comment.date_comment,'comment_time': comment.time_com,'comment_projet': comment.projet})
+                return HttpResponseRedirect('../accueil')
             else:
                 erro_comm = comment_form.errors()
         #repondre a un commentaire
-        elif 'user_reponse' in request.POST:
+        elif 'title_com' in request.POST:
             reponse_form = ReponseForm(request.POST)
             
             if reponse_form.is_valid():
                 
                 reponse = reponse_form.save()
                 reponse.save()
-                context = {}
-                return JsonResponse(context)
+                context = {
+                    'reponse_texte': reponse.texte,
+                    'reponse_com': reponse.title_com,
+                    'reponse_date': reponse.date_reponse,
+                    'reponse_user': reponse.user_reponse,
+                    'reponse_time': reponse.time_rep,
+                    'nb_com': total_com,
+                }
+                #return JsonResponse(context)
+                return HttpResponseRedirect('../accueil')
             else:
                 err_reponse = reponse_form.errors()
 

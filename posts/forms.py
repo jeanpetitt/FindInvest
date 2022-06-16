@@ -38,7 +38,7 @@ class ReponseForm(forms.ModelForm):
           model = Reponse
           
           fields = [
-			'title',
+			'title_com',
 			'texte',
 			'user_reponse'
 
