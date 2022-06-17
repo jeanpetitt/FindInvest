@@ -3,7 +3,7 @@ import dj_database_url
 
 DATABASES['default'] = dj_database_url.config()
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = False
 
 MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware',]
