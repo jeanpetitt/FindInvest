@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Cookie&family=Poppins:wght@400;500;600;700&display=swap');
 
-@font-face {
-    font-family: Poppins;
-    src: url(./fonts/Poppins-Regular.ttf);
-}
+
 
 :root {
     /* for color theme */
