@@ -8,18 +8,14 @@
 {% if user.is_authenticated %}
       <h1> Bienvenue<u>{{request.user.last_name}}</u></h1>
       {% if user.etudiant.id %}
-        <a href="{% url 'update_profile_student' request.user.etudiant.id %}">Modifier profil Etudiant</a> 
+        <a href="{% url 'update_profile_student' %}">Modifier profil Etudiant</a> 
           {{request.user.etudiant.photoProfil.url}}
       <br>
           <a href="{% url 'profile_student' request.user.etudiant.id %}">Profil etudiant</a>
           <br>
       {% endif %}
       {% if user.investisseur.id %}
-          <a href="{% url 'update_profile_investor' request.user.investisseur.id %}">Modifier profil Investisseur</a> 
           {{request.user.investisseur.photoProfil.url}}
-          <br><br>
-      {% endif %}
-
       <a href="{% url 'user_logout' %}">se déconnecter</a>
 {% endif %} 
 
@@ -145,7 +141,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   <!-- Modal content -->
   <div class="modal-content">
     
-    <divclass="form">
+    <div class="form">
       <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
           <span class="close">&times;</span>

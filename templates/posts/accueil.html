@@ -22,55 +22,20 @@
         <div class="search-bar" id="search-bar-id">
             <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
             <i class="uil uil-search"></i>
-            <input class="" type="search" name="" id="search-bar-input" placeholder="Rechercher...">
+            <input class="search-bar-input" type="search" name="" id="search-bar-input" placeholder="Rechercher...">
         </div>
-
-        <!-- --------- début recherche ------------ -->
-        
-        <!-- <div class="searchNav">
-            <div class="result">
-                <a href="#post1">
-                    <div class="profile-photo">
-                        <img src="{% static 'images/profile-14.jpg' %}">
-                    </div>
-                    <span>
-                        <h3>Tom Michel - Informatique</h3>
-                        <h5>Application de gestion des tontines</h5>
-                    </span>
-                </a>
-                <a href="#post2">
-                    <div class="profile-photo">
-                        <img src="{% static 'images/profile-14.jpg' %}">
-                    </div>
-                    <span>
-                        <h3>Tom Michel - Informatique</h3>
-                        <h5>Application de gestion des tontines</h5>
-                    </span>
-                </a>
-                <a href="#post3">
-                    <div class="profile-photo">
-                        <img src="{% static 'images/profile-14.jpg' %}">
-                    </div>
-                    <span>
-                        <h3>Tom Michel - Informatique</h3>
-                        <h5>Application de gestion des tontines</h5>
-                    </span>
-                </a>
-            </div>
-        </div> -->
-
-
-
-
-        <!-- --------- fin recherche ------------ -->
 
         <div class="create dropdown">
             {% if request.user.etudiant.id %}
-                <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" id="poster" data-bs-target="#createPostModal" >Poster</label>
+                <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">Poster</label>
+                <div class="profile-photo" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{request.user.etudiant.photoProfil.url}}">
+                </div>
+            {% else %}
+                <div class="profile-photo" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{request.user.investisseur.photoProfil.url}}">
+                </div>
             {% endif %}
-                <div class="profile-photo" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{% static 'images/profile-1.jpg' %}">
-            </div>
             <ul class="dropdown-menu">
                 <li>
                     {% if request.user.etudiant.id %}
@@ -94,12 +59,17 @@
         <!-- ============== LEFT =============== -->
         <div class="left">
             <a class="profile">
-                <div class="profile-photo">
-                    <img src="{% static 'images/profile-1.jpg' %}">
-                </div>
+                {% if request.user.etudiant.id %}
+                    <div class="profile-photo"  style="cursor: pointer;">
+                        <img src="{{request.user.etudiant.photoProfil.url}}">
+                    </div>
+                {% else %}
+                    <div class="profile-photo" style="cursor: pointer;">
+                        <img src="{{request.user.investisseur.photoProfil.url}}">
+                    </div>
+                {% endif %}
                 <div class="handle">
-                    <h4>Tom michel</h4>
-                    <p class="text-muted">@tOm</p>
+                    <h4>{{request.user.last_name}}</h4>
                 </div>
             </a>
 
@@ -183,7 +153,7 @@
             </div>
 
             <!-- ------------ end of sidebar --------- -->
-            <label class="btn btn-primary" for="create-post">Create post</label>
+            <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">Create post</label>
         </div>
         <!-- ============== END OF LEFT =============== -->
 
@@ -194,52 +164,39 @@
         
             <div class="searchNav" id="searchNavId">
                 <div class="result">
-                    <div class="search-bar mt-2">
-                        <i class="uil uil-search"></i>
-                        <input class="" type="search" name="" id="search-bar-input-2" placeholder="Rechercher...">
+                    <div class="search-bar my-2">
+                        <input class="search-bar-input" type="search" name="" id="search-bar-input-2" placeholder="Rechercher...">
                     </div>
-                    <div class="to-search-project">
-                        <a href="#post1">
-                            <div class="profile-photo">
-                                <img src="{% static 'images/profile-14.jpg' %}">
-                            </div>
-                            <span>
-                                <h3>Tom Michel - <span>Informatique</span></h3>
-                                <h5>Application de gestion des tontines</h5>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="to-search-project">
-                        <a href="#post2">
-                            <div class="profile-photo">
-                                <img src="{% static 'images/profile-14.jpg' %}">
-                            </div>
-                            <span>
-                                <h3>Stone Mengue - <span>Informatique</span></h3>
-                                <h5>Application de gestion des tontines</h5>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="to-search-project">
-                        <a href="#post3">
-                            <div class="profile-photo">
-                                <img src="{% static 'images/profile-14.jpg' %}">
-                            </div>
-                            <span>
-                                <h3>Tom Michel - <span>Informatique</span></h3>
-                                <h5>Application de gestion des tontines</h5>
-                            </span>
-                        </a>
-                    </div>
+                    {% for post in postList %}
+                        <div class="to-search-project">
+                            <a href="#projet{{post.id}}">
+                                <div class="profile-photo">
+                                    <img src="{{post.etudiant.photoProfil.url}}">
+                                </div>
+                                <span>
+                                    <h3>{{post.etudiant.user.last_name}} - {{post.categorie}}</h3>
+                                    <h5>{{post.title}}</h5>
+                                </span>
+                            </a>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
 
             <!-- -------------- fin recherche ------------ -->
+
             {% if request.user.etudiant.id %}
                 <div class="create-post" id="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">
-                    <div class="profile-photo">
-                        <img src="{{ request.user.etudiant.photoProfil.url}}">
-                    </div>
+                    
+                    {% if request.user.etudiant.id %}
+                        <div class="profile-photo"  style="cursor: pointer;">
+                            <img src="{{request.user.etudiant.photoProfil.url}}">
+                        </div>
+                    {% else %}
+                        <div class="profile-photo" style="cursor: pointer;">
+                            <img src="{{request.user.investisseur.photoProfil.url}}">
+                        </div>
+                    {% endif %}
                     <input type="search" name="" id="create-post" placeholder="Une idée de projet ?">
                     <button class="btn btn-primary">Poster</button>
                 </div>
@@ -247,273 +204,149 @@
 
         {% for projet in list_projet %}
             <!-- ------------ posts --------------- -->
-        <div class="posts" id="posts">
-                <!-- ------------ post 1 --------------- -->
-                <div class="post" id="post1">
-                    <div class="head" id="head">
-                        <div class="user" id="user">
-                            <a href="#" class="lien" id="lien">
-                                <div class="profile-photo" id="profile-photo">
-                                    <img src="{{ projet.etudiant.photoProfil.url }}">
-                                </div>
-                            </a>
-                            <div class="autor" id="author">
-                                <a href="#post1">
-                                    <h3>{{projet.etudiant.user.last_name}} - {{projet.categorie}}</h3>
-                                    <small>Yaoundé, 15 MINUTES AGO</small>
+                {% for post in postList %}
+                    <!-- ------------ post 1 --------------- -->
+                    <div class="post" id="#projet{{post.id}}">
+                        <div class="head">
+                            <div class="user">
+                                <a href="{% url 'profile_student' post.etudiant.id %}">
+                                    <div class="profile-photo">
+                                        <img src="{{post.etudiant.photoProfil.url}}">
+                                    </div>
                                 </a>
+                                <div class="autor">
+                                    <a href="#projet{{post.id}}">
+                                        <h3>{{post.etudiant.user.last_name}} - {{post.categorie}}</h3>
+                                        <small>{{post.etudiant.ville}}, {{post.date_post}}</small>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <span class="edit">
-                            <i class="uil uil-ellipsis-h"></i> 
-                        </span>
-                    </div>
-                    <div class="post-description">
-                        <div class="post-title">
-                            <h5>{{ projet.title }}</h5>
-                        </div>
-                        <p>
-                           {{projet.description}}
-                        </p>
-                        <p>
-                            <b>Document</b>
-                        </p>
-                    </div>
-                    <div class="photo">
-                        <img src="{{ projet.image.url }}">
-                    </div>
-
-                    <div class="action-buttons">
-                        <div class="interaction-buttons">
-                            <span>
-                                <i class="uil uil-heart"></i>
-                                <span class="text-muted text-small">15</span>
-                            </span>&emsp;
-                            <span>
-                                <i class="uil uil-comment-dots icon-toggle-comments"></i>
-                                <span class="text-muted text-small">{{nb_com}}</span>
-                            </span>&emsp;
-                            <span><i class="uil uil-share-alt"></i></span>
-                        </div>
-                        <div class="favorite">
-                            <span><i class="uil uil-favorite"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="liked-by">
-                        <span><img src="{% static 'images/profile-15.jpg' %}"></span>
-                        <span><img src="{% static 'images/profile-16.jpg' %}"></span>
-                        <span><img src="{% static 'images/profile-18.jpg' %}"></span>
-                        <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
-                    </div>
-
-                    <div class="caption">
-                        <b>{{ request.user.last_name }}</b> a commenter recemment. <span class="hash-tag">#génie</span>
-                    </div>
-
-                    <!-- ------------------- partie commentaires ---------------------- -->
-                    <div class="comments mt-1">
-                        <span class="text-muted toggle-comments">Voir/Cacher tous les
-                            {% if projet in projet_com %}
-                            {{nb_com}} 
-                            {% endif %}                             
-                        </span>
-                        
-                        <div class="list-comments mt-3" id="list_comment">
-                            <div class="chat pt-4">
-
-                                <!-- comentaire 1 -->
-                                {% for comment in projet.comments.all %}
-                                {% for reponse in comment.reponses.all %}
-                                
-                                {% if reponse.title.id == comment.id %}
-                                <div class=".disc-left d-flex align-items-start text-start justify-content-start">
-                                    <div>
-                                        <div class="avatar">
-                                            {% if request.user.etudiant %}
-                                            <img src="{{ request.user.etudiant.photoProfil.url}}">
-                                            {% endif %}
-                                            {% if request.user.investisseur %}
-                                            <img src="{{ request.user.investisseur.photoProfil.url}}">
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="left-messages">
-                                        <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                            {{reponse.texte}}
-                                        </span>
-                                        <br>
-                                        <div class="ms-2 my-1">
-                                            <span class="text-muted">
-                                                <span class="btn-reply-comment">Répondre</span>&emsp;
-                                                {{reponse.time_rep}}
-                                            </span>
-                                        </div>
-                                    
-                                        <!-- --------- input réponse commentaire 1 ------- -->
-                                        <div class="reply-comment">
-                                            <form action="" method="post" id="reponse">
-                                                {% csrf_token %}
-                                                <input type="text" name="texte" maxlength="600" required="" id="id_texte" class="form-control" placeholder="Votre réponse">
-                                                <select name="title_com" required="" id="id_title_com" hidden>
-                                                    <option value="{{reponse.title_com.id}}">{{reponse.title_com}}</option>
-                                                </select>
-                                                {% if request.user == request.user.etudiant.user %}
-                                                <select name="user_reponse" required="" id="id_user_reponse" hidden>
-                                                    <option value="{{request.user.etudiant.id}}">{{request.user.etudiant.user.last_name}}</option>
-                                                </select>
-                                                {% endif %}
-                                                {% if request.user == request.user.investisseur.user %}
-                                                <select name="user_reponse" required="" id="id_user_reponse" hidden>
-                                                    <option value="{{request.user.investisseur.id}}">{{request.user.investisseur}}</option>
-                                                </select>
-                                                {% endif %}
-                                                <div class="send">
-                                                    <input type="submit" id="reply-message" value="Envoer" hidden>
-                                                    <label for="reply-message"><i class="uil uil-message"></i></label>
-                                                </div>
-                        
-                                            </form>
-                                        </div>
-                                        <br>
-                                    </div>
+                            {% if request.user.id == post.etudiant.user.id %}
+                                <div class="dropstart">
+                                    <span class="edit" id="dropdownPostActions" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="uil uil-ellipsis-h"></i> 
+                                    </span>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownPostActions">
+                                        <li><a class="dropdown-item" href="{% url 'update_post' post.id %}"  data-bs-toggle="modal" data-bs-target="#createPostModal">Modifier</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'delete_post' post.id %}" onclick="return delete_post();">Supprimer</a></li>
+                                    </ul>
                                 </div>
-                                {% endif %}
-                                {% endfor %}
-                                <!-- votre commentaire 1 -->
-                                <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
-                                    <div class="right-messages">
-                                        <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                            {{comment.texte}}
-                                        </span>
-                                        <br>
-                                        <div class="me-2">
-                                            <span class="text-muted">{{comment.time_com}}</span>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="post-description">
+                            <div class="post-title">
+                                <h5>{{post.title}}</h5>
                             </div>
+                            <p>
+                                {{post.description}}
+                            </p>
+                            {% if post.media %}
+                                <p>
+                                    <a href="{{post.media.url}}" download="FindInvest_Document">Autres documents</a>
+                                </p>
+                            {% endif %}
                         </div>
-                        <div class="send-comment">
-                            <form action="" method="post" id="comment">
-                                {% csrf_token %}
-                                <input type="text" name="texte" maxlength="600" required="" id="id_texte" class="form-control" placeholder="Votre commentaire">
-                                <select name="projet" required="" id="id_projet" hidden>
-                                    <option value="{{projet.id}}">{{projet}}</option>
-                                </select>
-                                <select name="user_comment" required="" id="id_user_comment" hidden>
-                                    <option value="{{request.user.id}}">{{request.user}}</option>
-                                </select>
-                                <div class="send">
-                                    <input type="submit" id="send-message" value="Envoer" hidden>
-                                    <label for="send-message"><i class="uil uil-message"></i></label>
-                                </div>
-        
-                            </form>
+                        <div class="photo">
+                            <a href="{{post.image.url}}">
+                                <img src="{{post.image.url}}">
+                            </a>
                         </div>
-                    </div>
-                </div>
-             
-        </div>
-        {% endfor %}
-        
-            <!-- ------------ end posts --------------- -->
-        </div>
 
-    
-        <!-- ============== END OF MIDDEL =============== -->
-
-        <!-- ============== RIGHT =============== -->
-        <div class="right">
-            <!-- -------- catégories ---------- -->
-            <div class="categories">
-                <div class="heading">
-                   <h4>Projets</h4>
-                   <i class="uil uil-0-plus"></i>
-                </div>
-
-                <!-- ---------- search bar ------------- -->
-                <div class="search-bar">
-                    <i class="uil uil-search"></i>
-                    <input type="search" name="" id="category-search" placeholder="Rechercher...">
-                </div>
-                <!-- -------- project categrories --------- -->
-                <div class="category">
-                   <h6 class="active">Types</h6>
-                   <h6>Plus Aimés</h6>
-                   <h6 class="invest-projects">Investis(6)</h6>
-                </div>
-                <!-- ----------- projects lines ------------ -->
-                <div class="project-line">
-                    <!-- <div class="profile-photo">
-                        <img src="{% static 'images/profile-9.jpg' %}">
-                    </div> -->
-                    <div class="project-body">
-                        <h5>Informatique</h5>
-                        <p class="text-muted">10 projets publiés</p>
-                    </div>
-                    <span class="">
-                        <i class="uil uil-direction"></i>
-                        <!-- <i class="uil uil-arrow-circle-down"></i> -->
-                    </span>
-                </div>
-
-                <!-- ----------- projects lines ------------ -->
-                <div class="project-line">
-                    <div class="project-body">
-                        <h5>Santé</h5>
-                        <p class="text-muted">10 projets publiés</p>
-                    </div>
-                    <span class="">
-                        <i class="uil uil-direction"></i>
-                    </span>
-                </div>
-
-                <!-- ----------- projects lines ------------ -->
-                <div class="project-line">
-                    <div class="project-body">
-                        <h5>Immobilier</h5>
-                        <p class="text-muted">10 projets publiés</p>
-                    </div>
-                    <span class="">
-                        <i class="uil uil-direction"></i>
-                    </span>
-                </div>
-
-                <!-- ----------- projects lines ------------ -->
-                <div class="project-line">
-                    <div class="project-body">
-                        <h5>Informatique</h5>
-                        <p class="text-muted">10 projets publiés</p>
-                    </div>
-                    <span class="">
-                        <i class="uil uil-direction"></i>
-                    </span>
-                </div>
-            </div>
-            <div>
-                <!-- ----------- Discussions ------------ -->
-                <div class="discussions">
-                    <h4>Discussions</h4>
-                    <div class="discussion" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#discussionModal">
-                        <div class="info">
-                            <div>
+                        <div class="action-buttons">
+                            <div class="interaction-buttons">
                                 <span>
-                                    <h5><i class="uil uil-envelope"></i> Mes discussions (12)</h5>
-                                </span>
-                                <p></p>
-                                <p class="text-muted">
-                                    12 personnes
-                                </p>
-                                <p class="text-muted">
-                                    <b>Sujets :</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam perferendis repudiandae repellat quidem tempore voluptatibus enim distinctio est nesciunt eveniet.
-                                </p>
+                                    <i class="uil uil-heart"></i>
+                                    <span class="text-muted text-small">15</span>
+                                </span>&emsp;
+                                <span>
+                                    <i class="uil uil-comment-dots icon-toggle-comments"></i>
+                                    <span class="text-muted text-small">15</span>
+                                </span>&emsp;
+                                <span><i class="uil uil-share-alt"></i></span>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="favorite">
+                                {% if request.user.investisseur.id %}
+                                    <a href="{% url 'createRoom' request.user.id post.etudiant.user.id post.title %}"><i class="uil uil-comments-alt"></i></a>
+                                {% endif %}
+                                &emsp;
+                                <span><i class="uil uil-favorite"></i></span>
                             </div>
                         </div>
-                    </div>
+
+                        <div class="liked-by">
+                            <span><img src="{% static 'images/profile-15.jpg' %}"></span>
+                            <span><img src="{% static 'images/profile-16.jpg' %}"></span>
+                            <span><img src="{% static 'images/profile-18.jpg' %}"></span>
+                            <p>Aimé par <b>Tom Michel</b> et <b>321 autres</b></p>
+                        </div>
+
+                        <div class="caption">
+                            <b>Tom Michel</b> Lorem ipsum dolor sit amet consectetur, adipisicing elit. <span class="hash-tag">#génie</span>
+                        </div>
+
+                        <!-- ------------------- partie commentaires ---------------------- -->
+
+                        <div class="comments mt-1">
+                            <span class="text-muted toggle-comments">Voir/Cacher tous les 120 commentaires</span>
+                            <div class="list-comments mt-3">
+                                <div class="chat pt-4">
+
+                                    <!-- comentaire 1 -->
+                                    <div class=".disc-left d-flex align-items-start text-start justify-content-start">
+                                        <div>
+                                            <div class="avatar">
+                                                <img src="{% static 'images/profile-17.jpg' %}">
+                                            </div>
+                                        </div>
+                                        <div class="left-messages">
+                                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                                Let me know when you're available?
+                                            </span>
+                                            <br>
+                                            <div class="ms-2 my-1">
+                                                <span class="text-muted">
+                                                    <span class="btn-reply-comment">Répondre</span>&emsp;
+                                                    01:13PM
+                                                </span>
+                                            </div>
+
+                                            <!-- --------- input réponse commentaire 1 ------- -->
+                                            <div class="reply-comment">
+                                                <form action="" method="post">
+                                                    {% csrf_token %}
+                                                    <input type="text" name="" id="" placeholder="Votre réponse">
+                                                    <div class="send">
+                                                        <input type="submit" id="reply-message" value="Envoer" hidden>
+                                                        <label for="reply-message"><i class="uil uil-message"></i></label>
+                                                    </div>
+                            
+                                                </form>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+
+                                    <!-- votre commentaire 1 -->
+                                    <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
+                                        <div class="right-messages">
+                                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
+                                                Let me know when you're available?
+                                            </span>
+                                            <br>
+                                            <div class="me-2">
+                                                <span class="text-muted">01:13PM</span>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+
+                                    <!-- --------------- commentaire 2 --------------- -->
+                                    <div class=".disc-left d-flex align-items-start text-start justify-content-start">
+                                        <div>
+                                            <div class="avatar">
+                                                <img src="{% static 'images/profile-16.jpg' %}">
                 </div>
            </div>
         </div>
@@ -524,67 +357,90 @@
 <!-- ================ DISCUSSIONS MODAL ====================== -->
   
   <!-- CREATE POST Modal -->
-  <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostLabel" aria-hidden="true">
+<div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="createPostLabel">Publier un projet</h5>
-          <i class="uil uil-multiply" id="close" data-bs-dismiss="modal" aria-label="Close"></i>
+          <h5 class="modal-title" id="createPostLabel">Publier/Modifier un projet</h5>
+          <i id="fermerMod" class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
         </div>
         <div class="modal-body">
-  		        <div class="form">
-                    <form method="post" enctype="multipart/form-data" id="form-post">
-                            {% csrf_token %}
-                            <div class="champs">
-                            {{ projet_form.title }}
-                            <p><span id='error_title'></span></p>
+            <style>
+                textarea{
+                    width: 100%;
+                    height: 100px;
+                }
+            </style>
+                
+    
 
-                            {{ projet_form.categorie }}
-                            <p><span id="error_categorie"></span></p>
-                            
-                            <textarea name="description" cols="40" rows="10" maxlength="500" placeholder="Decrivez votre  projet en quelques lignes" required="" id="id_description"></textarea>
-                            <p><span id="error_description"></span></p>
-                            
-                            <!-- div ou s'affichera la previsualisation de l'image ou du ficier -->
-
-                            <div id="img-show">
-                                <i class="uil uil-multiply" id="close-img-show"></i>
-                                <label for="id_image">
-                                    <div id="img-show-content">
-                                        <i class="uil uil-images" id="titre_image"></i>
-                                        <p>Ajouter une image</p>
-                                        <div class="profile_projet">
-                                            <img id="choosen-image" class=""  src="{{projet_form.image.url}}" alt="">
-                                        </div>
-                                        <div>
-                                            <input type="file" name="image" accept="image/*" id="id_image" hidden>
-                                        </div>
-                                    </div>
-                                </label>
-                                
-                            </div>
-                            <div id="file-show" style="display: none;margin-bottom: 5px;height: 100px; width: 350px; border: #ced4da solid 1px;">
-                                
-                            </div>
-                            <!-- div permettant de choisir d'oujouter une image ou un fichier -->
-                            <div class="image">
-                                
-                                <span>Joindre a votre publication</span><i id="imgs" class="uil uil-image-plus"></i><i id="file" class="uil uil-file-plus"></i>  
-                            </div>
-                            <div>
-                                <select name="etudiant" required="" id="id_etudiant" hidden>
-                                        <option value="{{request.user.etudiant.id }}">{{request.user.etudiant}}</option>
-                                </select>
-                            <!-- fin div -->
-                                <input class="btn1" type="submit" onclick="validatePost()" name="" value="Publier">
-                            </div>
-                            {{ err }}
-                        
+                <form id="create_form" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="csrfmiddlewaretoken" value="9DsWSkvsBE4LWWnPrRjmWo8GlyJTMSbhqWK6aJqUyHadqDR0v4WLxZWR0KnDwV9U">
+        
+                    <p>
+                        <label for="id_title">Titre du Projet&nbsp;:</label>
+                        <input type="text" name="title" maxlength="200" required="" id="id_title">
+                    </p>
+                    <p>
+                        <label for="id_categorie">Categorie projet&nbsp;:</label>
+                        <input type="text" name="categorie" maxlength="200" required="" id="id_categorie">
+                    </p>
+                
+                    <p>
+                        <label for="id_media">Media&nbsp;:</label>
+                        <input type="file" name="media" id="id_media">
+                    </p>
+                    <p>
+                        <label for="id_image">Image&nbsp;:</label>
+                        <input type="file" name="image" accept="image/*" id="id_image">
+                    </p>
+                    <p style="display: none;">
+                        <label for="id_investi">Investi&nbsp;:</label>
+                        <select name="investi" id="id_investi">
+                        <option value="">---------</option>
                     
+                        <option value="Oui">Oui</option>
+                    
+                        <option value="Non" selected="">Non</option>
+        
+                        </select>  
+                    </p>
+                    <p>
+                        <label for="id_description">Description&nbsp;:</label>
+                        <textarea name="description" cols="40" rows="10" maxlength="500" required="" id="id_description"></textarea>
+                    </p>
+                    <p style="display: none;">
+                        <label for="id_etudiant">Etudiant&nbsp;:</label>
+                        <select name="etudiant" required="" id="id_etudiant">
+                            <option value="{{request.user.etudiant.id}}" selected="">{{request.user.etudiant}}</option>
+                        
+                        </select>
+                    </p>
+                    <input type="hidden" name="form_type" value="create_form">
+                    <input class="btn btn-primary" type="submit" value="Publier">
+        
+                    {{err_create_post}}
+                </form>
+
+
+                
         </div>
-                    </form>
-                </div>
-            
+      </div>
+    </div>
+</div>
+
+
+  <!-- MODIFY POST Modal -->
+<div class="modal fade" id="modifyPostModal" tabindex="-1" aria-labelledby="createPostLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createPostLabel">Supprimer un projet</h5>
+          <i class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
+        </div>
+        <div class="modal-body">
+            ----
         </div>
       </div>
     </div>
@@ -593,212 +449,59 @@
   <!-- Modal discussions -->
 <div class="modal fade" id="discussionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Discussions</h5>
-          <i class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
-        </div>
-        <div class="modal-body">
-            <div class="discussionMod">
-                <div class="info">
-                    <div class="profile-photo">
-                        <img src="{% static 'images/profile-17.jpg' %}">
-                    </div>
-                    <div>
-                        <span>
-                            <h5>Nom Investisseur (01)</h5>
-                        </span>
-                        <p class="text-muted mb-0">
-                            Application de recherche de répétiteur
-                        </p>
-                    </div>
-                </div>
-                <div class="chat pt-4">
-                    <div class=".disc-left d-flex align-items-start text-start justify-content-start">
-                        <div>
-                            <div class="avatar">
-                                <img src="{% static 'images/profile-17.jpg' %}">
-                            </div>
-                        </div>
-                        <div>
-                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                Sure
-                            </span>
-                            <br>
-                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                Let me know when you're available?
-                            </span>
-                            <br>
-                            <div class="ms-2">
-                                <span class="text-muted">01:13PM</span>
-                            </div>
-                            <br>
-                        </div>
-                    </div>
-                    <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
-                        <div class="right-messages">
-                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                Sure
-                            </span>
-                            <br>
-                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                Let me know when you're available?
-                            </span>
-                            <br>
-                            <div class="me-2">
-                                <span class="text-muted">01:13PM</span>
-                            </div>
-                            <br>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="disc-send">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <input type="text" name="" id="" placeholder="Votre message">
-                        <div class="send">
-                            <input type="submit" id="send-message" value="Envoer" hidden>
-                            <label for="send-message"><i class="uil uil-message"></i></label>
-                        </div>
-
-                    </form>
-                </div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Discussions</h5>
+                <i class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
             </div>
-            <div class="discussionMod">
-                <div class="info">
-                    <div class="profile-photo">
-                        <img src="{% static 'images/profile-17.jpg' %}">
-                    </div>
-                    <div>
-                        <span>
-                            <h5>Nom Investisseur (02)</h5>
-                        </span>
-                        <p class="text-muted mb-0">
-                            Application de recherche de répétiteur
-                        </p>
-                    </div>
-                </div>
-                <div class="chat pt-4">
-                    <div class=".disc-left d-flex align-items-start text-start justify-content-start">
-                        <div>
-                            <div class="avatar">
-                                <img src="{% static 'images/profile-17.jpg' %}">
+            <div class="modal-body">
+                {% for room in roomList %}
+                {% if room.user1 == request.user.last_name or room.user2 == request.user.last_name %}
+                    <div class="discussionMod">
+                        {% if room.user1 == request.user.last_name %}
+                            <div class="info">
+                                <div class="profile-photo">
+                                    {% for u in userList %}
+                                        {% if u.last_name == room.user2 %}
+                                        <img src="{{u.etudiant.photoProfil.url}}" alt="">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <span>
+                                        <h5>{{room.user2}}</h5>
+                                    </span>
+                                    <p class="text-muted mb-0">
+                                        <a href="/{{room.name}}/?username={{request.user.last_name}}">{{room.name|truncatechars:30}}</a>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                Sure
-                            </span>
-                            <br>
-                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                Let me know when you're available?
-                            </span>
-                            <br>
-                            <div class="ms-2">
-                                <span class="text-muted">01:13PM</span>
+                        {% else %}
+                            {% if room.user2 == request.user.last_name %}
+                            <div class="info">
+                                <div class="profile-photo">
+                                    {% for u in userList %}
+                                        {% if u.last_name == room.user1 %}
+                                            <img src="{{u.investisseur.photoProfil.url}}" alt="">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <span>
+                                    <h5>{{room.user1}}</h5>
+                                    </span>
+                                    <p class="text-muted mb-0">
+                                        <a href="/{{room.name}}/?username={{request.user.last_name}}">{{room.name|truncatechars:30}}</a>
+                                    </p>
+                                </div>
                             </div>
-                            <br>
-                        </div>
+                            {% endif %}
+                        {% endif %}
                     </div>
-                    <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
-                        <div class="right-messages">
-                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                Sure
-                            </span>
-                            <br>
-                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                Let me know when you're available?
-                            </span>
-                            <br>
-                            <div class="me-2">
-                                <span class="text-muted">01:13PM</span>
-                            </div>
-                            <br>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="disc-send">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <input type="text" name="" id="" placeholder="Votre message">
-                        <div class="send">
-                            <input type="submit" id="send-message" value="Envoer" hidden>
-                            <label for="send-message"><i class="uil uil-message"></i></label>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-            <div class="discussionMod">
-                <div class="info">
-                    <div class="profile-photo">
-                        <img src="{% static 'images/profile-17.jpg' %}">
-                    </div>
-                    <div>
-                        <span>
-                            <h5>Nom Investisseur (03)</h5>
-                        </span>
-                        <p class="text-muted mb-0">
-                            Application de recherche de répétiteur
-                        </p>
-                    </div>
-                </div>
-                <div class="chat pt-4">
-                    <div class=".disc-left d-flex align-items-start text-start justify-content-start">
-                        <div>
-                            <div class="avatar">
-                                <img src="{% static 'images/profile-17.jpg' %}">
-                            </div>
-                        </div>
-                        <div>
-                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                Sure
-                            </span>
-                            <br>
-                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                Let me know when you're available?
-                            </span>
-                            <br>
-                            <div class="ms-2">
-                                <span class="text-muted">01:13PM</span>
-                            </div>
-                            <br>
-                        </div>
-                    </div>
-                    <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
-                        <div class="right-messages">
-                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                Sure
-                            </span>
-                            <br>
-                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                Let me know when you're available?
-                            </span>
-                            <br>
-                            <div class="me-2">
-                                <span class="text-muted">01:13PM</span>
-                            </div>
-                            <br>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="disc-send">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <input type="text" name="" id="" placeholder="Votre message">
-                        <div class="send">
-                            <input type="submit" id="send-message" value="Envoer" hidden>
-                            <label for="send-message"><i class="uil uil-message"></i></label>
-                        </div>
-
-                    </form>
-                </div>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
-      </div>
     </div>
 </div>
 
@@ -859,120 +562,82 @@
 </div>
 
 
-<br><br>
-<p></p>
+
+<!-- actualiser la liste des messages -->
+
+<!-- <script>
+    $(document).ready(function(){
+
+        setInterval(function(){
+            $.ajax({
+                type: 'GET',
+                url : "/getMessages/{{room}}/",
+                success: function(response){
+                    $("#chat").empty();
+                    for (var key in response.messages)
+                    {
+                        if(response.messages[key].user == "{{request.user.last_name}}"){
+                            var temp="<div class='disc-right d-flex align-items-baseline text-end justify-content-end'>"
+                                +"<div class='right-messages'>"
+                                +"<span class='card card-text-right d-inline-block text-start py-1 px-3 me-1'>"
+                                +response.messages[key].value
+                                +"</span><br>"
+                                +"<div class='me-2'>"
+                                +"<span class='text-muted'>"
+                                +response.messages[key].date+"</span></div><br></div></div>"
+                            ;
+                        }else{
+                            
+                            var temp="<div class='.disc-left d-flex align-items-start text-start justify-content-start'>"
+                                +"<div><div class='avatar'><img src="+response.photo+"></div></div>"
+                                +"<div><span class='card card-text-left d-inline-block py-1 px-3 ms-1'>"
+                                +response.messages[key].value
+                                +"</span><br><div class='ms-2'><span class='text-muted'>"
+                                +response.messages[key].date
+                                +"</span></div><br></div></div>"
+                            ;
+                        }
+                        $("#chat").append(temp);
+                    }
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        },1000);
+    })
+</script> -->
 
 
-<script src="{% static 'js/jquery-2.1.0.min.js' %}"></script>
 <script>
+    let create_form = document.getElementById('create_form');
+    
+    create_form.addEventListener("submit", StopReload)
 
+    function StopReload(e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'accueil' %}",
+            data: $('#create_form').serialize(),
+            dataType: "json",
 
-
-var id_title = document.getElementById('id_title')
-    id_title.placeholder = "Titre"
-var error_title = document.getElementById('error_title')
-
-var id_categorie = document.getElementById('id_categorie')
-    id_categorie.placeholder = 'Categorie'
-var error_categorie = document.getElementById('error_categorie')
-
-var id_description = document.getElementById('id_description')
-id_description.placeholder = 'Votre description en quelques lignes'
-var error_description = document.getElementById('error_description')
-
-
-function valChapmsText(champs, errClass) {
-    if (champs.value == "") {
-    errClass.innerHTML="*veuillez remplir ce champs";
-    champs.focus();
-    champs.classList.add('err');
-    return false;
-    } else {
-    errClass.innerHTML="";
-    champs.classList.remove('err');
-    return true;
+            success:function(data){
+                create_form.reset()
+            }
+        })
     }
-}
 
-
-function validatePost() {
-
-  // body...
-  if (valChapmsText(id_title, error_title)
-    && valChapmsText(id_categorie, error_categorie)
-    && valChapmsText(id_description, error_description)
-    ){
-    return true;
-  }
-  else{
-    return false;
-  }
-}
-// charger l'image
-
-	let choosenImage = document.getElementById('choosen-image');
-	let uploardButton = document.getElementById('id_image');
-
-	let ListExt = ["jpeg", "jpg", "png", "tif", "gif",
-				   "JPEG", "JPG", "PNG", "TIF", "GIF"];
-
-	uploardButton.onchange = () =>{
-		let fileName = uploardButton.files[0].name.split(".");
-		let ext = fileName[fileName.length-1];
-		// alert(ext);
-		if(ListExt.indexOf(ext) === -1){
-			alert("Veuillez sélectionner une image png, jpeg, jpg, tif ou gif");
-		}else{
-			let reader = new FileReader();
-			reader.readAsDataURL(uploardButton.files[0]);
-			let file = uploardButton.files[0];
-			reader.onload = () => {
-				choosenImage.setAttribute("src", reader.result);
-
-			}
-		}
-	}
-
-// obtenir le modal 
-$(document).ready(function(){
-        // click sur le bouton  qui ouvre le modal
-        $('#imgs').click(function(){
-			$('#img-show').show();
-            $('.modal-content').animate({bottom: '75px'})
-            $('#id_description').css({
-                'height': '60px'
-                
-            })
-		});
-        // reactualiser la taille de la description apres fermeture du modal
-        $('#poster').click(function(){
-            $('#id_description').css({
-                'height': '120px'
-            })
-        })
-        $('#create-post').click(function(){
-            $('#id_description').css({
-                'height': '120px'
-            })
-        })
-        // fin
-
-        // modification qui s'applique lorsqu'on ferme le modal de publication
-        $('#close').click(function(){
-			$('#img-show').hide();
-             $('#id_description').css({
-                'height': '60px'
-            })    
-		});
-        // click sur le bouton pour fermer l'espace de previsualisation de l'image
-        $('#close-img-show').click(function(){
-            $('#img-show').hide();
-        });
-});
-
-
-
+    function delete_post() {
+        res = confirm("Voulez-vous supprimmer cette publications ? ");
+        if(res){
+            return true;
+        }else{
+            return false;
+        }
+    }
 </script>
+
 {% endblock %}
 
 

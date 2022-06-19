@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>List of projects</title>
+    </head>
+    <body>
+        {% for post in postList %}
+            titre : {{post.title}} <br>
+            catégorie : {{post.categorie}} <br>
+            doc : {{post.media}} <br>
+            image : {{post.image}} <img width="300px" height="300px" src="{{post.image.url}}" alt="" srcset=""> <br>
+            description : {{post.description}} <br><br>
+            posté par : {{post.etudiant}}, nom : {{post.etudiant.user.last_name}} <br>
+            <a href="{% url 'profile_student' post.etudiant.id %}">profile</a><br><br>
+            posté le : {{post.date_post}} <br>
+            investi : {{post.investi}} <br><br>
+
+            <a href="{% url 'update_post' post.id %}">Modifier</a>
+            <a href="{% url 'delete_post' post.id %}">Supprimer</a>
+
+            <hr>
+        {% endfor %}
+    </body>
+</html>

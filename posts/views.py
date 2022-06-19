@@ -1,139 +1,104 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect, JsonResponse
+from multiprocessing import context
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.models import *
-from .forms import ProjetForm, CommentForm, ReponseForm
-from .models import Projet, Comment, Reponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from .forms import ProjetForm, CommentForm
+from .models import Projet, Comment, Room, Message
 
 # Create your views here.
 
 
-# page d'accueil (1)
 
+# page d'accueil (1)
 
 def index(request):
     return render(request, 'posts/index.html')
 
 
+
 # page d'accueil (2) des publications
-"""
-@login_required(login_url='connexion')
-def accueil(request):
-    return render(request, 'posts/accueil.html')
-"""
-
 
 @login_required(login_url='connexion')
 def accueil(request):
-    publied = False
-    err_post = ""
-    erro_comm = ''
-    err_reponse = ""
-    
-    nb_commentaire = 0
-    nb_reps = 0
-    total_com = 0
-    coms = Comment.objects.all()
-    reps = Reponse.objects.all()
-    
-    
-    projet_form = ProjetForm()
-    comment_form = CommentForm()
-    reponse_form = ReponseForm()
-    
-    list_projet = []
-    list_comment = []
-    list_rep_com = []
-    list_projet_com = []
-    
-    #obtenir la liste de les commentaire
-    for com in coms:
-        list_comment.append(com)
-        list_projet_com.append(com)
-    nb_commentaire = len(list_comment)
-    for rep in reps:
-        list_rep_com.append(rep)
-        list_projet_com.append(rep.title_com.projet)
-    nb_reps = len(list_rep_com)
-    
-    
-    total_com = nb_reps + nb_commentaire    
-    
+    # crer un projet
+    err_create_post = ""
+    create_post_form = ProjetForm()
+    postList = Projet.objects.all()
+    postListUnique = []
+    pListCat = []
+    for p in postList:
+        if p.categorie not in pListCat:
+            postListUnique.append(p)
+            pListCat.append(p.categorie)
 
-    # obtenir la liste de tous les projets publiers
-    projets = Projet.objects.all()
-    for projet in projets:
-        list_projet.append(projet)
-
-    if request.method == "POST":
-        
+    # chat
+    roomList = Room.objects.all()
+    userList = User.objects.all()
+    
+    if request.method == 'POST':
         #poster une publication
-        if 'etudiant' in request.POST:
-            
-            projet_form = ProjetForm(request.POST, request.FILES)
-            if projet_form.is_valid():
+        if 'etudiant' in request.POST:   
+            create_post_form = ProjetForm(request.POST, request.FILES)
+            if create_post_form.is_valid():
 
                 # enregistrer dans la BD
-                projet = projet_form.save()
+                projet = create_post_form.save()
                 projet.save()
                 
                 publied = True
                 context = {'title':projet.title, 'categorie':projet.categorie, 'description':projet.description, 'image':projet.image,'etudiant_img': projet.etudiant.photoProfil.url}
                 return HttpResponseRedirect('../accueil')
             else:
-                err_post = projet_form.errors
-        #poster un commentaire
-        elif 'user_comment' in request.POST:
-            comment_form = CommentForm(request.POST)
-            if comment_form.is_valid():
-                comment = comment_form.save()
-                comment.save()
-                context = {'comment_texte': comment.texte,'comment_user': comment.user_comment,'date_comment': comment.date_comment,'comment_time': comment.time_com,'comment_projet': comment.projet,'nb_com': total_com,}
-                #return JsonResponse({'comment_texte': comment.texte,'comment_user': comment.user_comment,'date_comment': comment.date_comment,'comment_time': comment.time_com,'comment_projet': comment.projet})
-                return HttpResponseRedirect('../accueil')
-            else:
-                erro_comm = comment_form.errors()
-        #repondre a un commentaire
-        elif 'title_com' in request.POST:
-            reponse_form = ReponseForm(request.POST)
-            
-            if reponse_form.is_valid():
-                
-                reponse = reponse_form.save()
-                reponse.save()
-                context = {
-                    'reponse_texte': reponse.texte,
-                    'reponse_com': reponse.title_com,
-                    'reponse_date': reponse.date_reponse,
-                    'reponse_user': reponse.user_reponse,
-                    'reponse_time': reponse.time_rep,
-                    'nb_com': total_com,
-                }
-                #return JsonResponse(context)
-                return HttpResponseRedirect('../accueil')
-            else:
-                err_reponse = reponse_form.errors()
-
+                err_create_post = create_post_form.errors
     
-
     context = {
-        'err': err_post,
-        'err_com': erro_comm,
-        'err_post': err_post,
-        'err_reponse':err_reponse,
-        'nb_com': total_com,
-        
-        'list_com': list_comment,
-        'list_rep': list_rep_com,
-        'comment_form': comment_form,
-        'reponse_form': reponse_form,
-        'projet_form': projet_form,
-        'publied': publied,
-        'list_projet': list_projet,
-        'projet_com': list_projet_com,
+        # creer un projet
+        'create_post_form':create_post_form,
+        'err_create_post':err_create_post,
+        'postList':postList,
+        'postListUnique':postListUnique,
 
+        # chat
+        'roomList':roomList,
+        'userList':userList,
     }
-    return render(request, "posts/accueil.html", context)
+    return render(request, 'posts/accueil.html', context)
+
+
+
+
+# ==================== CRUD POST ======================
+
+
+# create a post
+
+def create_post(request):
+    err =""
+    projet_form = ProjetForm()
+    if request.method == 'POST':
+        projet_form = ProjetForm(request.POST, request.FILES)
+        if projet_form.is_valid():
+            projet = projet_form.save()
+            projet.save()
+            return HttpResponseRedirect('list_projects')
+        else:
+            err = projet.errors
+    context = {'projet_form':projet_form, 'err':err,}
+    return render(request, 'posts/create_post.html', context)
+
+
+# list of posts
+
+def list_projects(request):
+    postList = Projet.objects.all()
+    
+    context = {'postList':postList}
+    return render(request, 'posts/list_projects.html', context)
+
+
+
+
 # update de project
 @login_required(login_url='connexion')
 def update_post(request, pk):
@@ -166,21 +131,88 @@ def update_post(request, pk):
 
     return render(request, 'posts/update_post.html', context)
 
+
+
 # delete de project
+
 @login_required(login_url='connexion')
 def delete_post(request, pk):
     
     projet_del = Projet.objects.get(id=pk)
 
-    if request.method == 'POST':
-        projet_del.delete()
-        return HttpResponseRedirect('../accueil')
+    # if request.method == 'POST':
+    projet_del.delete()
+    return HttpResponseRedirect('../accueil')
 
+    # context = {
+    #     'projet_del': projet_del
+    # }
+
+    # return render(request, 'posts/delete_projet.html', context)
+
+
+
+
+# ======================== CHAT ==========================
+
+# page de chat
+def room(request, room):
+    username = request.GET.get('username')
+    room_details = Room.objects.get(name=room)
+    roomList = Room.objects.all()
+    userList = User.objects.all()
     context = {
-        'projet_del': projet_del
+        'username': username,
+        'room': room,
+        'room_details': room_details,
+        'roomList':roomList,
+        'userList':userList,
     }
+    return render(request, 'posts/room.html', context)
 
-    return render(request, 'posts/delete_projet.html', context)
+
+
+# creer nouveau slaon de chat
+def createRoom(request, u1, u2, title):
+    user1 = User.objects.get(id=u1).last_name
+    user2 = User.objects.get(id=u2).last_name
+    room = title+'_'+u1+'_'+u2
+    if Room.objects.filter(name=room).exists():
+        return redirect('/'+room+'/?username='+user1)
+    else:
+        new_room = Room.objects.create(name=room, user1=user1, user2=user2)
+        new_room.save()
+        return redirect('/'+room+'/?username='+user1)
+
+
+# envoyer un message
+def send(request):
+    message = request.POST['message']
+    username = request.POST['username']
+    room_id = request.POST['room_id']
+
+    new_message = Message.objects.create(value=message, user=username, room=room_id)
+    new_message.save()
+    return HttpResponse('Message sent successfully')
+
+
+# récupérer la liste des message d'un salon
+def getMessages(request, room):
+    inv = ""
+    room_details = Room.objects.get(name=room)
+    for u in User.objects.all():
+        if room_details.user1 == u.last_name:
+            inv = Investisseur.objects.get(id=u.investisseur.id)
+    photo = inv.photoProfil.url
+    messages = Message.objects.filter(room=room_details.id)
+    context = {"messages":list(messages.values()), 'photo':photo}
+    return JsonResponse(context)
+
+
+
+
+
+# ========================== COMMENTS =====================
 
 
 # commenter un projet

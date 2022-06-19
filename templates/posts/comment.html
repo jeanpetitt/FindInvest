@@ -12,16 +12,8 @@
 
     {% for comment in comments %}
         <div class="" id="container">
-            <di>bonour vous venerz de:<div>
-              <div>
-                <h1 id="h2">
-                  <p id="title">{{ comment.title}}</p>
-                </h1>
-              </div>
-            </div>
-              
-            <div>
-            </div>
+            <p id="title">{{ comment.title}}</p>
+        </div>
         
     {% endfor %}
     
@@ -29,7 +21,6 @@
 
 <script>
      let form = document.getElementById('com');
-     let h = document.getElementById('h2')
      
      let container = document.getElementById('container')
      form.addEventListener('submit', StopReload)
@@ -44,7 +35,6 @@
 
             success:function(data){
                   title.innerText = data.new_comment;
-                  container.appendChild(h)
                   container.appendChild(title)
                   form.reset()
                     }
