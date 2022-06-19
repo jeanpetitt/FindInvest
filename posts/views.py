@@ -125,7 +125,7 @@ def update_post(request, pk):
     context = {
         'err': err,
         'projet':projet,
-        'projet_form': projet_form,
+        'create_post_form': projet_form,
         'publied': publied
     }
 

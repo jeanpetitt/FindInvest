@@ -227,8 +227,8 @@
                                         <i class="uil uil-ellipsis-h"></i> 
                                     </span>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownPostActions">
-                                        <li><a class="dropdown-item" href="{% url 'update_post' post.id %}"  data-bs-toggle="modal" data-bs-target="#createPostModal">Modifier</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'delete_post' post.id %}" onclick="return delete_post();">Supprimer</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'update_post' post.id %}"  data-bs-toggle="modal" data-bs-target="#createPostModal"><i style="color:rgb(34, 92, 252); font-size: 1.5em;" class="uil uil-pen"></i>Modifier</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'delete_post' post.id %}" onclick="return delete_post();"><i style="color:rgb(245, 1, 62); font-size: 1.5em;" class="uil uil-trash-alt"></i>Supprimer</a></li>
                                     </ul>
                                 </div>
                             {% endif %}
@@ -622,7 +622,7 @@
                             {{ err_create_post }}
                         
                     
-                
+                    </div>
                     </form>
                 </div>
 
