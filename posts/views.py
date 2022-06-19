@@ -22,7 +22,7 @@ def index(request):
 @login_required(login_url='connexion')
 def accueil(request):
     # crer un projet
-    err_create_post =""
+    err_create_post = ""
     create_post_form = ProjetForm()
     postList = Projet.objects.all()
     postListUnique = []
@@ -37,14 +37,20 @@ def accueil(request):
     userList = User.objects.all()
     
     if request.method == 'POST':
-        if request.POST.get('form_type') == 'create_form':
-            projet_form = ProjetForm(request.POST, request.FILES)
-            if projet_form.is_valid():
-                projet = projet_form.save()
+        #poster une publication
+        if 'etudiant' in request.POST:   
+            create_post_form = ProjetForm(request.POST, request.FILES)
+            if create_post_form.is_valid():
+
+                # enregistrer dans la BD
+                projet = create_post_form.save()
                 projet.save()
-                return HttpResponseRedirect('accueil')
+                
+                publied = True
+                context = {'title':projet.title, 'categorie':projet.categorie, 'description':projet.description, 'image':projet.image,'etudiant_img': projet.etudiant.photoProfil.url}
+                return HttpResponseRedirect('../accueil')
             else:
-                err_create_post = projet.errors
+                err_create_post = create_post_form.errors
     
     context = {
         # creer un projet

@@ -573,64 +573,58 @@
           <i id="fermerMod" class="uil uil-multiply"  data-bs-dismiss="modal" aria-label="Close"></i>
         </div>
         <div class="modal-body">
-            <style>
-                textarea{
-                    width: 100%;
-                    height: 100px;
-                }
-            </style>
-                
-    
+             <div class="form">
+                    <form method="post" enctype="multipart/form-data" id="form-post">
+                            {% csrf_token %}
+                            <div class="champs">
+                            {{ create_post_form.title }}
+                            <p><span id='error_title'></span></p>
 
-                <form id="create_form" action="" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input type="hidden" name="csrfmiddlewaretoken" value="9DsWSkvsBE4LWWnPrRjmWo8GlyJTMSbhqWK6aJqUyHadqDR0v4WLxZWR0KnDwV9U">
-        
-                    <p>
-                        <label for="id_title">Titre du Projet&nbsp;:</label>
-                        <input type="text" name="title" maxlength="200" required="" id="id_title">
-                    </p>
-                    <p>
-                        <label for="id_categorie">Categorie projet&nbsp;:</label>
-                        <input type="text" name="categorie" maxlength="200" required="" id="id_categorie">
-                    </p>
-                
-                    <p>
-                        <label for="id_media">Media&nbsp;:</label>
-                        <input type="file" name="media" id="id_media">
-                    </p>
-                    <p>
-                        <label for="id_image">Image&nbsp;:</label>
-                        <input type="file" name="image" accept="image/*" id="id_image">
-                    </p>
-                    <p style="display: none;">
-                        <label for="id_investi">Investi&nbsp;:</label>
-                        <select name="investi" id="id_investi">
-                        <option value="">---------</option>
-                    
-                        <option value="Oui">Oui</option>
-                    
-                        <option value="Non" selected="">Non</option>
-        
-                        </select>  
-                    </p>
-                    <p>
-                        <label for="id_description">Description&nbsp;:</label>
-                        <textarea name="description" cols="40" rows="10" maxlength="500" required="" id="id_description"></textarea>
-                    </p>
-                    <p style="display: none;">
-                        <label for="id_etudiant">Etudiant&nbsp;:</label>
-                        <select name="etudiant" required="" id="id_etudiant">
-                            <option value="{{request.user.etudiant.id}}" selected="">{{request.user.etudiant}}</option>
+                            {{create_post_form.categorie }}
+                            <p><span id="error_categorie"></span></p>
+                            
+                            <textarea name="description" cols="40" rows="10" maxlength="500" placeholder="Decrivez votre  projet en quelques lignes" required="" id="id_description"></textarea>
+                            <p><span id="error_description"></span></p>
+                            
+                            <!-- div ou s'affichera la previsualisation de l'image ou du ficier -->
+
+                            <div id="img-show">
+                                <i class="uil uil-multiply" id="close-img-show"></i>
+                                <label for="id_image">
+                                    <div id="img-show-content">
+                                        <i class="uil uil-images" id="titre_image"></i>
+                                        <p>Ajouter une image</p>
+                                        <div class="profile_projet">
+                                            <img id="choosen-image" class=""  src="{{projet_form.image.url}}" alt="">
+                                        </div>
+                                        <div>
+                                            <input type="file" name="image" accept="image/*" id="id_image" hidden>
+                                        </div>
+                                    </div>
+                                </label>
+                                
+                            </div>
+                            <div id="file-show" style="display: none;margin-bottom: 5px;height: 100px; width: 350px; border: #ced4da solid 1px;">
+                                
+                            </div>
+                            <!-- div permettant de choisir d'oujouter une image ou un fichier -->
+                            <div class="image">
+                                
+                                <span>Joindre a votre publication</span><i id="imgs" class="uil uil-image-plus"></i><i id="file" class="uil uil-file-plus"></i>  
+                            </div>
+                            <div>
+                                <select name="etudiant" required="" id="id_etudiant" hidden>
+                                        <option value="{{request.user.etudiant.id }}">{{request.user.etudiant}}</option>
+                                </select>
+                            <!-- fin div -->
+                                <input class="btn1" type="submit" onclick="validatePost()" name="" value="Publier">
+                            </div>
+                            {{ err_create_post }}
                         
-                        </select>
-                    </p>
-                    <input type="hidden" name="form_type" value="create_form">
-                    <input class="btn btn-primary" type="submit" value="Publier">
-        
-                    {{err_create_post}}
-                </form>
-
+                    
+                
+                    </form>
+                </div>
 
                 
         </div>
@@ -844,6 +838,118 @@
             return false;
         }
     }
+
+
+
+</script>
+<script>
+
+
+
+var id_title = document.getElementById('id_title')
+    id_title.placeholder = "Titre"
+var error_title = document.getElementById('error_title')
+
+var id_categorie = document.getElementById('id_categorie')
+    id_categorie.placeholder = 'Categorie'
+var error_categorie = document.getElementById('error_categorie')
+
+var id_description = document.getElementById('id_description')
+id_description.placeholder = 'Votre description en quelques lignes'
+var error_description = document.getElementById('error_description')
+
+
+function valChapmsText(champs, errClass) {
+    if (champs.value == "") {
+    errClass.innerHTML="*veuillez remplir ce champs";
+    champs.focus();
+    champs.classList.add('err');
+    return false;
+    } else {
+    errClass.innerHTML="";
+    champs.classList.remove('err');
+    return true;
+    }
+}
+
+
+function validatePost() {
+
+  // body...
+  if (valChapmsText(id_title, error_title)
+    && valChapmsText(id_categorie, error_categorie)
+    && valChapmsText(id_description, error_description)
+    ){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+// charger l'image
+
+	let choosenImage = document.getElementById('choosen-image');
+	let uploardButton = document.getElementById('id_image');
+
+	let ListExt = ["jpeg", "jpg", "png", "tif", "gif",
+				   "JPEG", "JPG", "PNG", "TIF", "GIF"];
+
+	uploardButton.onchange = () =>{
+		let fileName = uploardButton.files[0].name.split(".");
+		let ext = fileName[fileName.length-1];
+		// alert(ext);
+		if(ListExt.indexOf(ext) === -1){
+			alert("Veuillez sélectionner une image png, jpeg, jpg, tif ou gif");
+		}else{
+			let reader = new FileReader();
+			reader.readAsDataURL(uploardButton.files[0]);
+			let file = uploardButton.files[0];
+			reader.onload = () => {
+				choosenImage.setAttribute("src", reader.result);
+
+			}
+		}
+	}
+
+// obtenir le modal 
+$(document).ready(function(){
+        // click sur le bouton  qui ouvre le modal
+        $('#imgs').click(function(){
+			$('#img-show').show();
+            $('.modal-content').animate({bottom: '75px'})
+            $('#id_description').css({
+                'height': '60px'
+                
+            })
+		});
+        // reactualiser la taille de la description apres fermeture du modal
+        $('#poster').click(function(){
+            $('#id_description').css({
+                'height': '120px'
+            })
+        })
+        $('#create-post').click(function(){
+            $('#id_description').css({
+                'height': '120px'
+            })
+        })
+        // fin
+
+        // modification qui s'applique lorsqu'on ferme le modal de publication
+        $('#close').click(function(){
+			$('#img-show').hide();
+             $('#id_description').css({
+                'height': '60px'
+            })    
+		});
+        // click sur le bouton pour fermer l'espace de previsualisation de l'image
+        $('#close-img-show').click(function(){
+            $('#img-show').hide();
+        });
+});
+
+
+
 </script>
 
 {% endblock %}
