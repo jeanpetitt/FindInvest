@@ -1,3 +1,7 @@
+# FindInvest
+![alt text](https://gitlab.com/Tom-michel/FindInvest/-/raw/tom/static/img/logo1.png?raw=true)
+
+
 Plateforme de recherche d'investissement pour les étudiants porteurs de projets de l'université de yaoundé 1.
 
 Equipe de développement
