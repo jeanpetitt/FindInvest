@@ -595,7 +595,7 @@
                                         <i class="uil uil-images" id="titre_image"></i>
                                         <p>Ajouter une image</p>
                                         <div class="profile_projet">
-                                            <img id="choosen-image" class=""  src="{{projet_form.image.url}}" alt="">
+                                            <img id="choosen-image" class=""  src="{{create_post_form.image.url}}" alt="">
                                         </div>
                                         <div>
                                             <input type="file" name="image" accept="image/*" id="id_image" hidden>
@@ -604,7 +604,20 @@
                                 </label>
                                 
                             </div>
-                            <div id="file-show" style="display: none;margin-bottom: 5px;height: 100px; width: 350px; border: #ced4da solid 1px;">
+                            <div id="file-show" hidden>
+                                <i class="uil uil-multiply" id="close-file-show"></i>
+                                <label for="id_media">
+                                    <div id="img-show-content">
+                                        <i class="uil uil-images" id="titre_media"></i>
+                                        <p>Ajouter une image</p>
+                                        <div class="profile_projet">
+                                            <img id="choosen-file" class=""  src="{create_post_form.media.url}}" alt="">
+                                        </div>
+                                        <div>
+                                            <input type="file" name="media" id="id_media" hidden>
+                                        </div>
+                                    </div>
+                                </label>
                                 
                             </div>
                             <!-- div permettant de choisir d'oujouter une image ou un fichier -->
