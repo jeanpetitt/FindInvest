@@ -29,7 +29,7 @@ urlpatterns = [
     path('reset_password_send', views.PasswordResetDoneView.as_view(template_name='registration/password_reset_sent.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>', views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'), name='password_reset_confirm'),
     path('reset_password_complete', views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
-
+    path('', include('publication.urls')),
     path('accounts/', include('allauth.urls')),
 ]
 if settings.DEBUG:

@@ -202,7 +202,7 @@
                 </div>
             {% endif %}
 
-        {% for projet in list_projet %}
+        
             <!-- ------------ posts --------------- -->
                 {% for post in postList %}
                     <!-- ------------ post 1 --------------- -->
@@ -636,8 +636,16 @@
             return false;
         }
     }
-</script>
 
+
+    function delete_post() {
+        res = confirm("Voulez-vous supprimmer cette publications ? ");
+        if(res){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script> -->
 {% endblock %}
-
 
