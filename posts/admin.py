@@ -22,16 +22,6 @@ class AdminProjet(admin.ModelAdmin):
            'fields': ('description', )
         }),
     )
-"""
-class AdminComment(admin.ModelAdmin):
-    list_display = ['user_comment', 'texte', 'projet', 'date_comment', 'time_com']
-    list_filter = ['date_comment', 'user_comment']
-
-class AdminReponse(admin.ModelAdmin):
-    list_display = ['user_reponse', 'texte', 'title_com','time_rep']
-    list_filter = ['date_reponse']
-    
-admin.site.register(Comment, AdminComment)
-admin.site.register(Reponse, AdminReponse)
+""" 
 
 admin.site.register(Projet, AdminProjet)

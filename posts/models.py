@@ -70,26 +70,3 @@ class Projet(models.Model):
 
     """
     
-class Comment(models.Model):
-    
-    texte = models.CharField(max_length=600)
-    date_comment = models.DateTimeField(auto_now_add=timezone.now())
-    projet = models.ForeignKey(Projet, on_delete=models.CASCADE, related_name="comments")
-    user_comment = models.ForeignKey(User, on_delete=models.CASCADE)
-    time_com = models.TimeField(auto_now_add=timezone.now())
- 
-    
-    def __str__(self):
-        return f'{self.user_comment} a commenter la publication {self.projet.title}'
-   
-    
-        
-class Reponse(models.Model):
-    title_com = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="reponses")
-    texte = models.CharField(max_length=600)
-    date_reponse = models.DateTimeField(auto_now_add=timezone.now())
-    user_reponse = models.ForeignKey(User, on_delete=models.CASCADE)
-    time_rep = models.TimeField(auto_now_add=timezone.now())
-    
-    def __str__(self):
-        return f'{self.user_reponse} a repondu au commentaire de {self.title.user_comment.last_name} le {self.date_reponse}'

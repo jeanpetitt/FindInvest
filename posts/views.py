@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from users.models import *
-from .forms import ProjetForm, CommentForm, ReponseForm
-from .models import Projet, Comment, Reponse
+from .forms import ProjetForm
+from publication.form import CommentForm, ReponseForm
+from publication.models import Projet, Commentaire, Reponses
 
 # Create your views here.
 
@@ -28,42 +29,33 @@ def accueil(request):
     publied = False
     err_post = ""
     erro_comm = ''
-    err_reponse = ""
     
     nb_commentaire = 0
-    nb_reps = 0
-    total_com = 0
-    coms = Comment.objects.all()
-    reps = Reponse.objects.all()
-    
-    
-    projet_form = ProjetForm()
+    projets = Projet.objects.all()
+    coms = Commentaire.objects.all()
+    reps = Reponses.objects.all()
+    #formulaire des commentaire et reponse
     comment_form = CommentForm()
     reponse_form = ReponseForm()
+    #formulaire pour poster un projet
+    projet_form = ProjetForm()
     
     list_projet = []
     list_comment = []
     list_rep_com = []
-    list_projet_com = []
-    
-    #obtenir la liste de les commentaire
-    for com in coms:
-        list_comment.append(com)
-        list_projet_com.append(com)
-    nb_commentaire = len(list_comment)
-    for rep in reps:
-        list_rep_com.append(rep)
-        list_projet_com.append(rep.title_com.projet)
-    nb_reps = len(list_rep_com)
-    
-    
-    total_com = nb_reps + nb_commentaire    
+    user_com = []
     
 
     # obtenir la liste de tous les projets publiers
-    projets = Projet.objects.all()
     for projet in projets:
         list_projet.append(projet)
+        #obtenir le nombre total des commentairespour un projet y compris les reponse
+        for com in coms:
+            list_comment.append(com)
+        for rep in reps:
+            list_rep_com.append(rep)
+    
+    # obtenir l'utilasteur qui a commenter un publication 
 
     if request.method == "POST":
         
@@ -88,11 +80,11 @@ def accueil(request):
             if comment_form.is_valid():
                 comment = comment_form.save()
                 comment.save()
-                context = {'comment_texte': comment.texte,'comment_user': comment.user_comment,'date_comment': comment.date_comment,'comment_time': comment.time_com,'comment_projet': comment.projet,'nb_com': total_com,}
-                #return JsonResponse({'comment_texte': comment.texte,'comment_user': comment.user_comment,'date_comment': comment.date_comment,'comment_time': comment.time_com,'comment_projet': comment.projet})
-                return HttpResponseRedirect('../accueil')
-            else:
-                erro_comm = comment_form.errors()
+                context = {'comment_texte': comment.texte,'comment_user': comment.user_comment,'date_comment': comment.date_comment,'comment_time': comment.time_com,'comment_projet': comment.projet,'nb_com': nb_commentaire,}
+                return JsonResponse({'comment':comment.texte})
+            #({'comment_texte': comment.texte,'comment_user': comment.user_comment,'date_comment': comment.date_comment,'comment_time': comment.time_com,'comment_projet': comment.projet})
+                #return HttpResponseRedirect('../accueil')
+            
         #repondre a un commentaire
         elif 'title_com' in request.POST:
             reponse_form = ReponseForm(request.POST)
@@ -107,30 +99,27 @@ def accueil(request):
                     'reponse_date': reponse.date_reponse,
                     'reponse_user': reponse.user_reponse,
                     'reponse_time': reponse.time_rep,
-                    'nb_com': total_com,
+                    'nb_com': nb_commentaire 
                 }
+            else:
+                erro_comm = reponse_form.errors()
                 #return JsonResponse(context)
                 return HttpResponseRedirect('../accueil')
-            else:
-                err_reponse = reponse_form.errors()
 
     
 
     context = {
+        'err_rep': erro_comm,
         'err': err_post,
-        'err_com': erro_comm,
-        'err_post': err_post,
-        'err_reponse':err_reponse,
-        'nb_com': total_com,
-        
+        'nb_com': nb_commentaire,
         'list_com': list_comment,
         'list_rep': list_rep_com,
         'comment_form': comment_form,
         'reponse_form': reponse_form,
+        
         'projet_form': projet_form,
         'publied': publied,
         'list_projet': list_projet,
-        'projet_com': list_projet_com,
 
     }
     return render(request, "posts/accueil.html", context)
@@ -187,7 +176,7 @@ def delete_post(request, pk):
 
 @login_required(login_url='connexion')
 def commenterPublication(request):
-    comments = Comment.objects.all()
+    comments = Commentaire.objects.all()
     list_comment = []
     
     for com in comments:

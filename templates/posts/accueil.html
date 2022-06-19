@@ -245,9 +245,10 @@
                 </div>
             {% endif %}
 
-        {% for projet in list_projet %}
+        
             <!-- ------------ posts --------------- -->
         <div class="posts" id="posts">
+            {% for projet in list_projet %}
                 <!-- ------------ post 1 --------------- -->
                 <div class="post" id="post1">
                     <div class="head" id="head">
@@ -260,13 +261,21 @@
                             <div class="autor" id="author">
                                 <a href="#post1">
                                     <h3>{{projet.etudiant.user.last_name}} - {{projet.categorie}}</h3>
-                                    <small>Yaoundé, 15 MINUTES AGO</small>
+                                    <small>{{projet.etudiant.ville}},{{projet.date_post}} </small>
                                 </a>
                             </div>
                         </div>
-                        <span class="edit">
-                            <i class="uil uil-ellipsis-h"></i> 
-                        </span>
+                        {% if request.user.id == projet.etudiant.user.id %}
+                                <div class="dropstart">
+                                    <span class="edit" id="dropdownPostActions" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="uil uil-ellipsis-h"></i> 
+                                    </span>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownPostActions">
+                                        <li><a class="dropdown-item" href="{% url 'update_post' projet.id %}"  data-bs-toggle="modal" data-bs-target="#createPostModal"><i style="color:rgb(34, 92, 252); font-size: 1.5em;" class="uil uil-pen"></i>modifier</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'delete_post' projet.id %}" onclick="return delete_post();"><i style="color:rgb(245, 1, 62); font-size: 1.5em;" class="uil uil-trash-alt"></i>supprimer</a></li>
+                                    </ul>
+                                </div>
+                        {% endif %}
                     </div>
                     <div class="post-description">
                         <div class="post-title">
@@ -280,7 +289,10 @@
                         </p>
                     </div>
                     <div class="photo">
-                        <img src="{{ projet.image.url }}">
+                        <a href="{{ projet.image.url }}">
+                            <img src="{{ projet.image.url }}">
+                        </a>
+                        
                     </div>
 
                     <div class="action-buttons">
@@ -308,7 +320,8 @@
                     </div>
 
                     <div class="caption">
-                        <b>{{ request.user.last_name }}</b> a commenter recemment. <span class="hash-tag">#génie</span>
+                        
+                        <b>{{ request.user.last_name }}</b> a commenter recemment. <span class="hash-tag">{{projet.title}}</span>
                     </div>
 
                     <!-- ------------------- partie commentaires ---------------------- -->
@@ -323,10 +336,7 @@
                             <div class="chat pt-4">
 
                                 <!-- comentaire 1 -->
-                                {% for comment in projet.comments.all %}
-                                {% for reponse in comment.reponses.all %}
-                                
-                                {% if reponse.title.id == comment.id %}
+                                {% for com in projet.comment.all %}
                                 <div class=".disc-left d-flex align-items-start text-start justify-content-start">
                                     <div>
                                         <div class="avatar">
@@ -341,23 +351,24 @@
                                     
                                     <div class="left-messages">
                                         <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
-                                            {{reponse.texte}}
+                                            {{com.texte}}
                                         </span>
                                         <br>
                                         <div class="ms-2 my-1">
                                             <span class="text-muted">
                                                 <span class="btn-reply-comment">Répondre</span>&emsp;
-                                                {{reponse.time_rep}}
+                                                {{com.time_com}}
                                             </span>
                                         </div>
                                     
                                         <!-- --------- input réponse commentaire 1 ------- -->
+                                        {% if projet.id == com.projet.id %}
                                         <div class="reply-comment">
                                             <form action="" method="post" id="reponse">
                                                 {% csrf_token %}
                                                 <input type="text" name="texte" maxlength="600" required="" id="id_texte" class="form-control" placeholder="Votre réponse">
                                                 <select name="title_com" required="" id="id_title_com" hidden>
-                                                    <option value="{{reponse.title_com.id}}">{{reponse.title_com}}</option>
+                                                    <option value="{{com.id}}">{{rcom}}</option>
                                                 </select>
                                                 {% if request.user == request.user.etudiant.user %}
                                                 <select name="user_reponse" required="" id="id_user_reponse" hidden>
@@ -373,32 +384,37 @@
                                                     <input type="submit" id="reply-message" value="Envoer" hidden>
                                                     <label for="reply-message"><i class="uil uil-message"></i></label>
                                                 </div>
-                        
+                                                {{err_rep}}
                                             </form>
                                         </div>
+                                        {% endif %}
                                         <br>
                                     </div>
                                 </div>
-                                {% endif %}
-                                {% endfor %}
-                                <!-- votre commentaire 1 -->
+                               
+                                {% for rep in com.reponse.all %}
+                                
+                                {% if rep.title_com.id == com.id %}
+                                <!-- votre reponse au commentaire 1 -->
                                 <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
                                     <div class="right-messages">
                                         <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
-                                            {{comment.texte}}
+                                            {{com.texte}}
                                         </span>
                                         <br>
                                         <div class="me-2">
-                                            <span class="text-muted">{{comment.time_com}}</span>
+                                            <span class="text-muted">{{com.time_com}}</span>
                                         </div>
                                         <br>
                                     </div>
                                 </div>
+                                 {% endif %}
+                                {% endfor %}
                                 {% endfor %}
                             </div>
                         </div>
                         <div class="send-comment">
-                            <form action="" method="post" id="comment">
+                            <form action="" method="post" id="#comment{{projet.id}}">
                                 {% csrf_token %}
                                 <input type="text" name="texte" maxlength="600" required="" id="id_texte" class="form-control" placeholder="Votre commentaire">
                                 <select name="projet" required="" id="id_projet" hidden>
@@ -416,9 +432,9 @@
                         </div>
                     </div>
                 </div>
-             
+             {% endfor %}
         </div>
-        {% endfor %}
+        
         
             <!-- ------------ end posts --------------- -->
         </div>
@@ -581,7 +597,7 @@
                             {{ err }}
                         
                     
-        </div>
+                </div>
                     </form>
                 </div>
             
@@ -968,11 +984,57 @@ $(document).ready(function(){
         $('#close-img-show').click(function(){
             $('#img-show').hide();
         });
-});
+
+        setInterval(function(){
+            $.ajax({
+                type: "GET",
+                url: "{% url 'accueil' %}",
+                success: function(reponse){
+                   // console.log(reponse)
+                   $('posts').empty()
+                   for (var key in reponse.comment){
+                        var temp = "<li>"+reponse.comment[key].texte+"<li>"
+                        $('#posts').append(temp)
+                   }
+                },
+                error: function(reponse){
+                    alert('an error occur')
+                }
+            })
+        })
+}, 1000);
 
 
 
 </script>
-{% endblock %}
+<!-- 
+<script>
+    let create_form = document.getElementById('form-post');
+    
+    create_form.addEventListener("submit", StopReload)
 
+    function StopReload(e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'accueil' %}",
+            data: $('#form-post').serialize(),
+            dataType: "json",
+
+            success:function(data){
+                create_form.reset()
+            }
+        })
+    }
+
+    function delete_post() {
+        res = confirm("Voulez-vous supprimmer cette publications ? ");
+        if(res){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script> -->
+{% endblock %}
 

@@ -15,7 +15,7 @@
             margin-left: 100px;
         }
     </style>
-  <form action="{% url 'delete' projet_del.id %}" method="POST">
+  <form action="{% url 'delete_post' projet_del.id %}" method="POST">
     {% csrf_token %}
     <input type="submit" id='del' class="btn btn-danger" value="delete">
     <a href="{% url 'accueil' %}" class="btn btn-primary">annuler</a>
