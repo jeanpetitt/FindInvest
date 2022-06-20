@@ -137,7 +137,6 @@ textarea.err{
 
 
 .btn-bleu,
-.btn-vert,
 .btn-orange,
 .btn-blanc{
     border-radius: 50rem !important;
@@ -153,7 +152,6 @@ textarea.err{
     font-size: 1rem;
 }
 .btn-bleu:hover,
-.btn-vert,
 .btn-orange:hover,
 .btn-blanc:hover{
     transition: .2s;

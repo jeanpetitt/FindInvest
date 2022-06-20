@@ -9,8 +9,8 @@ from .forms import UserForm, EtuForm, InvestForm, UserUpadateForm, PwdUpdateForm
 from .models import Etudiant, Investisseur
 from django.contrib.auth.models import User
 
-
 # Create your views here.
+
 
 
 # page de connexion
@@ -25,13 +25,13 @@ def connexion(request):
                 if user.is_authenticated:
                     logout(request)
                 login(request, user)
-                return HttpResponseRedirect('../accueil')
+                return HttpResponseRedirect('../accueil')  
             else:
                 return HttpResponse("L'utilisateur est désactivé")
         else:
             msg = messages.info(request, "votre Adresse mail ou votre Mot de passe est incorrect, veuillez réessayer !")
             context = {
-                'msg': msg
+                'msg':msg
             }
             return render(request, 'users/connexion.html', context)
     else:
@@ -157,7 +157,7 @@ def register_student(request):
             etudiant.user = user
             etudiant.save()
             registered = True
-
+            
             # connecter le user
             user_log = authenticate(username=username, password=password)
             if user_log:
@@ -173,15 +173,16 @@ def register_student(request):
             err2 = etu_form.errors
 
     context = {
-        'registered': registered,
-        'user_form': user_form,
-        'etu_form': etu_form,
-        'util': util,
-        'num_tel': num_tel,
-        'err1': err1,
-        'err2': err2,
+        'registered':registered,
+        'user_form':user_form,
+        'etu_form':etu_form,
+        'util':util,
+        'num_tel':num_tel,
+        'err1':err1,
+        'err2':err2,
     }
     return render(request, 'users/register_student.html', context)
+
 
 
 # page d'incrition des investisseurs
@@ -210,7 +211,7 @@ def register_investor(request):
             etudiant.user = user
             etudiant.save()
             registered = True
-
+            
             # connecter le user
             user_log = authenticate(username=username, password=password)
             if user_log:
@@ -226,15 +227,148 @@ def register_investor(request):
             err2 = invest_form.errors
 
     context = {
-        'registered': registered,
-        'user_form': user_form,
-        'invest_form': invest_form,
-        'util': util,
-        'num_tel': num_tel,
-        'err1': err1,
-        'err2': err2,
+        'registered':registered,
+        'user_form':user_form,
+        'invest_form':invest_form,
+        'util':util,
+        'num_tel':num_tel,
+        'err1':err1,
+        'err2':err2,
     }
     return render(request, 'users/register_investor.html', context)
+
+
+
+# page modifier profil étudiant
+
+@login_required(login_url='connexion')
+def update_profile_student(request):
+    err1 = ''
+    err2 = ''
+    etu_form = EtuForm(instance=request.user.etudiant)
+    user_form = UserUpadateForm(instance=request.user)
+    if request.method == "POST":
+        etu_form = EtuForm(request.POST, request.FILES, instance=request.user.etudiant)
+        user_form = UserUpadateForm(data=request.POST, instance=request.user)
+        username = request.POST.get('username')
+        password = request.POST.get('password1')
+        
+        if user_form.is_valid() and etu_form.is_valid():
+
+            # enregistrer dans la BD
+            user = user_form.save()
+            user.save()
+            etudiant = etu_form.save(commit=False)
+            etudiant.user = user
+            etudiant.save()
+            
+            # connecter le user
+            user_log = authenticate(username=username, password=password)
+            if user_log:
+                if user.is_authenticated:
+                    logout(request)
+                login(request, user_log)
+            # le renvoyer vers la page d'accueil 2
+            return HttpResponseRedirect('../../../accueil')
+        else:
+            err1 = user_form.errors
+            err2 = etu_form.errors
+
+    context = {
+        'user_form':user_form,
+        'etu_form':etu_form,
+        'err1':err1,
+        'err2':err2,
+    }
+    return render(request, 'users/update_profile_student.html', context)
+
+
+
+# page modifier profil investisseur
+
+@login_required(login_url='connexion')
+def update_profile_investor(request):
+    err1 = ''
+    err2 = ''
+
+    # identifier un étudiant spécifique par son id
+    # investisseur = Investisseur.objects.get(id=id_i)
+    
+    # identifier le user associé à cet investissuer, par son id
+    # user = User.objects.get(id=investisseur.user.id)
+    
+    # remplir le formulaire avec les info de l'etudiant
+    invest_form = InvestForm(instance=request.user.investisseur)
+    user_form = UserUpadateForm(instance=request.user)
+    if request.method == "POST":
+        invest_form = InvestForm(request.POST, request.FILES, instance=request.user.investisseur)
+        user_form = UserUpadateForm(data=request.POST, instance=request.user)
+        username = request.POST.get('username')
+        password = request.POST.get('password1')
+        
+        if user_form.is_valid() and invest_form.is_valid():
+
+            # enregistrer dans la BD
+            user = user_form.save()
+            user.save()
+            investisseur = invest_form.save(commit=False)
+            investisseur.user = user
+            investisseur.save()
+            
+            # connecter le user
+            user_log = authenticate(username=username, password=password)
+            if user_log:
+                if user.is_authenticated:
+                    logout(request)
+                login(request, user_log)
+            # le renvoyer vers la page d'accueil 2
+            return HttpResponseRedirect('../../../accueil')
+        else:
+            err1 = user_form.errors
+            err2 = invest_form.errors
+
+    context = {
+        'user_form':user_form,
+        'invest_form':invest_form,
+        'err1':err1,
+        'err2':err2,
+    }
+    return render(request, 'users/update_profile_investor.html', context)
+
+
+
+
+# Consulter profil etudiant
+
+def profile_student(request, id_e):
+
+    # identifier l'etudiant
+    etudiant = Etudiant.objects.get(id=id_e)
+
+    # identifier le user
+    util = User.objects.get(id=etudiant.user.id)
+    
+    context = {
+        'etudiant':etudiant,
+        'util':util,
+    }
+    return render(request, 'users/profile_student.html', context)
+
+
+
+
+
+#consulter profil investisseur
+
+@login_required(login_url='connexion')
+def profile_investor(request,id_i):
+    investor=Investisseur.objects.get(id=id_i)
+    util=User.objects.get(id=investor.user.id)
+    context={
+        'util':util,
+        'investor':investor,
+    }
+    return render(request, 'users/profile_investor.html',context)
 
 
 # inscription via les reseaux sociaux
@@ -352,128 +486,3 @@ def investor_signup(request, pk):
     return render(request, 'users/register_investor.html', context)
 
 
-@login_required(login_url='connexion')
-def update_profile_student(request):
-    err1 = ''
-    err2 = ''
-    etu_form = EtuForm(instance=request.user.etudiant)
-    user_form = UserUpadateForm(instance=request.user)
-    if request.method == "POST":
-        etu_form = EtuForm(request.POST, request.FILES, instance=request.user.etudiant)
-        user_form = UserUpadateForm(data=request.POST, instance=request.user)
-        username = request.POST.get('username')
-        password = request.POST.get('password1')
-
-        if user_form.is_valid() and etu_form.is_valid():
-
-            # enregistrer dans la BD
-            user = user_form.save()
-            user.save()
-            etudiant = etu_form.save(commit=False)
-            etudiant.user = user
-            etudiant.save()
-            
-            # connecter le user
-            user_log = authenticate(username=username, password=password)
-            if user_log:
-                if user.is_authenticated:
-                    logout(request)
-                login(request, user_log)
-            # le renvoyer vers la page d'accueil 2
-            return HttpResponseRedirect('../../../accueil')
-        else:
-            err1 = user_form.errors
-            err2 = etu_form.errors
-
-    context = {
-        'user_form':user_form,
-        'etu_form':etu_form,
-        'err1':err1,
-        'err2':err2,
-    }
-    return render(request, 'users/update_profile_student.html', context)
-
-
-
-# page modifier profil investisseur
-
-@login_required(login_url='connexion')
-def update_profile_investor(request):
-    err1 = ''
-    err2 = ''
-
-    # identifier un étudiant spécifique par son id
-    # investisseur = Investisseur.objects.get(id=id_i)
-    
-    # identifier le user associé à cet investissuer, par son id
-    # user = User.objects.get(id=investisseur.user.id)
-    
-    # remplir le formulaire avec les info de l'etudiant
-    invest_form = InvestForm(instance=request.user.investisseur)
-    user_form = UserUpadateForm(instance=request.user)
-    if request.method == "POST":
-        invest_form = InvestForm(request.POST, request.FILES, instance=request.user.investisseur)
-        user_form = UserUpadateForm(data=request.POST, instance=request.user)
-        username = request.POST.get('username')
-        password = request.POST.get('password1')
-
-        if user_form.is_valid() and invest_form.is_valid():
-
-            # enregistrer dans la BD
-            user = user_form.save()
-            user.save()
-            investisseur = invest_form.save(commit=False)
-            investisseur.user = user
-            investisseur.save()
-            
-            # connecter le user
-            user_log = authenticate(username=username, password=password)
-            if user_log:
-                if user.is_authenticated:
-                    logout(request)
-                login(request, user_log)
-            # le renvoyer vers la page d'accueil 2
-            return HttpResponseRedirect('../../../accueil')
-        else:
-            err1 = user_form.errors
-            err2 = invest_form.errors
-
-    context = {
-        'user_form':user_form,
-        'invest_form':invest_form,
-        'err1':err1,
-        'err2':err2,
-    }
-    return render(request, 'users/update_profile_investor.html', context)
-
-
-# Consulter profil etudiant
-
-def profile_student(request, id_e):
-    # identifier l'etudiant
-    etudiant = Etudiant.objects.get(id=id_e)
-
-    # identifier le user
-    util = User.objects.get(id=etudiant.user.id)
-    
-    context = {
-        'etudiant':etudiant,
-        'util':util,
-    }
-    return render(request, 'users/profile_student.html', context)
-
-
-
-
-
-#consulter profil investisseur
-
-@login_required(login_url='connexion')
-def profile_investor(request,id_i):
-    investor=Investisseur.objects.get(id=id_i)
-    util=User.objects.get(id=investor.user.id)
-    context={
-        'util':util,
-        'investor':investor,
-    }
-    return render(request, 'users/profile_investor.html',context)

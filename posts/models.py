@@ -1,6 +1,8 @@
-from PIL import Image
+from email.policy import default
 from django.db import models
-from users.models import *
+from users.models import Etudiant
+import os
+from PIL import Image
 from django.utils import timezone
 
 # creation de la classe Projet
@@ -33,25 +35,18 @@ class Projet(models.Model):
 
     def __str__(self):
         return  f'{self.etudiant.user.last_name} Post- {self.title}'
-"""
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        path = 'image/post_image'
-        img1 = Image.open(self.image1.path)
-        img2 = Image.open(self.image2.path)
-        img3 = Image.open(self.image3.path)
-        if (img1.height > 400 or img1.width > 400) or (img2.height > 400 or img2.width > 400) or (img3.height > 400 or img3.width > 400):
-            output_size = (300, 300)
 
-            # enregistrement image1
-            img1.thumbnail(output_size)
-            img1.save(self.image1.path)
-            # enregistrement image 2
-            img2.thumbnail(output_size)
-            img2.save(self.image2.path)
-            #enregistrement image 3
-            img3.thumbnail(output_size)
-            img3.save(self.image3.path)
 
-    """
-    
+# model pour le Chat
+
+class Room(models.Model):
+    name = models.CharField(max_length=100)
+    user1 = models.CharField(max_length=100)
+    user2 = models.CharField(max_length=1000)
+
+
+class Message(models.Model):
+    value = models.CharField(max_length=1000000)
+    date = models.DateTimeField(default=timezone.now, blank=True)
+    user = models.CharField(max_length=100)
+    room = models.CharField(max_length=100)

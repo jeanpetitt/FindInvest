@@ -202,8 +202,8 @@
                 </div>
             {% endif %}
 
-        
             <!-- ------------ posts --------------- -->
+            <div class="posts">
                 {% for post in postList %}
                     <!-- ------------ post 1 --------------- -->
                     <div class="post" id="#projet{{post.id}}">
@@ -347,6 +347,214 @@
                                         <div>
                                             <div class="avatar">
                                                 <img src="{% static 'images/profile-16.jpg' %}">
+                                            </div>
+                                        </div>
+                                        <div class="left-messages">
+                                            <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                                Let me know when you're available?
+                                            </span>
+                                            <br>
+                                            <div class="ms-2 my-1">
+                                                <span class="text-muted">
+                                                    <span class="btn-reply-comment">Répondre</span>&emsp;
+                                                    01:13PM
+                                                </span>
+                                            </div>
+                                            <!-- --------- input réponse commentaire 2 ------- -->
+                                            <div class="reply-comment">
+                                                <form action="" method="post">
+                                                    {% csrf_token %}
+                                                    <input type="text" name="" id="" placeholder="Votre réponse">
+                                                    <div class="send">
+                                                        <input type="submit" id="reply-message" value="Envoer" hidden>
+                                                        <label for="reply-message"><i class="uil uil-message"></i></label>
+                                                    </div>
+                            
+                                                </form>
+                                            </div>
+                                            <br>
+
+                                            <!-- ---------------- reponse commentaire 2 ---------------- -->
+                                            <div class=".disc-left d-flex align-items-start text-start justify-content-start">
+                                                <div>
+                                                    <div class="avatar">
+                                                        <img src="{% static 'images/profile-17.jpg' %}">
+                                                    </div>
+                                                </div>
+                                                <div class="left-messages">
+                                                    <span class="card card-text-left d-inline-block py-1 px-3 ms-1">
+                                                        Let me know when you're available?
+                                                    </span>
+                                                    <br>
+                                                    <div class="ms-2 my-1">
+                                                        <span class="text-muted">
+                                                            <span class="btn-reply-comment">Répondre</span>&emsp;
+                                                            01:13PM
+                                                        </span>
+                                                    </div>
+                                                    <!-- --------- input réponse à la réponse commentaire 2 ------- -->
+                                                    <div class="reply-comment">
+                                                        <form action="" method="post">
+                                                            {% csrf_token %}
+                                                            <input type="text" name="" id="" placeholder="Votre réponse">
+                                                            <div class="send">
+                                                                <input type="submit" id="reply-message" value="Envoer" hidden>
+                                                                <label for="reply-message"><i class="uil uil-message"></i></label>
+                                                            </div>
+                                    
+                                                        </form>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- votre commentaire 1 -->
+                                    <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
+                                        <div class="right-messages">
+                                            <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
+                                                Let me know when you're available?
+                                            </span>
+                                            <br>
+                                            <div class="me-2">
+                                                <span class="text-muted">01:13PM</span>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="send-comment">
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <input type="text" name="" id="" placeholder="Votre commentaire">
+                                    <div class="send">
+                                        <input type="submit" id="send-message" value="Envoer" hidden>
+                                        <label for="send-message"><i class="uil uil-message"></i></label>
+                                    </div>
+            
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- ------------ end posts --------------- -->
+        </div>
+        <!-- ============== END OF MIDDEL =============== -->
+
+        <!-- ============== RIGHT =============== -->
+        <div class="right">
+            <!-- -------- catégories ---------- -->
+            <div class="categories">
+                <div class="heading">
+                   <h4>Projets</h4>
+                   <i class="uil uil-0-plus"></i>
+                </div>
+
+                <!-- ---------- search bar ------------- -->
+                <div class="search-bar">
+                    <i class="uil uil-search"></i>
+                    <input type="search" name="" id="category-search" placeholder="Rechercher...">
+                </div>
+                <!-- -------- project categrories --------- -->
+                <div class="category">
+                   <h6 class="active">Types</h6>
+                   <h6>Plus Aimés</h6>
+                   <h6 class="invest-projects">Investis(6)</h6>
+                </div>
+
+                <div class="accordion accordion-flush" id="cat1">
+                    {% for post in postListUnique %}
+                        <div class="accordion-item mb-4">
+                            <div class="project-line" style="cursor: pointer;">
+                                <div class="project-body collapsed" data-bs-toggle="collapse" data-bs-target="#cat{{post.categorie.id}}" aria-expanded="false">
+                                    <h5>{{post.categorie}}</h5>
+                                    <p class="text-muted">nombre projets publiés</p>
+                                </div>
+                                <span class="">
+                                    <i class="uil uil-direction"></i>
+                                </span>
+                            </div>
+                            {% for p in postList %}
+                                {% if p.categorie == post.categorie %}
+                                    <div id="cat{{post.categorie.id}}" class="accordion-collapse collapse my-2" aria-labelledby="flush-head{{post.categorie.id}}" data-bs-parent="#cat2">
+                                        <p>{{p.title}}</p>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+                
+            </div>
+            <div>
+                <!-- ----------- Discussions ------------ -->
+                <div class="discussions">
+                    <h4>Discussions</h4>
+                    <div class="discussion" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#discussionModal">
+                        <div class="info">
+                            <div>
+                                <span>
+                                    <h5><i class="uil uil-envelope"></i> Mes discussions</h5>
+                                </span>
+                                <p></p>
+                                <p class="text-muted">
+                                    Ci-dessous la lsite de vos discussions
+                                </p>
+                                {% comment %} <p class="text-muted">
+                                    <b>Sujets :</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam perferendis repudiandae repellat quidem tempore voluptatibus enim distinctio est nesciunt eveniet.
+                                </p> {% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                    {% for room in roomList %}
+                        {% if room.user1 == request.user.last_name %}
+                            <div class="discussion">
+                                <div class="info">
+                                    <div class="profile-photo">
+                                    {% for u in userList %}
+                                        {% if u.last_name == room.user2 %}
+                                        <img src="{{u.etudiant.photoProfil.url}}" alt="">
+                                        {% endif %}
+                                    {% endfor %}
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <h5>{{room.user2}}</h5>
+                                        </span>
+                                        <p class="text-muted mb-0">
+                                            {% comment %} {{room.name}} {% endcomment %}
+                                            <a href="/{{room.name}}/?username={{request.user.last_name}}">{{room.name|truncatechars:30}}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            {% if room.user2 == request.user.last_name %}
+                                <div class="discussion">
+                                    <div class="info">
+                                        <div class="profile-photo">
+                                        {% for u in userList %}
+                                            {% if u.last_name == room.user1 %}
+                                            <img src="{{u.investisseur.photoProfil.url}}" alt="">
+                                            {% endif %}
+                                        {% endfor %}
+                                        </div>
+                                        <div>
+                                            <span>
+                                                <h5>{{room.user1}}</h5>
+                                            </span>
+                                            <p class="text-muted mb-0">
+                                                <a href="/{{room.name}}/?username={{request.user.last_name}}">{{room.name|truncatechars:30}}</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
                 </div>
            </div>
         </div>
@@ -758,4 +966,3 @@ $(document).ready(function(){
 </script>
 
 {% endblock %}
-

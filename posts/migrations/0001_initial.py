@@ -18,12 +18,16 @@ class Migration(migrations.Migration):
             name='Comment',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=600)),
             ],
         ),
         migrations.CreateModel(
             name='Projet',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=200, verbose_name='Titre du Projet')),
+                ('categorie', models.CharField(max_length=200, verbose_name='categorie projet')),
+                ('media', models.FileField(blank=True, upload_to='documents/post_doc/')),
                 ('image', models.ImageField(blank=True, default='', upload_to='image/post_image/')),
                 ('investi', models.CharField(blank=True, choices=[('Oui', 'Oui'), ('Non', 'Non')], default='Non', max_length=10)),
                 ('description', models.TextField(max_length=500)),

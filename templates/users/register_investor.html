@@ -45,7 +45,6 @@
 		top: 90px;
 		box-shadow: 0 5px 45px rgba(0, 0, 0, 0.308);
 		border-radius: 10px;
-		margin-top: 15px;
 	}
 	.blueBg .box{
 		position: relative;
@@ -80,7 +79,7 @@
 		top: 0;
 		left: 0;
 		width: 50%;
-		height: 110%;
+		height: 100%;
 		z-index: 1000;
 		display: flex;
 		justify-content: center;
@@ -89,7 +88,6 @@
 		transition: .3s ease-in-out;
 		overflow: hidden;
 		border-radius: 10px;
-		margin-top:-10px;
 	}
 	.formBx.active{
 		left: 50%;
@@ -135,7 +133,6 @@
 		border-radius: 10px;
 		outline: none;
 		font-size: 16px;
-		
 		color: #333;
 		border: 1px solid #ced4da;
 	}
@@ -327,7 +324,7 @@
 				</style>
 				<div class="form-group mb-4">
 					<div class="fom"> 
-						{{user_form.password1}}<i class="far fa-eye" onclick="affiMdp()"></i> <i class="far fa-eye-slash" onclick="affiMdp()"></i>
+						{{user_form.password1}}<i class="uil uil-eye" onclick="affiMdp()"></i> <i class="uil uil-eye-slash" onclick="affiMdp()"></i>
 					</div>
 					{{user_form.password2.errors}}
 				</div>
@@ -360,6 +357,7 @@
 					{{invest_form.reponse}}
 				</span>
 				<p><span class="errorform" id="error_questionEtu"></span></p>
+				
 
 				<div class="mt-2">
 					<input class="btn-bleu" type="submit" id="myBtn" onclick="return validateFormEnregInv();" value="Enregister">
@@ -408,8 +406,8 @@
 	var password1 = document.getElementById('id_password1');
 	var password2 = document.getElementById('id_password2');
 
-	var eyeVisible = document.querySelector('.fa-eye');
-	var eyeHidden = document.querySelector('.fa-eye-slash');
+	var eyeVisible = document.querySelector('.uil-eye');
+	var eyeHidden = document.querySelector('.uil-eye-slash');
 	
 	eyeHidden.style.display = "none";
 	

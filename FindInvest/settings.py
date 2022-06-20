@@ -13,13 +13,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from curses.ascii import EM
 from pathlib import Path
 import os
-from pickle import FALSE
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
-TEMPLATES_DIR_ALLAUTH = os.path.join(BASE_DIR, 'templates', 'allauth')
 
 
 # Quick-start development settings - unsuitable for production
@@ -54,10 +52,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     #  module de l'application
-    'publication',
     'users',
     'posts',
-    
+
     # module pour l'authentification par reseaux sociaux
     'django.contrib.sites',
     'allauth',
@@ -65,7 +62,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.facebook',
 ]
 
 MIDDLEWARE = [
@@ -102,7 +99,7 @@ ROOT_URLCONF = 'FindInvest.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR, TEMPLATES_DIR_ALLAUTH],
+        'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -151,7 +148,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'fr'
+LANGUAGE_CODE = 'fr-fr'
 
 TIME_ZONE = 'UTC'
 

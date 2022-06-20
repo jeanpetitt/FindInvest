@@ -15,7 +15,11 @@
           <br>
       {% endif %}
       {% if user.investisseur.id %}
+          <a href="{% url 'update_profile_investor' %}">Modifier profil Investisseur</a> 
           {{request.user.investisseur.photoProfil.url}}
+          <br><br>
+      {% endif %}
+
       <a href="{% url 'user_logout' %}">se déconnecter</a>
 {% endif %} 
 
