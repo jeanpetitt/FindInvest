@@ -40,7 +40,7 @@
                 <li>
                     {% if request.user.etudiant.id %}
                         <a class="dropdown-item" href="{% url 'profile_student' request.user.etudiant.id %}">
-                    {% else %}
+                    {% elif request.user.investisseur.id %}
                         <a class="dropdown-item" href="{% url 'profile_investor' request.user.investisseur.id %}">
                     {% endif %}
                     <i class="uil uil-user"></i> Profil</a>
