@@ -1,7 +1,5 @@
-from dataclasses import field
-from pyexpat import model
 from django import forms
-from .models import Comment, Projet
+from .models import Projet, Reponse
 
 
 class ProjetForm(forms.ModelForm):
@@ -17,12 +15,17 @@ class ProjetForm(forms.ModelForm):
 			'etudiant',
             
 		]
-  
-class CommentForm(forms.ModelForm):
-      class Meta():
-          
-          model = Comment
-          
-          fields = [
-			  'title'
-		  ]
+
+class RepForm(forms.ModelForm):
+    class Meta():
+        model = Reponse
+        fields = ['corps',]
+        label = {'corps': 'Reponses'}
+        widgets = {
+			'corps': forms.Textarea(attrs={
+				'class':'form-control',
+				'rows':2,
+				'cols':10,
+				'placeholder':'Votre réponse'
+			})
+		}

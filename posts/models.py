@@ -1,26 +1,22 @@
-from email.policy import default
 from django.db import models
 from users.models import Etudiant
-import os
-from PIL import Image
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # creation de la classe Projet
-
-class Comment(models.Model):
-    
-    title = models.CharField(max_length=600, blank=False)
-    
-    def __str__(self):
-        return self.title
-    
-
 class Projet(models.Model):
     INVESTI = [
         ('Oui', 'Oui'),
         ('Non', 'Non'),
     ]
-
+    CATHEGORIES = [
+        ('INFORMATIQUE','INFORMATIQUE'),
+        ('AGRICULTURE','AGRICULTURE'),
+        ('ELEVAGE','ELEVAGE'),
+        ('SANTE','SANTE'),
+        ('AUTRES','AUTRES')
+    ]    
+    
     title = models.CharField('Titre du Projet', max_length=200)
     categorie = models.CharField('categorie projet', max_length=200)
     media = models.FileField(upload_to='documents/post_doc/', blank=True)
@@ -50,3 +46,51 @@ class Message(models.Model):
     date = models.DateTimeField(default=timezone.now, blank=True)
     user = models.CharField(max_length=100)
     room = models.CharField(max_length=100)
+
+
+# models pour le système de commentaires
+
+class Commentaire(models.Model):
+    projet = models.ForeignKey(Projet, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, models.CASCADE)
+
+    def __str__(self):
+        return f'Commentaire de {self.user} pour {self.projet.title}'
+    
+
+class ComMessage(models.Model):
+    commentaire = models.ForeignKey(Commentaire, on_delete=models.CASCADE, related_name="contenus")
+    auteur = models.CharField(max_length=100)
+    id_projet = models.CharField(max_length=100, null=True)
+    corps = models.TextField(max_length=500)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Contenue du {self.auteur} le {self.date_added}'
+    class Meta:
+        ordering = ['-date_added']
+
+
+class Reponse(models.Model):
+    commentaire = models.ForeignKey(Commentaire, on_delete=models.CASCADE, related_name='reponses')
+    auteur = models.ForeignKey(User, models.CASCADE)
+    corps = models.TextField(max_length=500)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Reponse de {self.auteur} au commentaire de {self.commentaire.auteur}'
+    class Meta:
+        ordering = ['-date_added']
+
+
+
+
+# models l'ajout d'un projet en favoris
+
+class Favoris(models.Model):
+    projet = models.ForeignKey(Projet, on_delete=models.CASCADE, related_name='favoris')
+    user = models.ForeignKey(User, models.CASCADE)
+    nomFav = models.CharField(max_length=100)
+    id_proj = models.CharField(max_length=100, null=True)
+    id_usr = models.CharField(max_length=100, null=True)
+
