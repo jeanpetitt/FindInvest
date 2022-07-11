@@ -7,7 +7,7 @@ from .models import Projet, Comment, Room, Message
 class AdminProjet(admin.ModelAdmin):
 	list_display   = ('title', 'etudiant', 'date_post', 'categorie')
 	list_filter    = ('title','categorie',)
-	ordering       = ('date_post', )
+	#ordering       = ('date_post', )
 	search_fields  = ('title', 'etudiant')
 
 admin.site.register(Comment)

@@ -24,14 +24,13 @@ def accueil(request):
     # crer un projet
     err_create_post = ""
     create_post_form = ProjetForm()
-    postList = Projet.objects.all()
+    postList = Projet.objects.order_by('-date_post')
     postListUnique = []
     pListCat = []
     for p in postList:
         if p.categorie not in pListCat:
             postListUnique.append(p)
             pListCat.append(p.categorie)
-
     # chat
     roomList = Room.objects.all()
     userList = User.objects.all()

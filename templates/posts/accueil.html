@@ -31,7 +31,7 @@
                 <div class="profile-photo" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{request.user.etudiant.photoProfil.url}}">
                 </div>
-            {% else %}
+            {% elif request.user.investisseur.id %}
                 <div class="profile-photo" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{request.user.investisseur.photoProfil.url}}">
                 </div>
@@ -44,6 +44,7 @@
                         <a class="dropdown-item" href="{% url 'profile_investor' request.user.investisseur.id %}">
                     {% endif %}
                     <i class="uil uil-user"></i> Profil</a>
+
                 </li>
                 <li><a class="dropdown-item" href="{% url 'user_logout' %}">
                     <i class="uil uil-sign-out-alt"></i> Logout
