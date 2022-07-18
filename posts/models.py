@@ -55,7 +55,7 @@ class Commentaire(models.Model):
     user = models.ForeignKey(User, models.CASCADE)
 
     def __str__(self):
-        return f'Commentaire de {self.user} pour {self.projet.title}'
+        return f'Commentaire de {self.user.last_name} pour {self.projet.title}'
     
 
 class ComMessage(models.Model):

@@ -236,14 +236,18 @@
                         </div>
                         <div class="post-description">
                             <div class="post-title">
-                                <h5>{{post.title}}</h5>
+                                <h5>
+                                    {{post.title}}
+                                    {% if post.investi == "Oui" %}
+                                    <span style="color: green;">- projet inivesti</span>
+                                    {% endif %}
                             </div>
                             <p>
                                 {{post.description}}
                             </p>
                             {% if post.media %}
                                 <p>
-                                    <a href="{{post.media.url}}" download="FindInvest_Document">Autres documents</a>
+                                    <a href="{{post.media.url}}" download="FindInvest_Document">Description détaillée PDF</a>
                                 </p>
                             {% endif %}
                         </div>
@@ -257,9 +261,10 @@
                             <div class="interaction-buttons">
                                 <span>
                                     <i class="uil uil-heart"></i>
+                                    <!-- <i class="bi bi-suit-heart"></i> -->
                                     <span class="text-muted text-small">15</span>
                                 </span>&emsp;
-                                <span>
+                                <span id='nb_com{{post.id}}'>
                                     <i class="uil uil-comment-dots icon-toggle-comments"></i>
                                     <span class="text-muted text-small">15</span>
                                 </span>&emsp;
@@ -273,6 +278,10 @@
                                 {% endif %}
                                 &emsp;
                                 <span><i class="uil uil-favorite"></i></span>
+                               
+                                {% if post.etudiant.id == request.user.etudiant.id %}
+                                    <i style="color: green;" class="uil uil-money-withdraw markInvest"></i>
+                                {% endif %}
                             </div>
                         </div>
 
@@ -289,16 +298,16 @@
 
                         <!-- ------------------- partie commentaires ---------------------- -->
 
-                        <div class="comments mt-1">
-                            <span class="text-muted toggle-comments">Voir/Cacher tous les 120 commentaires</span>
+                        <div class="comments mt-1" id="com{{post.id}}">
+                            <span class="text-muted toggle-comments">Voir/Cacher tous les commentaires</span>
                             <div class="list-comments mt-3">
-                                <div class="chat pt-4">
+                                <div class="chat pt-4" id="comments{{post.id}}">
 
                                     <!-- comentaire 1 -->
                                     <div class=".disc-left d-flex align-items-start text-start justify-content-start">
                                         <div>
                                             <div class="avatar">
-                                                <img src="{% static 'images/profile-17.jpg' %}">
+                                                <img src="{% static 'img/default.jpeg' %}">
                                             </div>
                                         </div>
                                         <div class="left-messages">
@@ -312,24 +321,11 @@
                                                     01:13PM
                                                 </span>
                                             </div>
-
-                                            <!-- --------- input réponse commentaire 1 ------- -->
-                                            <div class="reply-comment">
-                                                <form action="" method="post">
-                                                    {% csrf_token %}
-                                                    <input type="text" name="" id="" placeholder="Votre réponse">
-                                                    <div class="send">
-                                                        <input type="submit" id="reply-message" value="Envoer" hidden>
-                                                        <label for="reply-message"><i class="uil uil-message"></i></label>
-                                                    </div>
-                            
-                                                </form>
-                                            </div>
                                             <br>
                                         </div>
                                     </div>
 
-                                    <!-- votre commentaire 1 -->
+                                    {% comment %} <!-- votre commentaire 1 -->
                                     <div class=".disc-right d-flex align-items-baseline text-end justify-content-end">
                                         <div class="right-messages">
                                             <span class="card card-text-right d-inline-block text-start py-1 px-3 me-1">
@@ -347,7 +343,7 @@
                                     <div class=".disc-left d-flex align-items-start text-start justify-content-start">
                                         <div>
                                             <div class="avatar">
-                                                <img src="{% static 'images/profile-16.jpg' %}">
+                                                <img src="{% static 'img/default.jpeg' %}">
                                             </div>
                                         </div>
                                         <div class="left-messages">
@@ -379,7 +375,7 @@
                                             <div class=".disc-left d-flex align-items-start text-start justify-content-start">
                                                 <div>
                                                     <div class="avatar">
-                                                        <img src="{% static 'images/profile-17.jpg' %}">
+                                                        <img src="{% static 'img/default.jpeg' %}">
                                                     </div>
                                                 </div>
                                                 <div class="left-messages">
@@ -423,16 +419,19 @@
                                             </div>
                                             <br>
                                         </div>
-                                    </div>
+                                    </div> 
+                                    {% endcomment %}
                                 </div>
                             </div>
                             <div class="send-comment">
-                                <form action="" method="post">
+                                <form class="comment_form">
                                     {% csrf_token %}
-                                    <input type="text" name="" id="" placeholder="Votre commentaire">
+                                    <input type="text" name="projet" id="projet" value="{{post.id}}" hidden>
+                                    <input type="text" name="auteur" id="auteur" value="{{request.user.id}}" hidden>
+                                    <input type="text" name="corps" id="corps" placeholder="Votre commentaire">
                                     <div class="send">
                                         <input type="submit" id="send-message" value="Envoer" hidden>
-                                        <label for="send-message"><i class="uil uil-message"></i></label>
+                                        <label class="btn_sub" for="send-message"><i class="uil uil-message"></i></label>
                                     </div>
             
                                 </form>
@@ -631,7 +630,7 @@
                                         <option value="{{request.user.etudiant.id }}">{{request.user.etudiant}}</option>
                                 </select>
                             <!-- fin div -->
-                                <input class="btn1" type="submit" onclick="validatePost()" name="" value="Publier">
+                                <input class="btn btn-primary btn1" type="submit" onclick="validatePost()" name="" value="Publier">
                             </div>
                             {{ err_create_post }}
                         
@@ -826,6 +825,8 @@
 
 
 <script>
+
+    // suppression d'une publication
     let create_form = document.getElementById('create_form');
     
     create_form.addEventListener("submit", StopReload)
@@ -852,12 +853,9 @@
             return false;
         }
     }
-
-
-
+// fin supression
 </script>
 <script>
-
 
 
 var id_title = document.getElementById('id_title')
@@ -900,6 +898,8 @@ function validatePost() {
     return false;
   }
 }
+</script>
+<script>
 // charger l'image
 
 	let choosenImage = document.getElementById('choosen-image');
@@ -950,8 +950,8 @@ $(document).ready(function(){
         // fin
 
         // modification qui s'applique lorsqu'on ferme le modal de publication
-        $('#close').click(function(){
-			$('#img-show').hide();
+        $('#fermerMod').click(function(){
+			$('#img-show').hide(1000);
              $('#id_description').css({
                 'height': '60px'
             })    
@@ -966,4 +966,132 @@ $(document).ready(function(){
 
 </script>
 
+<script>
+    listcomForms = document.querySelectorAll('.comment_form');
+    comForms = document.querySelectorAll('.btn_sub');
+    corps = document.querySelectorAll('#corps');
+    projets = document.querySelectorAll('#projet');
+    auteurs = document.querySelectorAll('#auteur');
+
+    // envoyer le commentaire
+    
+    // click sur le bouton envoyer
+    for (let i = 0; i < comForms.length; i++) {
+        comForms[i].addEventListener("click", function(e){
+            e.preventDefault();
+            //alert(projets[i].value);
+            $.ajax({
+                type:'POST',
+                url:'CommentPost',
+                data:{
+                    projet:projets[i].value,
+                    auteur:auteurs[i].value,
+                    corps:corps[i].value,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function(data){
+                    // alert(data);
+                    corps[i].value = '';
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        });
+    }
+
+    // click sur le bouton Enter
+    for (let i = 0; i < comForms.length; i++) {
+        listcomForms[i].addEventListener("submit", function(e){
+            e.preventDefault();
+            // alert(projets[i].value);
+            $.ajax({
+                type:'POST',
+                url:'CommentPost',
+                data:{
+                    projet:projets[i].value,
+                    auteur:auteurs[i].value,
+                    corps:corps[i].value,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function(data){
+                    // alert(data);
+                    corps[i].value = '';
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        });
+    }
+
+    // raffraichir la liste des commentaires
+
+    listComments = document.querySelectorAll('.chat');
+
+    $(document).ready(function(){
+
+        setInterval(function(){
+            $.ajax({
+                type: 'GET',
+                url : "{% url 'getComments' %}",
+                success: function(response){
+                    for (let i = 0; i < listComments.length; i++) {
+                        $("#comments"+projets[i].value).empty();
+                        
+                        for (var key in response.comments){
+                            if(projets[i].value == response.comments[key].id_projet){
+                                // si utilisateur connecté
+                                if(response.comments[key].auteur == "{{request.user.username}}"){
+                                    temp = "<div class='.disc-right d-flex align-items-baseline text-end justify-content-end'>"
+                                            +"<div class='right-messages'><span class='card card-text-right d-inline-block text-start py-1 px-3 me-1'>"
+                                            +response.comments[key].corps
+                                            +"</span><br><div class='me-2'><span class='text-muted'>"+response.comments[key].date_added+"</span>"
+                                            +"</div><br></div></div>";
+                                }else{
+                                    temp1 = "<div class='.disc-left d-flex align-items-start text-start justify-content-start'>";
+                                    "{% for usr in userList %}"
+                                        if ("{{usr.username}}" == response.comments[key].auteur) {
+                                            "{% if usr.etudiant.id %}"
+                                                temp2 = "<div><div class='avatar'><img src='{{usr.etudiant.photoProfil.url}}'></div></div>"
+                                            "{% else %}"
+                                                temp2 = "<div><div class='avatar'><img src='{{usr.investisseur.photoProfil.url}}'></div></div>"
+                                            "{% endif %}"
+                                        }
+                                    "{% endfor %}"
+                                    temp3 = "<div class='left-messages'><span class='card card-text-left d-inline-block py-1 px-3 ms-1'>"
+                                            +response.comments[key].corps
+                                            +"</span><br><div class='ms-2 my-1'><span class='text-muted'>"
+                                            +"<span class='btn-reply-comment'>Répondre</span>&emsp;"+response.comments[key].date_added+"</span></div><br>"
+                                            +"</div></div>";
+                                    temp = temp1+temp2+temp3;
+                                }
+                                $("#comments"+projets[i].value).append(temp);
+                            }
+                        }
+                        // refreshFav();
+                    }
+                    // obtenir la le nombre de commentaire d'une publication
+                    for (let i = 0; i < projets.length; i++) {
+                        $("#nb_com"+projets[i].value).empty();
+                        nb = 0
+                        for (var key in response.comments){
+                            
+                            if(projets[i].value == response.comments[key].id_projet){
+                                nb = nb + 1
+                                tem = "<i class='uil uil-comment-dots icon-toggle-comments'></i>"
+                                  +"<span class='text-muted text-small'> "+nb+ " commentaires</span>"
+                            }
+                        }
+                        $("#nb_com"+projets[i].value).append(tem);
+                    }
+                
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        },2000);
+    })
+</script>
 {% endblock %}
