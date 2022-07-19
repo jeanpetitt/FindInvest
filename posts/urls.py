@@ -19,7 +19,7 @@ urlpatterns = [
 
     # comment post
     # comment post
-    #path('CommentPost', CommentPost, name='CommentPost'),
-    # path('getComments', getComments, name='getComments'),
+    path('CommentPost', CommentPost, name='CommentPost'),
+    path('getComments', getComments, name='getComments'),
 
 ]
