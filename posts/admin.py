@@ -15,19 +15,19 @@ admin.site.register(Projet, AdminProjet)
 
 admin.site.register(Room)
 admin.site.register(Message)
-"""
+
 class AdminCom(admin.ModelAdmin):
     	list_display   = ('user', 'projet')
 admin.site.register(Commentaire, AdminCom)
 
-class AdminComMessage(admin.ModelAdmin):
-	list_display   = ('commentaire', 'auteur', 'date_added')
-admin.site.register(ComMessage, AdminComMessage)
+# class AdminComMessage(admin.ModelAdmin):
+# 	list_display   = ('commentaire', 'auteur', 'date_added')
+# admin.site.register(ComMessage, AdminComMessage)
 
-admin.site.register(Reponse)
+# admin.site.register(Reponse)
 
 
-class AdminFavoris(admin.ModelAdmin):
-	list_display   = ('projet', 'user')
-admin.site.register(Favoris, AdminFavoris)
-"""
+# class AdminFavoris(admin.ModelAdmin):
+# 	list_display   = ('projet', 'user')
+# admin.site.register(Favoris, AdminFavoris)
+# """
