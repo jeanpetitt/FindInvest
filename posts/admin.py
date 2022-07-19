@@ -15,7 +15,7 @@ admin.site.register(Projet, AdminProjet)
 
 admin.site.register(Room)
 admin.site.register(Message)
-
+"""
 class AdminCom(admin.ModelAdmin):
     	list_display   = ('user', 'projet')
 admin.site.register(Commentaire, AdminCom)
@@ -30,3 +30,4 @@ admin.site.register(Reponse)
 class AdminFavoris(admin.ModelAdmin):
 	list_display   = ('projet', 'user')
 admin.site.register(Favoris, AdminFavoris)
+"""

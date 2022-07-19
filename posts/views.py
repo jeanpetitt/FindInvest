@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.models import *
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from .forms import ProjetForm, RepForm
-from .models import Projet, Room, Message, Commentaire, ComMessage, Reponse, Favoris
+from .forms import ProjetForm
+from .models import Projet, Room, Message
 # Create your views here.
 
 
@@ -209,7 +209,7 @@ def getMessages(request, room):
 # ========================== COMMENTS =====================
 
 # commenter un projet
-
+"""
 def CommentPost(request):
     proj = request.POST['projet']
     aut = request.POST['auteur']
@@ -234,7 +234,7 @@ def getComments(request):
         "comments":list(comments.values()),
     }
     return JsonResponse(context)
-
+"""
 
 """
 

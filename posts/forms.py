@@ -1,5 +1,5 @@
 from django import forms
-from .models import Projet, Reponse
+from .models import Projet
 
 
 class ProjetForm(forms.ModelForm):
@@ -15,7 +15,7 @@ class ProjetForm(forms.ModelForm):
 			'etudiant',
             
 		]
-
+"""
 class RepForm(forms.ModelForm):
     class Meta():
         model = Reponse
@@ -29,3 +29,4 @@ class RepForm(forms.ModelForm):
 				'placeholder':'Votre réponse'
 			})
 		}
+"""
