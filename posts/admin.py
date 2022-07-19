@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Projet, Room, Message, Commentaire, ComMessage, Reponse, Favoris
+from .models import Projet, Room, Message
 
 
 # Register your models here.
