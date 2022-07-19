@@ -42,7 +42,7 @@ class Room(models.Model):
 
 
 class Message(models.Model):
-    value = models.CharField(max_length=1000000)
+    value = models.CharField('contenu du message',max_length=1000000)
     date = models.DateTimeField(default=timezone.now, blank=True)
     user = models.CharField(max_length=100)
     room = models.CharField(max_length=100)
