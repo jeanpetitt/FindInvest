@@ -48,14 +48,14 @@ class Message(models.Model):
     room = models.CharField(max_length=100)
 
 
-# # models pour le système de commentaires
+# models pour le système de commentaires
 
-# class Commentaire(models.Model):
-#     projet = models.ForeignKey(Projet, on_delete=models.CASCADE, related_name='comments')
-#     user = models.ForeignKey(User, models.CASCADE)
+class Commentaire(models.Model):
+    projet = models.ForeignKey(Projet, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, models.CASCADE)
 
-#     def __str__(self):
-#         return f'Commentaire de {self.user.last_name} pour {self.projet.title}'
+    def __str__(self):
+        return f'Commentaire de {self.user.last_name} pour {self.projet.title}'
     
 
 # class ComMessage(models.Model):
