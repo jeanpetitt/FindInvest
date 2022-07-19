@@ -36,7 +36,7 @@ class Projet(models.Model):
 # model pour le Chat
 
 class Room(models.Model):
-    names = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     user1 = models.CharField(max_length=100)
     user2 = models.CharField(max_length=1000)
 

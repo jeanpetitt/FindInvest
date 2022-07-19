@@ -856,7 +856,7 @@
 // fin supression
 </script>
 <script>
-
+a
 
 var id_title = document.getElementById('id_title')
     id_title.placeholder = "Titre"
@@ -1082,8 +1082,9 @@ $(document).ready(function(){
                                 tem = "<i class='uil uil-comment-dots icon-toggle-comments'></i>"
                                   +"<span class='text-muted text-small'> "+nb+ " commentaires</span>"
                             }
+                            $("#nb_com"+projets[i].value).append(tem);
                         }
-                        $("#nb_com"+projets[i].value).append(tem);
+                        
                     }
                 
                 },
