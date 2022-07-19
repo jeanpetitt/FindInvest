@@ -51,8 +51,8 @@ class Message(models.Model):
 # models pour le système de commentaires
 
 class Commentaire(models.Model):
-    projets = models.ForeignKey(Projet, on_delete=models.CASCADE, related_name='comments')
-    users = models.ForeignKey(User, models.CASCADE)
+    projet = models.ForeignKey(Projet, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, models.CASCADE)
 
     def __str__(self):
         return f'Commentaire de {self.user.last_name} pour {self.projet.title}'

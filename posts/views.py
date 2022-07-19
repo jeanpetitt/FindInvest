@@ -262,7 +262,7 @@ def createFavoris(request):
 
 def favoris(request, id_u):
     postList = Projet.objects.all()
-    postListUnique = []
+     postListUnique = []qq
     pListCat = []
     for p in postList:
         if p.categorie not in pListCat:
