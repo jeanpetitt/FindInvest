@@ -1075,19 +1075,23 @@ $(document).ready(function(){
                     for (let i = 0; i < projets.length; i++) {
                         $("#nb_com"+projets[i].value).empty();
                         nb = 0
+                        tem1 = ''
                         for (var key in response.comments){
                             
                             if(projets[i].value == response.comments[key].id_projet){
                                 nb = nb + 1
                                 tem = "<i class='uil uil-comment-dots icon-toggle-comments'></i>"
                                   +"<span class='text-muted text-small'> "+nb+ " commentaires</span>"
+                                  tem1 = tem
                             }
                             else{
                                 tem = "<i class='uil uil-comment-dots icon-toggle-comments'></i>"
                                   +"<span class='text-muted text-small'> "+nb+ " commentaire</span>"
+                                  tem1 = tem
                             }
-                            $("#nb_com"+projets[i].value).append(tem);
+                            
                         }
+                        $("#nb_com"+projets[i].value).append(tem1);
                         
                     }
                 
