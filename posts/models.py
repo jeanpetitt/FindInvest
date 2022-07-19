@@ -36,7 +36,7 @@ class Projet(models.Model):
 # model pour le Chat
 
 class Room(models.Model):
-    name = models.CharField(max_length=100)
+    names = models.CharField(max_length=100)
     user1 = models.CharField(max_length=100)
     user2 = models.CharField(max_length=1000)
 
@@ -51,8 +51,8 @@ class Message(models.Model):
 # models pour le système de commentaires
 
 class Commentaire(models.Model):
-    projet = models.ForeignKey(Projet, on_delete=models.CASCADE, related_name='comments')
-    user = models.ForeignKey(User, models.CASCADE)
+    projets = models.ForeignKey(Projet, on_delete=models.CASCADE, related_name='comments')
+    users = models.ForeignKey(User, models.CASCADE)
 
     def __str__(self):
         return f'Commentaire de {self.user.last_name} pour {self.projet.title}'

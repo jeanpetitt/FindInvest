@@ -17,7 +17,7 @@ admin.site.register(Room)
 admin.site.register(Message)
 
 class AdminCom(admin.ModelAdmin):
-    	list_display   = ('user', 'projet')
+    	list_display   = ('users', 'projets')
 admin.site.register(Commentaire, AdminCom)
 
 # class AdminComMessage(admin.ModelAdmin):
