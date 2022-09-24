@@ -24,7 +24,6 @@
             <i class="uil uil-search"></i>
             <input class="search-bar-input" type="search" name="" id="search-bar-input" placeholder="Rechercher...">
         </div>
-
         <div class="create dropdown">
             {% if request.user.etudiant.id %}
                 <label class="btn btn-primary" for="create-post" data-bs-toggle="modal" data-bs-target="#createPostModal">Poster</label>
@@ -1075,32 +1074,22 @@ $(document).ready(function(){
                         $("#nb_com"+projets[i].value).empty();
                         nb = 0
                         tem1 = ''
-                        for (var key in response.comments){
-                            
+                        for (var key in response.comments){                            
                             if(projets[i].value == response.comments[key].id_projet){
-                                nb = nb + 1
+                                nb = nb + 1;                  
                                 if(nb > 1){
                                     tem = "<i class='uil uil-comment-dots icon-toggle-comments'></i>"
                                     +"<span class='text-muted text-small'> "+nb+ " commentaires</span>"
-                                    tem1 = tem
-                                }else{
+                                    tem1 = tem;
+                                }else if (nb == 1){
                                     tem = "<i class='uil uil-comment-dots icon-toggle-comments'></i>"
                                     +"<span class='text-muted text-small'> "+nb+ " commentaire</span>"
-                                    tem1 = tem
-                                }
-                                
-                            }
-                            else{
-                                tem = "<i class='uil uil-comment-dots icon-toggle-comments'></i>"
-                                  +"<span class='text-muted text-small'> "+nb+ " commentaire</span>"
-                                  tem1 = tem
-                            }
-                            
+                                    tem1 = tem;
+                                }   
+                            }   
                         }
                         $("#nb_com"+projets[i].value).append(tem1);
-                        
                     }
-                
                 },
                 error: function(response){
                     alert('An error occured')
