@@ -6,8 +6,8 @@ Findinvest is a web application of the looking for invest to student of the univ
 
 ## Dependancies
 for any developper using this project should have installed python3, pip3 and Django in local devices.
-[download latest python release](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
-from the root of the project run in your terminal the following command to install all required packages:
+[download latest python release](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python).
+From the root of the project run in your terminal the following command to install all required packages:
 ```
 pip install -r requirements.txt
 ```
@@ -47,9 +47,10 @@ Encadreur:
 
 	Dr. Valery MONTHE
 
-Travail réalisé dans le cadre des UEs:
-	- INF3196 : Projet I 
-	- INF3176 : Avancing Programming Technic
+
+Work carried out within the framework of the teaching units:
+  - INF3196 : Projet I 
+  - INF3176 : Avancing Programming Technic
 
 
 
