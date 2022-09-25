@@ -149,63 +149,98 @@ def delete_post(request, pk):
     # return render(request, 'posts/delete_projet.html', context)
 
 
-
-
 # ======================== CHAT ==========================
 
 # page de chat
 def room(request, room):
+    room_details = ''
     username = request.GET.get('username')
-    room_details = Room.objects.get(name=room)
+    # room_details = Room.objects.get(name=room)
+    room_details = "no room"
     roomList = Room.objects.all()
     userList = User.objects.all()
+    for r in roomList:
+        if r.name == room:
+            room_details = r
+    
+    # liste des username
+    usernameInvList = []
+    usernameEtuList = []
+    for inv in Investisseur.objects.all():
+        usernameInvList.append(inv.user.username)
+    for etu in Etudiant.objects.all():
+        usernameEtuList.append(etu.user.username)
+    
     context = {
         'username': username,
         'room': room,
         'room_details': room_details,
         'roomList':roomList,
         'userList':userList,
+        'usernameInvList':usernameInvList,
+        'usernameEtuList':usernameEtuList,
     }
     return render(request, 'posts/room.html', context)
 
 
 
-# creer nouveau slaon de chat
+# # creer nouveau slaon de chat
 def createRoom(request, u1, u2, title):
-    user1 = User.objects.get(id=u1).last_name
-    user2 = User.objects.get(id=u2).last_name
-    room = title+'_'+u1+'_'+u2
-    if Room.objects.filter(name=room).exists():
-        return redirect('/'+room+'/?username='+user1)
+    inv = Investisseur.objects.get(id=u1)
+    etu = Etudiant.objects.get(id=u2)
+    # room = title
+    # room = Room.objects.filter(name=title)
+    # room = ""
+    # for roo in Room.objects.all():
+    #     if roo.name == title:
+    #         room = roo
+    if Room.objects.filter(name=title).exists():
+        return redirect("/"+title+"/?username="+inv.user.username)
     else:
-        new_room = Room.objects.create(name=room, user1=user1, user2=user2)
+        new_room = Room.objects.create(name=title, inv=inv, etu=etu)
         new_room.save()
-        return redirect('/'+room+'/?username='+user1)
-
-
+        return redirect("/"+title+"/?username="+inv.user.username)
+    
 # envoyer un message
 def send(request):
+    # récupérer les données du formulaire
     message = request.POST['message']
     username = request.POST['username']
     room_id = request.POST['room_id']
 
-    new_message = Message.objects.create(value=message, user=username, room=room_id)
+    # retouver les objets correspondants
+    value = message
+    room = Room.objects.get(id=room_id)
+    user = User.objects.get(username=username)
+
+    new_message = Message.objects.create(value=value, user=user.username, room=room)
     new_message.save()
     return HttpResponse('Message sent successfully')
 
 
 # récupérer la liste des message d'un salon
 def getMessages(request, room):
-    inv = ""
     room_details = Room.objects.get(name=room)
-    for u in User.objects.all():
-        if room_details.user1 == u.last_name:
-            inv = Investisseur.objects.get(id=u.investisseur.id)
-    photo = inv.photoProfil.url
+    photoInv = room_details.inv.photoProfil.url
+    photoEtu = room_details.etu.photoProfil.url
+    # photo = ""
+    # inv = ""
+    # for u in User.objects.all():
+    #     if room_details.inv.user.id == u.id:
+    #         # inv = Investisseur.objects.get(id=u.investisseur.id)
+    #         for i in Investisseur.objects.all():
+    #             if i.user.id == u.id:
+    #                 inv = i
+    #                 photo = inv.photoProfil.url
     messages = Message.objects.filter(room=room_details.id)
-    context = {"messages":list(messages.values()), 'photo':photo}
-    return JsonResponse(context)
+    context = {
+        "messages":list(messages.values()), 
+        'photoInv':photoInv, 
+        'photoEtu':photoEtu
+    }
+    return JsonResponse(context)    
 
+    
 # ========================== COMMENTS =====================
 
 # commenter un projet
